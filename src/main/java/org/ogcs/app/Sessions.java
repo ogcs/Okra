@@ -1,4 +1,4 @@
-package org.ogcs;
+package org.ogcs.app;
 
 import io.netty.channel.ChannelId;
 

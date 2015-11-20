@@ -1,4 +1,4 @@
-package org.ogcs;
+package org.ogcs.app;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;

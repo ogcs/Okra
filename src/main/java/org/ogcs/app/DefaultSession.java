@@ -1,6 +1,9 @@
-package org.ogcs;
+package org.ogcs.app;
 
+import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
+import org.ogcs.app.Player;
+import org.ogcs.app.Session;
 
 /**
  * @author TinyZ on 2015/10/22.
@@ -32,6 +35,16 @@ public class DefaultSession implements Session {
     @Override
     public void setPlayer(Player player) {
         this.player = player;
+    }
+
+    @Override
+    public void writeAndFlush(Object msg) {
+        if (null != ctx) {
+            Channel ch = ctx.channel();
+            if (null != ch && ch.isActive() && ch.isWritable()) {
+                ch.writeAndFlush(msg);
+            }
+        }
     }
 
     @Override

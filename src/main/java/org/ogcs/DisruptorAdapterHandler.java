@@ -5,85 +5,71 @@ import com.lmax.disruptor.EventFactory;
 import com.lmax.disruptor.RingBuffer;
 import com.lmax.disruptor.dsl.Disruptor;
 import com.lmax.disruptor.dsl.ProducerType;
-import io.netty.channel.*;
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelFutureListener;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.SimpleChannelInboundHandler;
+import org.ogcs.app.DefaultSession;
+import org.ogcs.app.Session;
+import org.ogcs.app.Sessions;
 
 import java.io.IOException;
-import java.lang.ref.WeakReference;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.WeakHashMap;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executors;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @author TinyZ on 2015/10/22.
  */
-public class OgcsServerHandler extends SimpleChannelInboundHandler<Request> {
+public abstract class DisruptorAdapterHandler<O> extends SimpleChannelInboundHandler<O> {
 
-    public static final ThreadLocal<Disruptor<CommandEvent>> THREAD_LOCAL = new InheritableThreadLocal<Disruptor<CommandEvent>>() {
+    public static final ThreadLocal<Disruptor<ConcurrentEvent>> THREAD_LOCAL = new InheritableThreadLocal<Disruptor<ConcurrentEvent>>() {
         @Override
-        protected Disruptor<CommandEvent> initialValue() {
-            Disruptor<CommandEvent> disruptor = new Disruptor<>(
-                    new EventFactory<CommandEvent>() {
+        protected Disruptor<ConcurrentEvent> initialValue() {
+            Disruptor<ConcurrentEvent> disruptor = new Disruptor<>(
+                    new EventFactory<ConcurrentEvent>() {
                         @Override
-                        public CommandEvent newInstance() {
-                            return new CommandEvent();
+                        public ConcurrentEvent newInstance() {
+                            return new ConcurrentEvent();
                         }
                     }
                     , 1024, Executors.newCachedThreadPool(), ProducerType.SINGLE, new BlockingWaitStrategy());
-            disruptor.handleEventsWith(new CommandHandler());
+            disruptor.handleEventsWith(new ConcurrentHandler());
 //            disruptor.handleExceptionsWith();
             disruptor.start();
             return disruptor;
         }
     };
 
-//    public static final ConcurrentHashMap<ChannelId, DefaultSession> SESSIONS = new ConcurrentHashMap<>();
-
-//    public static final HashMap<Channel, String> CHANNEL_ID_MAP = new HashMap<>(1000);
-
-    public static final AtomicInteger ACTIVE = new AtomicInteger();
-    public static final AtomicInteger INACTIVE = new AtomicInteger();
-
-
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         DefaultSession session = new DefaultSession(ctx);
-//        SESSIONS.put(ctx.channel().id(), session);
         Sessions.INSTANCE.register(ctx.channel().id(), session);
-//        System.out.println("channelActive" + ACTIVE.getAndIncrement());
         super.channelActive(ctx);
     }
 
     @Override
-    protected void channelRead0(ChannelHandlerContext ctx, Request msg) throws Exception {
-//        Session session = SESSIONS.get(ctx.channel().id());
+    protected void channelRead0(ChannelHandlerContext ctx, O msg) throws Exception {
         Session session = Sessions.INSTANCE.get(ctx.channel().id());
         if (null != session) {
-            RingBuffer<CommandEvent> ringBuffer = THREAD_LOCAL.get().getRingBuffer();
+            RingBuffer<ConcurrentEvent> ringBuffer = THREAD_LOCAL.get().getRingBuffer();
             long next = ringBuffer.next();
             try {
-                CommandEvent commandEvent = ringBuffer.get(next);
-                commandEvent.setValues(session, msg);
+                ConcurrentEvent commandEvent = ringBuffer.get(next);
+                commandEvent.setValues(newExecutor(session, msg));
             } finally {
                 ringBuffer.publish(next);
             }
         }
     }
 
+    protected abstract Executor newExecutor(Session session, O msg);
+
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
-//        Session session = SESSIONS.remove(ctx.channel().id());
         Session session = Sessions.INSTANCE.unregister(ctx.channel().id());
         if (null != session) { // TODO: 释放无用的资源
             session.release();
 //            System.out.println("channelInactive" + INACTIVE.getAndIncrement());
         }
-//        Session session = SESSIONS.remove(ctx.channel().id());
-//        if (null != session) { // TODO: 释放无用的资源
-//            session.release();
-//        }
         ctx.close().addListener(new ChannelFutureListener() {
             @Override
             public void operationComplete(ChannelFuture future) throws Exception {

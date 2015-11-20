@@ -1,6 +1,7 @@
-package org.ogcs;
+package org.ogcs.app;
 
 import io.netty.channel.ChannelHandlerContext;
+import org.ogcs.app.Player;
 
 /**
  * @author TinyZ on 2015/10/22.
@@ -14,6 +15,8 @@ public interface Session {
     Player getPlayer();
 
     void setPlayer(Player player);
+
+    void writeAndFlush(Object msg);
 
     void release();
 }
