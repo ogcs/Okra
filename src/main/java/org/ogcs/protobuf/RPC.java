@@ -455,7 +455,7 @@ public final class RPC {
                 RpcRequest.class, Builder.class);
       }
 
-      // Construct using dev.tinyz.core.rpc.RPC.RpcRequest.newBuilder()
+      // Construct using dev.tinyz.core.impl.RPC.RpcRequest.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -1160,7 +1160,7 @@ public final class RPC {
                 RpcError.class, Builder.class);
       }
 
-      // Construct using dev.tinyz.core.rpc.RPC.RpcError.newBuilder()
+      // Construct using dev.tinyz.core.impl.RPC.RpcError.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -1811,7 +1811,7 @@ public final class RPC {
                 RpcResponse.class, Builder.class);
       }
 
-      // Construct using dev.tinyz.core.rpc.RPC.RpcResponse.newBuilder()
+      // Construct using dev.tinyz.core.impl.RPC.RpcResponse.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -2497,7 +2497,7 @@ public final class RPC {
                 Void.class, Builder.class);
       }
 
-      // Construct using dev.tinyz.core.rpc.RPC.Void.newBuilder()
+      // Construct using dev.tinyz.core.impl.RPC.Void.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }

@@ -6,10 +6,10 @@ package org.ogcs;
 public interface Command<S, R> {
 
     /**
-     * Execute command logic
+     * Execute cmd logic
      *
      * @param session The player session
-     * @param request The command request
+     * @param request The cmd request
      * @throws Exception
      */
     void execute(S session, R request) throws Exception;

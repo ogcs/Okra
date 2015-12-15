@@ -1,7 +1,6 @@
 package org.ogcs.app;
 
 import io.netty.channel.ChannelHandlerContext;
-import org.ogcs.app.Player;
 
 /**
  * @author TinyZ on 2015/10/22.

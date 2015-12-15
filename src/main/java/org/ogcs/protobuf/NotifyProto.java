@@ -273,7 +273,7 @@ public final class NotifyProto {
                 NotifyMessage.class, Builder.class);
       }
 
-      // Construct using dev.tinyz.core.rpc.NotifyProto.NotifyMessage.newBuilder()
+      // Construct using dev.tinyz.core.impl.NotifyProto.NotifyMessage.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }

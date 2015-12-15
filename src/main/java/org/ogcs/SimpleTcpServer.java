@@ -17,7 +17,7 @@ public abstract class SimpleTcpServer {
     public void start() {
         Protocol protocol = protocol();
         if (protocol == null) {
-            throw new NullPointerException("protocol");
+            throw new NullPointerException("protobuf");
         }
         ServerBootstrap bootstrap = new ServerBootstrap();
         bootstrap.channel(NioServerSocketChannel.class);
