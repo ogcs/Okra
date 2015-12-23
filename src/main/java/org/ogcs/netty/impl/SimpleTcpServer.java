@@ -1,10 +1,11 @@
-package org.ogcs;
+package org.ogcs.netty.impl;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.buffer.PooledByteBufAllocator;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import org.ogcs.netty.Protocol;
 
 /**
  * @author TinyZ on 2015/10/22.

@@ -1,4 +1,6 @@
-package org.ogcs;
+package org.ogcs.concurrent;
+
+import org.ogcs.app.Executor;
 
 /**
  *

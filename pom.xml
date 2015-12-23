@@ -8,6 +8,14 @@
     <artifactId>ogcs_okra</artifactId>
     <version>1.0</version>
 
+    <developers>
+        <developer>
+            <id>TinyZ</id>
+            <name>TinyZ</name>
+            <email>ogcs_tinyz@outlook.com</email>
+        </developer>
+    </developers>
+
     <dependencies>
         <dependency>
             <groupId>io.netty</groupId>
@@ -24,6 +32,7 @@
             <groupId>com.google.protobuf</groupId>
             <artifactId>protobuf-java</artifactId>
             <version>2.6.1</version>
+            <optional>true</optional>
         </dependency>
 
         <!-- HikariCP -->
@@ -31,17 +40,20 @@
             <groupId>com.zaxxer</groupId>
             <artifactId>HikariCP</artifactId>
             <version>2.4.1</version>
+            <optional>true</optional>
         </dependency>
         <!-- log4j2 -->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
             <version>2.4.1</version>
+            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>
             <version>2.4.1</version>
+            <optional>true</optional>
         </dependency>
 
         <!-- spring framework -->

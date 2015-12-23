@@ -1,6 +1,6 @@
 package org.ogcs.cmd;
 
-import org.ogcs.Command;
+import org.ogcs.app.Command;
 import org.ogcs.app.Session;
 
 /**

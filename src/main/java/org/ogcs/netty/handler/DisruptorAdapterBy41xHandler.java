@@ -1,35 +1,31 @@
-package org.ogcs;
+package org.ogcs.netty.handler;
 
 import com.lmax.disruptor.BlockingWaitStrategy;
 import com.lmax.disruptor.EventFactory;
 import com.lmax.disruptor.RingBuffer;
 import com.lmax.disruptor.dsl.Disruptor;
 import com.lmax.disruptor.dsl.ProducerType;
-import io.netty.channel.*;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelFutureListener;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.SimpleChannelInboundHandler;
+import org.ogcs.app.Executor;
 import org.ogcs.app.DefaultSession;
 import org.ogcs.app.Session;
+import org.ogcs.app.Sessions;
+import org.ogcs.concurrent.ConcurrentEvent;
+import org.ogcs.concurrent.ConcurrentHandler;
 
 import java.io.IOException;
-import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executors;
 
 /**
- * Disruptor Adapter Handler
- * <example>
- *     <p/>
- *         Netty 4.1.x version add the ChannelId as {@link io.netty.channel.Channel}'s unique id.
- *         Use {@link UUID} replace the {@link io.netty.channel.ChannelId}.
- * </example>
+ * 
  * @author TinyZ on 2015/10/22.
  */
-public abstract class DisruptorAdapterHandler<O> extends SimpleChannelInboundHandler<O> {
+public abstract class DisruptorAdapterBy41xHandler<O> extends SimpleChannelInboundHandler<O> {
 
-    public static final Logger LOG = LogManager.getLogger(DisruptorAdapterHandler.class);
-
-    public static final ThreadLocal<Disruptor<ConcurrentEvent>> THREAD_LOCAL = new ThreadLocal<Disruptor<ConcurrentEvent>>() {
+    protected static final ThreadLocal<Disruptor<ConcurrentEvent>> THREAD_LOCAL = new ThreadLocal<Disruptor<ConcurrentEvent>>() {
         @Override
         protected Disruptor<ConcurrentEvent> initialValue() {
             Disruptor<ConcurrentEvent> disruptor = new Disruptor<>(
@@ -47,32 +43,24 @@ public abstract class DisruptorAdapterHandler<O> extends SimpleChannelInboundHan
         }
     };
 
-    public static final ConcurrentHashMap<UUID, Session> SESSIONS = new ConcurrentHashMap<>();
-    public static final ConcurrentHashMap<Channel, UUID> CHANNEL_UUID = new ConcurrentHashMap<>();
-
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        UUID uuid = UUID.randomUUID();
-        CHANNEL_UUID.put(ctx.channel(), uuid);
         DefaultSession session = new DefaultSession(ctx);
-        SESSIONS.put(uuid, session);
+        Sessions.INSTANCE.register(ctx.channel().id(), session);
         super.channelActive(ctx);
     }
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, O msg) throws Exception {
-        UUID uuid = CHANNEL_UUID.get(ctx.channel());
-        if (null != uuid) {
-            Session session = SESSIONS.get(uuid);
-            if (null != session) {
-                RingBuffer<ConcurrentEvent> ringBuffer = THREAD_LOCAL.get().getRingBuffer();
-                long next = ringBuffer.next();
-                try {
-                    ConcurrentEvent commandEvent = ringBuffer.get(next);
-                    commandEvent.setValues(newExecutor(session, msg));
-                } finally {
-                    ringBuffer.publish(next);
-                }
+        Session session = Sessions.INSTANCE.get(ctx.channel().id());
+        if (null != session) {
+            RingBuffer<ConcurrentEvent> ringBuffer = THREAD_LOCAL.get().getRingBuffer();
+            long next = ringBuffer.next();
+            try {
+                ConcurrentEvent commandEvent = ringBuffer.get(next);
+                commandEvent.setValues(newExecutor(session, msg));
+            } finally {
+                ringBuffer.publish(next);
             }
         }
     }
@@ -81,13 +69,10 @@ public abstract class DisruptorAdapterHandler<O> extends SimpleChannelInboundHan
 
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
-        UUID uuid = CHANNEL_UUID.get(ctx.channel());
-        if (null != uuid) {
-            Session session = SESSIONS.get(uuid);
-            if (null != session) { // TODO: 释放无用的资源
-                session.release();
+        Session session = Sessions.INSTANCE.unregister(ctx.channel().id());
+        if (null != session) { // TODO: 释放无用的资源
+            session.release();
 //            System.out.println("channelInactive" + INACTIVE.getAndIncrement());
-            }
         }
         ctx.close().addListener(new ChannelFutureListener() {
             @Override
@@ -106,7 +91,7 @@ public abstract class DisruptorAdapterHandler<O> extends SimpleChannelInboundHan
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
         if (cause instanceof IOException) {
-            LOG.info("远程主机强迫关闭了一个现有的连接 : " + ctx.channel().remoteAddress().toString() + " => " + ctx.channel().localAddress().toString());
+            System.out.println("远程主机强迫关闭了一个现有的连接 : " + ctx.channel().remoteAddress().toString() + " => " + ctx.channel().localAddress().toString());
         } else {
             super.exceptionCaught(ctx, cause);
         }

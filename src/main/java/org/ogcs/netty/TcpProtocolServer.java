@@ -13,7 +13,7 @@ public abstract class TcpProtocolServer implements NettyBootstrap<ServerBootstra
     private ServerBootstrap bootstrap;
     private NioEventLoopGroup parentGroup;
     private NioEventLoopGroup childGroup;
-    private int port;
+    protected int port;
 
     @Override
     public ServerBootstrap createBootstrap() {
@@ -37,6 +37,9 @@ public abstract class TcpProtocolServer implements NettyBootstrap<ServerBootstra
         ServerBootstrap sb = bootstrap() != null ? bootstrap() : createBootstrap();
         try {
             sb.bind(port()).sync();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } finally {
             // add shutdown hook
             Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
                 @Override
@@ -44,8 +47,6 @@ public abstract class TcpProtocolServer implements NettyBootstrap<ServerBootstra
                     stop();
                 }
             }));
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         }
     }
 
@@ -63,12 +64,15 @@ public abstract class TcpProtocolServer implements NettyBootstrap<ServerBootstra
     }
 
     public EventLoopGroup parentGroup() {
-        parentGroup = new NioEventLoopGroup();
+        if (null == parentGroup)
+            parentGroup = new NioEventLoopGroup();
         return parentGroup;
     }
 
     public EventLoopGroup childGroup() {
-        childGroup = new NioEventLoopGroup();
+        if (null == childGroup) {
+            childGroup = new NioEventLoopGroup();
+        }
         return childGroup;
     }
 

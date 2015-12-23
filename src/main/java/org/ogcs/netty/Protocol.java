@@ -1,4 +1,4 @@
-package org.ogcs;
+package org.ogcs.netty;
 
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelInitializer;

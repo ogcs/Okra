@@ -1,4 +1,4 @@
-package org.ogcs;
+package org.ogcs.app;
 
 /**
  * @author : TinyZ.
@@ -8,4 +8,9 @@ package org.ogcs;
 public interface Executor {
 
     void onExecute();
+
+    /**
+     * Release Executor
+     */
+    void release();
 }

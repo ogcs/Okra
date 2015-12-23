@@ -1,6 +1,7 @@
-package org.ogcs;
+package org.ogcs.concurrent;
 
 import com.lmax.disruptor.EventHandler;
+import org.ogcs.app.Executor;
 
 /**
  * @author TinyZ on 2015/10/22.
@@ -11,7 +12,11 @@ public class ConcurrentHandler implements EventHandler<ConcurrentEvent> {
         try {
             Executor executor = event.getExecutor();
             if (null != executor) {
-                executor.onExecute();
+                try {
+                    executor.onExecute();
+                } finally {
+                    executor.release();
+                }
             }
         } finally {
             event.clearValues();

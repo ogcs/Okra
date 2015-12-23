@@ -1,4 +1,4 @@
-package org.ogcs;
+package org.ogcs.app;
 
 /**
  * @author TinyZ on 2015/10/22.

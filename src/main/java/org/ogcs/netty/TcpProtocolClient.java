@@ -1,6 +1,7 @@
 package org.ogcs.netty;
 
 import io.netty.bootstrap.Bootstrap;
+import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -11,10 +12,22 @@ import io.netty.channel.socket.nio.NioSocketChannel;
  */
 public abstract class TcpProtocolClient implements NettyBootstrap<Bootstrap> {
 
-    private String host;
-    private int port;
+    protected static final EventLoopGroup DEFAULT_EVENT_LOOP_GROUP = new NioEventLoopGroup();
+
+    protected String host;
+    protected int port;
     private Bootstrap bootstrap;
-    private NioEventLoopGroup childGroup;
+    private EventLoopGroup childGroup;
+    protected Channel client;
+
+    public TcpProtocolClient() {
+    }
+
+    public TcpProtocolClient(String host, int port) {
+        this.host = host;
+        this.port = port;
+        this.childGroup = DEFAULT_EVENT_LOOP_GROUP;
+    }
 
     @Override
     public Bootstrap createBootstrap() {
@@ -22,6 +35,7 @@ public abstract class TcpProtocolClient implements NettyBootstrap<Bootstrap> {
         bootstrap.channel(NioSocketChannel.class);
         bootstrap.group(childGroup());
         bootstrap.handler(newChannelInitializer());
+
         return bootstrap;
     }
 
@@ -29,17 +43,22 @@ public abstract class TcpProtocolClient implements NettyBootstrap<Bootstrap> {
 
     @Override
     public void start() {
-        if (bootstrap == null){
+        if (bootstrap == null) {
             createBootstrap();
         }
-        bootstrap.connect(host(), port());
-        // add shutdown hook
-        Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
-            @Override
-            public void run() {
-                stop();
-            }
-        }));
+        try {
+            client = bootstrap.connect(host(), port()).sync().channel();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } finally {
+            // add shutdown hook
+            Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    stop();
+                }
+            }));
+        }
     }
 
     @Override
@@ -50,20 +69,24 @@ public abstract class TcpProtocolClient implements NettyBootstrap<Bootstrap> {
 
     @Override
     public Bootstrap bootstrap() {
-        return null;
+        return bootstrap;
     }
 
     /**
      * Get child group
+     *
      * @return child group
      */
     private EventLoopGroup childGroup() {
-        childGroup = new NioEventLoopGroup();
+        if (null == childGroup) {
+            childGroup = new NioEventLoopGroup();
+        }
         return childGroup;
     }
 
     /**
      * Set client connect address
+     *
      * @param host The connect host
      * @param port The connect port
      */
@@ -86,5 +109,13 @@ public abstract class TcpProtocolClient implements NettyBootstrap<Bootstrap> {
 
     public void setPort(int port) {
         this.port = port;
+    }
+
+    /**
+     * Return the client netty channel
+     * @return Netty's {@link Channel}
+     */
+    public Channel client() {
+        return client;
     }
 }
