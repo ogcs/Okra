@@ -2,17 +2,20 @@ package org.ogcs.netty;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
+import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
+
+import java.net.InetSocketAddress;
 
 /**
  * @author TinyZ on 2015/6/4.
  */
 public abstract class TcpProtocolClient implements NettyBootstrap<Bootstrap> {
 
-    protected static final EventLoopGroup DEFAULT_EVENT_LOOP_GROUP = new NioEventLoopGroup();
+    protected static final NioEventLoopGroup DEFAULT_EVENT_LOOP_GROUP = new NioEventLoopGroup();
 
     protected String host;
     protected int port;
@@ -21,6 +24,7 @@ public abstract class TcpProtocolClient implements NettyBootstrap<Bootstrap> {
     protected Channel client;
 
     public TcpProtocolClient() {
+        this.childGroup = DEFAULT_EVENT_LOOP_GROUP;
     }
 
     public TcpProtocolClient(String host, int port) {
@@ -47,7 +51,7 @@ public abstract class TcpProtocolClient implements NettyBootstrap<Bootstrap> {
             createBootstrap();
         }
         try {
-            client = bootstrap.connect(host(), port()).sync().channel();
+            client = connect().channel();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } finally {
@@ -59,6 +63,10 @@ public abstract class TcpProtocolClient implements NettyBootstrap<Bootstrap> {
                 }
             }));
         }
+    }
+
+    public ChannelFuture connect() throws InterruptedException {
+        return bootstrap.connect(new InetSocketAddress(host(), port())).sync();
     }
 
     @Override
@@ -113,6 +121,7 @@ public abstract class TcpProtocolClient implements NettyBootstrap<Bootstrap> {
 
     /**
      * Return the client netty channel
+     *
      * @return Netty's {@link Channel}
      */
     public Channel client() {

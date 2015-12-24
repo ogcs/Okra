@@ -51,11 +51,17 @@ public abstract class TcpProtocolServer implements NettyBootstrap<ServerBootstra
     }
 
     @Override
-    public final void stop() {
-        if (parentGroup != null)
+    public void stop() {
+        if (parentGroup != null) {
             parentGroup.shutdownGracefully();
-        if (childGroup != null)
+            parentGroup = null;
+        }
+        if (childGroup != null) {
             childGroup.shutdownGracefully();
+            childGroup = null;
+        }
+        bootstrap = null;
+        port = 0;
     }
 
     @Override

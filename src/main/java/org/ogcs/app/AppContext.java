@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 /**
  * @author TinyZ on 2015/10/22.
  */
-@Service
+@Service("AppContext")
 public class AppContext implements ApplicationContextAware {
 
 //    public static final String
