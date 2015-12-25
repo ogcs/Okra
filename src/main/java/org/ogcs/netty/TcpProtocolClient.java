@@ -28,9 +28,13 @@ public abstract class TcpProtocolClient implements NettyBootstrap<Bootstrap> {
     }
 
     public TcpProtocolClient(String host, int port) {
+        this(host, port, DEFAULT_EVENT_LOOP_GROUP);
+    }
+
+    public TcpProtocolClient(String host, int port, EventLoopGroup eventLoopGroup) {
         this.host = host;
         this.port = port;
-        this.childGroup = DEFAULT_EVENT_LOOP_GROUP;
+        this.childGroup = eventLoopGroup;
     }
 
     @Override
@@ -51,8 +55,10 @@ public abstract class TcpProtocolClient implements NettyBootstrap<Bootstrap> {
             createBootstrap();
         }
         try {
-            client = connect().channel();
-        } catch (InterruptedException e) {
+            ChannelFuture future = doConnect();
+            client = future.channel();
+            future.sync();
+        } catch (Exception e) {
             e.printStackTrace();
         } finally {
             // add shutdown hook
@@ -65,8 +71,8 @@ public abstract class TcpProtocolClient implements NettyBootstrap<Bootstrap> {
         }
     }
 
-    public ChannelFuture connect() throws InterruptedException {
-        return bootstrap.connect(new InetSocketAddress(host(), port())).sync();
+    public ChannelFuture doConnect() {
+        return bootstrap.connect(new InetSocketAddress(host(), port()));
     }
 
     @Override
