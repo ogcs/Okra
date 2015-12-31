@@ -11,8 +11,8 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 public abstract class TcpProtocolServer implements NettyBootstrap<ServerBootstrap> {
 
     private ServerBootstrap bootstrap;
-    private NioEventLoopGroup parentGroup;
-    private NioEventLoopGroup childGroup;
+    private EventLoopGroup parentGroup;
+    private EventLoopGroup childGroup;
     protected int port;
 
     @Override

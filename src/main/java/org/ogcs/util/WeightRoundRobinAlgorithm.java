@@ -1,6 +1,9 @@
 package org.ogcs.util;
 
+import org.ogcs.app.Releasable;
+
 import java.util.Arrays;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * The Weighted Round-Robin Scheduling Algorithm
@@ -20,7 +23,7 @@ import java.util.Arrays;
  * @date : 2015/12/25
  * @see <a href="http://kb.linuxvirtualserver.org/wiki/Weighted_Round-Robin_Scheduling">LVS-WRR Algorithm</a>
  */
-public class WeightRoundRobinAlgorithm<T> {
+public class WeightRoundRobinAlgorithm<T> implements Releasable {
 
     private int i = -1;
     private int cw = 0;
@@ -28,8 +31,8 @@ public class WeightRoundRobinAlgorithm<T> {
     private int max;
     private int n;
 
-    int[] weights;
-    T[] servers;
+    private int[] weights;
+    private T[] servers;
 
     public WeightRoundRobinAlgorithm(T[] servers, int[] weights) {
         if (servers == null) {
@@ -59,6 +62,14 @@ public class WeightRoundRobinAlgorithm<T> {
             }
             if (weights[i] >= cw)
                 return servers[i];
+        }
+    }
+
+    @Override
+    public void release() {
+        synchronized (this) {
+            servers = null;
+            weights = null;
         }
     }
 }

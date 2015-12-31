@@ -5,12 +5,7 @@ package org.ogcs.app;
  * @email : ogcs_tinyz@outlook.com
  * @date : 2015/11/20
  */
-public interface Executor {
+public interface Executor extends Releasable {
 
     void onExecute();
-
-    /**
-     * Release Executor
-     */
-    void release();
 }

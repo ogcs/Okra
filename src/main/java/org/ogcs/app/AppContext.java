@@ -19,7 +19,13 @@ public class AppContext implements ApplicationContextAware {
         if (null == beanName) {
             return null;
         }
-        return context.getBean(beanName);
+        Object bean = null;
+        try {
+            bean = context.getBean(beanName);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return bean;
     }
 
     @Override
