@@ -1,11 +1,9 @@
 package org.ogcs.event;
 
 /**
- *  Generic Event Dispatcher Interface.
- * @author TinyZ on 2016/1/3.
- * @param <E>
+ * @author TinyZ on 2015/9/28.
  */
-public interface EventDispatcher<E> {
+public interface OldEventDispatcher<E> {
 
     /**
      * Add new {@link EventListener} to dispatcher
@@ -29,9 +27,7 @@ public interface EventDispatcher<E> {
 
     /**
      * Dispatch special event
-     * @param type The event type
-     * @param trigger The event trigger
-     * @param source The event source
+     * @param event The dispatched event
      */
-    void dispatchEvent(Object type, Object trigger, E source);
+    void dispatchEvent(E event);
 }
