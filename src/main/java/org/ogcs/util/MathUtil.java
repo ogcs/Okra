@@ -9,6 +9,7 @@ public final class MathUtil {
 
     /**
      * Calculate two number's greatest common divisor. Use The Euclidean Algorithm
+     *
      * @param x number x
      * @param y number y
      * @return the greatest common divisor
@@ -30,6 +31,7 @@ public final class MathUtil {
 
     /**
      * Return the greatest common divisor of multiple number. Use The Euclidean Algorithm
+     *
      * @param ary An integer array
      * @return the greatest common divisor
      */
@@ -43,4 +45,19 @@ public final class MathUtil {
         }
         return y;
     }
+
+    /**
+     * Is number A approximate number B.
+     * @param a The number a
+     * @param b The number b
+     * @param percent The similar percent
+     * @return Return true if the number a is approximate number b. otherwise false.
+     */
+    public static boolean approximate(double a, double b, double percent) {
+        if (percent < 0 || percent > 1) {
+            throw new IllegalStateException("The param percent is error");
+        }
+        return (a * percent <= b) && (a * (2 - percent) <= b);
+    }
+
 }
