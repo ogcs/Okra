@@ -14,7 +14,6 @@ public class MultiListenerEventDispatcher implements EventDispatcher {
 
     protected final ConcurrentHashMap<Object, Object> map = new ConcurrentHashMap<>();
 
-    @Override
     public void addEventListener(Object type, EventListener listener) {
         if (listener == null) throw new NullPointerException("listener");
         Object listeners = map.get(type);
@@ -30,12 +29,10 @@ public class MultiListenerEventDispatcher implements EventDispatcher {
         }
     }
 
-    @Override
     public void removeEventListener(Object type) {
         map.remove(type);
     }
 
-    @Override
     public boolean hasEventListener(Object type) {
         return map.containsKey(type) && map.get(type) != null;
     }

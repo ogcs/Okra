@@ -14,9 +14,11 @@ import org.ogcs.app.DefaultSession;
 import org.ogcs.app.Session;
 import org.ogcs.app.Sessions;
 import org.ogcs.concurrent.ConcurrentEvent;
+import org.ogcs.concurrent.ConcurrentEventFactory;
 import org.ogcs.concurrent.ConcurrentHandler;
 
 import java.io.IOException;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
@@ -25,17 +27,14 @@ import java.util.concurrent.Executors;
  */
 public abstract class DisruptorAdapterBy41xHandler<O> extends SimpleChannelInboundHandler<O> {
 
+    protected static final ConcurrentEventFactory FACTORY = new ConcurrentEventFactory();
+
+    protected static final ExecutorService CACHED_THREAD_POOL = Executors.newCachedThreadPool();
+
     protected static final ThreadLocal<Disruptor<ConcurrentEvent>> THREAD_LOCAL = new ThreadLocal<Disruptor<ConcurrentEvent>>() {
         @Override
         protected Disruptor<ConcurrentEvent> initialValue() {
-            Disruptor<ConcurrentEvent> disruptor = new Disruptor<>(
-                    new EventFactory<ConcurrentEvent>() {
-                        @Override
-                        public ConcurrentEvent newInstance() {
-                            return new ConcurrentEvent();
-                        }
-                    }
-                    , 1024, Executors.newCachedThreadPool(), ProducerType.SINGLE, new BlockingWaitStrategy());
+            Disruptor<ConcurrentEvent> disruptor = new Disruptor<>(FACTORY, 1024, CACHED_THREAD_POOL, ProducerType.SINGLE, new BlockingWaitStrategy());
             disruptor.handleEventsWith(new ConcurrentHandler());
 //            disruptor.handleExceptionsWith();
             disruptor.start();

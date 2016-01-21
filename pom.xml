@@ -10,7 +10,7 @@
 
     <developers>
         <developer>
-            <id>TinyZ</id>
+            <unitId>TinyZ</unitId>
             <name>TinyZ</name>
             <email>ogcs_tinyz@outlook.com</email>
         </developer>

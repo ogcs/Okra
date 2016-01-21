@@ -9,36 +9,27 @@ import java.util.concurrent.ConcurrentHashMap;
  *
  * @author TinyZ on 2016/1/2.
  */
-public class SingleListenerEventDispatcher implements OldEventDispatcher<Event> {
+public class SingleListenerEventDispatcher<T> implements EventDispatcher<T> {
 
-    private final ConcurrentHashMap<Object, EventListener<Event>> listeners = new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<Object, EventListener<T>> listeners = new ConcurrentHashMap<>();
 
-    @Override
-    public void addEventListener(Object type, EventListener<Event> listener) {
+    public void addEventListener(Object type, EventListener<T> listener) {
         listeners.put(type, listener);
     }
 
-    @Override
     public void removeEventListener(Object type) {
         listeners.remove(type);
     }
 
-    @Override
     public boolean hasEventListener(Object type) {
         return listeners.containsKey(type);
     }
 
     @Override
-    public void dispatchEvent(Event event) {
-        if (null == event) {
-            return;
-        }
-        EventListener<Event> listener = listeners.get(event.type());
-        if (null == listener) {
-            return;
-        }
+    public void dispatchEvent(Object type, Object trigger, T source) {
+        EventListener<T> listener = listeners.get(type);
         try {
-            listener.fireEvent(event.trigger(), event);
+            listener.fireEvent(trigger, source);
         } catch (Exception e) {
             e.printStackTrace();
         }
