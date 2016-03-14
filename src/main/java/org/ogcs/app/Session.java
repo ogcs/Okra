@@ -1,11 +1,12 @@
 package org.ogcs.app;
 
+import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
 
 /**
  * @author TinyZ on 2015/10/22.
  */
-public interface Session {
+public interface Session extends Releasable {
 
     ChannelHandlerContext ctx();
 
@@ -17,5 +18,5 @@ public interface Session {
 
     void writeAndFlush(Object msg);
 
-    void release();
+    void writeAndFlush(Object message, ChannelFutureListener listener);
 }

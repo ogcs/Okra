@@ -1,9 +1,7 @@
 package org.ogcs.app;
 
-import io.netty.channel.Channel;
+import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
-import org.ogcs.app.Player;
-import org.ogcs.app.Session;
 
 import java.util.concurrent.TimeUnit;
 
@@ -41,17 +39,24 @@ public class DefaultSession implements Session {
 
     @Override
     public void writeAndFlush(Object msg) {
-        if (null != ctx) {
-            Channel ch = ctx.channel();
-            if (null != ch && ch.isActive()) {
-                if (ch.isWritable()) {
-                    ch.writeAndFlush(msg);
-                } else {
-                    ch.eventLoop().schedule(() -> {
-                        writeAndFlush(msg);
-                    }, 1L, TimeUnit.SECONDS);
-                }
+        writeAndFlush(msg, null);
+    }
+
+    @Override
+    public void writeAndFlush(Object message, ChannelFutureListener listener) {
+        if (null == ctx || ctx.channel() == null || !ctx.channel().isActive()) {
+            return;
+        }
+        if (ctx.channel().isWritable()) {
+            if (listener == null) {
+                ctx.writeAndFlush(message, ctx.voidPromise());
+            } else {
+                ctx.writeAndFlush(message).addListener(listener);
             }
+        } else {
+            ctx.channel().eventLoop().schedule(() -> {
+                writeAndFlush(message, listener);
+            }, 1L, TimeUnit.SECONDS);
         }
     }
 

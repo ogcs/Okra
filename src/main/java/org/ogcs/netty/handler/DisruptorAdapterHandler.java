@@ -1,7 +1,9 @@
 package org.ogcs.netty.handler;
 
+import com.google.protobuf.InvalidProtocolBufferException;
 import com.lmax.disruptor.BlockingWaitStrategy;
 import com.lmax.disruptor.EventFactory;
+import com.lmax.disruptor.ExceptionHandler;
 import com.lmax.disruptor.RingBuffer;
 import com.lmax.disruptor.dsl.Disruptor;
 import com.lmax.disruptor.dsl.ProducerType;
@@ -84,20 +86,14 @@ public abstract class DisruptorAdapterHandler<O> extends SimpleChannelInboundHan
 
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
-        UUID uuid = CHANNEL_UUID.get(ctx.channel());
+        UUID uuid = CHANNEL_UUID.remove(ctx.channel());
         if (null != uuid) {
-            Session session = SESSIONS.get(uuid);
+            Session session = SESSIONS.remove(uuid);
             if (null != session) { // TODO: 释放无用的资源
                 session.release();
 //            System.out.println("channelInactive" + INACTIVE.getAndIncrement());
             }
         }
-        ctx.close().addListener(new ChannelFutureListener() {
-            @Override
-            public void operationComplete(ChannelFuture future) throws Exception {
-//                    System.out.println("连接被关闭" + id);
-            }
-        });
         super.channelInactive(ctx);
     }
 
@@ -110,6 +106,9 @@ public abstract class DisruptorAdapterHandler<O> extends SimpleChannelInboundHan
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
         if (cause instanceof IOException) {
             LOG.info("远程主机强迫关闭了一个现有的连接 : " + ctx.channel().remoteAddress().toString() + " => " + ctx.channel().localAddress().toString());
+        } else if (cause.getCause() instanceof InvalidProtocolBufferException) {
+            LOG.info("Invalid protobuf message : " + cause.getMessage());
+            super.exceptionCaught(ctx, cause);
         } else {
             super.exceptionCaught(ctx, cause);
         }
