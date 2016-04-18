@@ -19,4 +19,6 @@ public interface Session extends Releasable {
     void writeAndFlush(Object msg);
 
     void writeAndFlush(Object message, ChannelFutureListener listener);
+
+    void offline();
 }

@@ -88,13 +88,16 @@ public abstract class DisruptorAdapterHandler<O> extends SimpleChannelInboundHan
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
         UUID uuid = CHANNEL_UUID.remove(ctx.channel());
         if (null != uuid) {
-            Session session = SESSIONS.remove(uuid);
-            if (null != session) { // TODO: 释放无用的资源
-                session.release();
-//            System.out.println("channelInactive" + INACTIVE.getAndIncrement());
-            }
+            sessionInactive(SESSIONS.remove(uuid));
         }
         super.channelInactive(ctx);
+    }
+
+    protected void sessionInactive(Session session) {
+        if (null != session) { // TODO: 释放无用的资源
+            session.release();
+//            System.out.println("channelInactive" + INACTIVE.getAndIncrement());
+        }
     }
 
     @Override

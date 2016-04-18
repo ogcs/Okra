@@ -61,6 +61,13 @@ public class DefaultSession implements Session {
     }
 
     @Override
+    public void offline() {
+        if (ctx != null) {
+            ctx.close();
+        }
+    }
+
+    @Override
     public void release() {
         ctx = null;
         if (null != player) {
