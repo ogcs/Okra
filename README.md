@@ -12,7 +12,7 @@ Okra是一个JAVA语言的高性能，高扩展，高并发的简单多人在线
 
 # Wiki
  1. [wiki页面](https://github.com/ogcs/Okra/wiki)
- 2. [Author's Blog](tinyzzh.github.io)
+ 2. [Author's Blog](https://tinyzzh.github.io)
 
 # 为什么开发Okra?
   Just for fun ! 无聊练练手，写点东西.代码可能存在一些不成熟的地方, 欢迎反馈，我会尽快修复，完善.
