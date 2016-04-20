@@ -1,11 +1,11 @@
-package org.ogcs.okra.game.handler;
+package org.ogcs.okra.example.game.handler;
 
 import org.ogcs.app.Command;
 import org.ogcs.app.Executor;
 import org.ogcs.app.Session;
-import org.ogcs.okra.game.command.Commands;
-import org.ogcs.okra.game.generated.Gpb;
-import org.ogcs.okra.game.generated.Gpb.Request;
+import org.ogcs.okra.example.game.command.Commands;
+import org.ogcs.okra.example.game.generated.Gpb;
+import org.ogcs.okra.example.game.generated.Gpb.Request;
 
 public class GpbExecutor implements Executor {
 

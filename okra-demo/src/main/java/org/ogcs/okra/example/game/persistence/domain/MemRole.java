@@ -1,4 +1,4 @@
-package org.ogcs.okra.game.persistence.domain;
+package org.ogcs.okra.example.game.persistence.domain;
 
 import java.io.Serializable;
 

@@ -1,10 +1,10 @@
-package org.ogcs.okra.game.persistence.mapper;
+package org.ogcs.okra.example.game.persistence.mapper;
 
 import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.UpdateProvider;
-import org.ogcs.okra.game.persistence.domain.MemRole;
-import org.ogcs.okra.game.persistence.provider.RoleSqlProvider;
+import org.ogcs.okra.example.game.persistence.domain.MemRole;
+import org.ogcs.okra.example.game.persistence.provider.RoleSqlProvider;
 
 public interface RoleMapper {
 

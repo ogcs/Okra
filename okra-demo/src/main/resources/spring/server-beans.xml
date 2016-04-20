@@ -7,7 +7,7 @@
     <bean id="appContext" class="org.ogcs.app.AppContext"/>
 
     <!-- Tcp server -->
-    <bean id="tcpServer" class="org.ogcs.okra.game.handler.GpbTcpServer" init-method="start" destroy-method="stop">
+    <bean id="tcpServer" class="org.ogcs.okra.example.game.handler.GpbTcpServer" init-method="start" destroy-method="stop">
         <constructor-arg name="port" value="${tcp.port}"/>
     </bean>
 

@@ -1,9 +1,9 @@
-package org.ogcs.okra.game.command.impl;
+package org.ogcs.okra.example.game.command.impl;
 
 import org.ogcs.app.Command;
 import org.ogcs.app.Session;
-import org.ogcs.okra.game.generated.Gpb;
-import org.ogcs.okra.game.generated.Gpb.Request;
+import org.ogcs.okra.example.game.generated.Gpb;
+import org.ogcs.okra.example.game.generated.Gpb.Request;
 
 /**
  * Just use to test

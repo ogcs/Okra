@@ -1,4 +1,4 @@
-package org.ogcs.okra.game.handler;
+package org.ogcs.okra.example.game.handler;
 
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelInitializer;
@@ -9,7 +9,7 @@ import io.netty.handler.codec.LengthFieldPrepender;
 import io.netty.handler.codec.protobuf.ProtobufDecoder;
 import io.netty.handler.codec.protobuf.ProtobufEncoder;
 import org.ogcs.netty.impl.TcpProtocolServer;
-import org.ogcs.okra.game.generated.Gpb.Request;
+import org.ogcs.okra.example.game.generated.Gpb.Request;
 
 public class GpbTcpServer extends TcpProtocolServer {
 

@@ -18,4 +18,4 @@
  * @email : tinyzzh815@gmail.com
  * @date : 2016/4/19
  */
-package org.ogcs.okra.game;
+package org.ogcs.okra.example.game;

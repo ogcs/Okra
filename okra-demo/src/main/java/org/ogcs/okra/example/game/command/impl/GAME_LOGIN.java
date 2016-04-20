@@ -1,12 +1,12 @@
-package org.ogcs.okra.game.command.impl;
+package org.ogcs.okra.example.game.command.impl;
 
 import org.ogcs.app.Session;
-import org.ogcs.okra.game.command.AbstractCommand;
-import org.ogcs.okra.game.generated.Example;
-import org.ogcs.okra.game.generated.Gpb;
-import org.ogcs.okra.game.generated.Gpb.Request;
-import org.ogcs.okra.game.persistence.domain.MemRole;
-import org.ogcs.okra.game.server.Role;
+import org.ogcs.okra.example.game.command.AbstractCommand;
+import org.ogcs.okra.example.game.generated.Example;
+import org.ogcs.okra.example.game.generated.Gpb;
+import org.ogcs.okra.example.game.generated.Gpb.Request;
+import org.ogcs.okra.example.game.persistence.domain.MemRole;
+import org.ogcs.okra.example.game.server.Role;
 
 /**
  * Game login command

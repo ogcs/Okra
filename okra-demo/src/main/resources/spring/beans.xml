@@ -45,5 +45,5 @@
     <import resource="mybatis-beans.xml"/>
 
     <context:annotation-config/>
-    <!--<context:component-scan base-package="org.ogcs.okra.game"/>-->
+    <!--<context:component-scan base-package="org.ogcs.okra.example.game"/>-->
 </beans>

@@ -1,7 +1,7 @@
 // This is default, but it's nice to be explicit
 option optimize_for = SPEED;
 
-option java_package = "org.ogcs.okra.game.generated";
+option java_package = "org.ogcs.okra.example.game.generated";
 
 option java_outer_classname = "GpbN";
 

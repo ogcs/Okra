@@ -1,10 +1,10 @@
-package org.ogcs.okra.game.server;
+package org.ogcs.okra.example.game.server;
 
 import org.ogcs.app.AppContext;
 import org.ogcs.app.Player;
 import org.ogcs.app.Session;
-import org.ogcs.okra.game.persistence.domain.MemRole;
-import org.ogcs.okra.game.persistence.mapper.RoleMapper;
+import org.ogcs.okra.example.game.persistence.domain.MemRole;
+import org.ogcs.okra.example.game.persistence.mapper.RoleMapper;
 
 /**
  * @author : TinyZ.

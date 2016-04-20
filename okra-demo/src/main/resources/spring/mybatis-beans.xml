@@ -5,7 +5,7 @@
 
     <!-- Mybatis Persistence mappers -->
     <bean id="roleMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
-        <property name="mapperInterface" value="org.ogcs.okra.game.persistence.mapper.RoleMapper"/>
+        <property name="mapperInterface" value="org.ogcs.okra.example.game.persistence.mapper.RoleMapper"/>
         <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
     </bean>
 

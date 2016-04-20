@@ -1,4 +1,4 @@
-package org.ogcs.okra.game.handler;
+package org.ogcs.okra.example.game.handler;
 
 import com.google.protobuf.InvalidProtocolBufferException;
 import io.netty.channel.ChannelHandlerContext;
@@ -7,7 +7,7 @@ import org.apache.logging.log4j.Logger;
 import org.ogcs.app.Executor;
 import org.ogcs.app.Session;
 import org.ogcs.netty.handler.DisruptorAdapterHandler;
-import org.ogcs.okra.game.generated.Gpb;
+import org.ogcs.okra.example.game.generated.Gpb;
 
 import java.io.IOException;
 

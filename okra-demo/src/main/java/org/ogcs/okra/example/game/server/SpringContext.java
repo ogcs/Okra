@@ -1,4 +1,4 @@
-package org.ogcs.okra.game.server;
+package org.ogcs.okra.example.game.server;
 
 /**
  * @author : TinyZ.

@@ -1,9 +1,9 @@
-package org.ogcs.okra.game.command;
+package org.ogcs.okra.example.game.command;
 
 import org.ogcs.app.Command;
-import org.ogcs.okra.game.command.impl.GAME_CREATE;
-import org.ogcs.okra.game.command.impl.GAME_LOGIN;
-import org.ogcs.okra.game.command.impl.PING_PONG;
+import org.ogcs.okra.example.game.command.impl.GAME_CREATE;
+import org.ogcs.okra.example.game.command.impl.GAME_LOGIN;
+import org.ogcs.okra.example.game.command.impl.PING_PONG;
 
 import java.util.HashMap;
 import java.util.Map;

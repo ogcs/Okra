@@ -1,4 +1,4 @@
-package org.ogcs.okra.game.conf;
+package org.ogcs.okra.example.game.conf;
 
 
 import org.apache.logging.log4j.LogManager;
