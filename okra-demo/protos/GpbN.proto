@@ -1,0 +1,14 @@
+// This is default, but it's nice to be explicit
+option optimize_for = SPEED;
+
+option java_package = "org.ogcs.okra.game.generated";
+
+option java_outer_classname = "GpbN";
+
+message Push {
+    optional int32 id = 1;
+    extensions 2 to max;    //  推送消息扩展于Push
+}
+
+
+

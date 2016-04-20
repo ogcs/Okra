@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+{@url http://logging.apache.org/log4j/2.x/manual/layouts.html} 输出格式
+{@url http://logging.apache.org/log4j/2.x/manual/async.html} 异步日志记录器
+-->
+<Configuration status="ERROR">
+    <Properties>
+        <property name="LOG_HOME">logs</property>
+        <property name="BACKUP_HOME">${LOG_HOME}/backup</property>
+    </Properties>
+    <Appenders>
+        <RollingRandomAccessFile name="DailyFileAppender" fileName="logs/server.log"
+                                 filePattern="${BACKUP_HOME}/%d{yyyy-MM-dd}-%i.log">
+            <!--<PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss,SSS}- %c{1}: %m%n"/>-->
+            <!--<PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} %level [%thread][%file:%line] - %msg%n" />-->
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} [%c{1}:%line]-[%p]: %m%n" />
+            <Policies>
+                <SizeBasedTriggeringPolicy size="1 MB"/>
+                <!-- 时间根据(yyyy-MM-dd-HH)中的最小单位HH(小时)为单位间隔. 修改字串修改时间间隔单位 -->
+                <TimeBasedTriggeringPolicy interval="1" modulate="true" />
+            </Policies>
+            <DefaultRolloverStrategy max="4"/>
+        </RollingRandomAccessFile>
+        <Console name="ConsoleAppender">
+            <!--<PatternLayout pattern="%d [%p] %c %m%n"/>-->
+            <PatternLayout pattern="%date{yyyy-MM-dd HH:mm:ss.SSS} %level [%thread][%file:%line]: %msg%n"/>
+        </Console>
+    </Appenders>
+    <Loggers>
+        <AsyncRoot level="ERROR" includeLocation="true">
+            <AppenderRef ref="DailyFileAppender"/>
+        </AsyncRoot>
+        <AsyncLogger name="com.lj.kernel" level="INFO" includeLocation="true" additivity="false">
+            <AppenderRef ref="ConsoleAppender"/>
+            <AppenderRef ref="DailyFileAppender"/>
+        </AsyncLogger>
+        <AsyncLogger name="org.ogcs" level="INFO">
+            <AppenderRef ref="DailyFileAppender"/>
+        </AsyncLogger>
+        <AsyncLogger name="org.springframework" level="WARM">
+            <AppenderRef ref="DailyFileAppender"/>
+        </AsyncLogger>
+
+        <!--
+        根据包路径
+        <Logger name="com.tinyz" level="ERROR" > &lt;!&ndash;additivity="false"&ndash;&gt;
+            <appender-ref ref="DailyFileAppender"/>
+        </Logger>-->
+    </Loggers>
+</Configuration>
+

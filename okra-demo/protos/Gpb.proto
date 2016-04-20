@@ -1,0 +1,28 @@
+// This is default, but it's nice to be explicit
+option optimize_for = SPEED;
+
+//option java_generic_services = true;
+
+option java_package = "org.ogcs.okra.game.generated";
+
+option java_outer_classname = "Gpb";
+// Protocol Request
+message Request {
+    optional int32 id = 1; //  The user's unique request id
+    optional int32 api = 2; //  The service name
+    optional bytes data = 3; //  The binary request data
+}
+// Protocol Error
+message Error {
+    optional int32 ret = 1;// error code
+    optional string msg = 2;// response special error message. Is nullable.
+}
+// Protocol Response
+message Response {
+    optional int32 id = 1; //  The user request's unique id
+    optional Error error = 2;
+    optional bytes data = 3; //  The binary response data
+}
+// Special protocol response data. the data is Void
+message Void {
+}
