@@ -5,7 +5,7 @@
     <parent>
         <artifactId>ogcs_okra</artifactId>
         <groupId>ogcs</groupId>
-        <version>1.0.0</version>
+        <version>1.0.1</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -13,8 +13,8 @@
     <dependencies>
         <dependency>
             <groupId>ogcs</groupId>
-            <artifactId>ogcs_core</artifactId>
-            <version>1.0.0</version>
+            <artifactId>okra_core</artifactId>
+            <version>1.0.1</version>
         </dependency>
 
         <dependency>
@@ -26,6 +26,13 @@
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>
             <version>2.4.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.protobuf</groupId>
+            <artifactId>protobuf-java</artifactId>
+            <version>2.6.1</version>
+            <!--<optional>true</optional>-->
         </dependency>
     </dependencies>
 

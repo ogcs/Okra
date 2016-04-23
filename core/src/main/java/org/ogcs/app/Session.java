@@ -30,14 +30,14 @@ public interface Session extends Releasable {
      *
      * @return Return player
      */
-    Player getPlayer();
+    Connector getConnector();
 
     /**
      * Set player. After player login, should set the player.
      *
-     * @param player The player
+     * @param connector The player
      */
-    void setPlayer(Player player);
+    void setConnector(Connector connector);
 
     /**
      * Send message back without callback.

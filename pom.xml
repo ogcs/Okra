@@ -7,12 +7,26 @@
     <groupId>ogcs</groupId>
     <artifactId>ogcs_okra</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
+
+    <developers>
+        <developer>
+            <name>TinyZ</name>
+            <email>tinyzzh815@gmail.com</email>
+        </developer>
+    </developers>
+
     <modules>
         <module>core</module>
         <module>okra-examples</module>
         <module>okra-spring</module>
+        <module>okra-demo</module>
+        <module>okra-utilities</module>
     </modules>
 
+    <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
 
 </project>

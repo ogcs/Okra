@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 public class DefaultSession implements Session {
 
     private ChannelHandlerContext ctx;
-    private Player player;
+    private Connector connector;
 
     public DefaultSession(ChannelHandlerContext ctx) {
         this.ctx = ctx;
@@ -27,14 +27,12 @@ public class DefaultSession implements Session {
         return ctx != null && ctx.channel().isActive();
     }
 
-    @Override
-    public Player getPlayer() {
-        return player;
+    public Connector getConnector() {
+        return connector;
     }
 
-    @Override
-    public void setPlayer(Player player) {
-        this.player = player;
+    public void setConnector(Connector connector) {
+        this.connector = connector;
     }
 
     @Override
@@ -70,10 +68,10 @@ public class DefaultSession implements Session {
     @Override
     public void release() {
         ctx = null;
-        if (null != player) {
-            player.logout();
-            player.setSession(null);
-            player = null;
+        if (null != connector) {
+            connector.disconnect();
+            connector.setSession(null);
+            connector = null;
         }
     }
 }

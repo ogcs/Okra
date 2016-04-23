@@ -1,17 +1,17 @@
 package org.ogcs.app;
 
 /**
- * The Player interface.
+ * The Connector Interface.
  * User should be implement this interface.
  * @author TinyZ
  */
-public interface Player {
+public interface Connector {
 
     /**
      * Is the player online
      * @return Return true if the session is connected and channel is active. otherwise false.
      */
-    boolean isOnline();
+    boolean isConnected();
 
     /**
      * Get the player's session
@@ -28,5 +28,5 @@ public interface Player {
     /**
      * When the player lost connection to server. System will call this function.
      */
-    void logout();
+    void disconnect();
 }

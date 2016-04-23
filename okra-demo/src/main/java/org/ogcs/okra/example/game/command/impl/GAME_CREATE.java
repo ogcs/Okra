@@ -35,8 +35,8 @@ public class GAME_CREATE extends AbstractCommand {
         // TODO: do some logic content
         Role player = new Role(session, memRole);
         // session set player.
-        // The player's function logout()  will be invoked, When the session is inactive.
-        session.setPlayer(player);
+        // The player's function disconnect()  will be invoked, When the session is inactive.
+        session.setConnector(player);
 
         session.writeAndFlush(Gpb.Response.newBuilder()
                 .setId(request.getId())

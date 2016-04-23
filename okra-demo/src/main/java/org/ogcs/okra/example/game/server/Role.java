@@ -1,7 +1,7 @@
 package org.ogcs.okra.example.game.server;
 
 import org.ogcs.app.AppContext;
-import org.ogcs.app.Player;
+import org.ogcs.app.Connector;
 import org.ogcs.app.Session;
 import org.ogcs.okra.example.game.persistence.domain.MemRole;
 import org.ogcs.okra.example.game.persistence.mapper.RoleMapper;
@@ -11,7 +11,7 @@ import org.ogcs.okra.example.game.persistence.mapper.RoleMapper;
  * @email : ogcs_tinyz@outlook.com
  * @date : 2016/3/31
  */
-public class Role implements Player {
+public class Role implements Connector {
 
     private RoleMapper roleMapper = (RoleMapper) AppContext.getBean(SpringContext.APP_CONTEXT);
 
@@ -39,7 +39,7 @@ public class Role implements Player {
     }
 
     @Override
-    public boolean isOnline() {
+    public boolean isConnected() {
         return session != null && session.isOnline();
     }
 
@@ -54,7 +54,7 @@ public class Role implements Player {
     }
 
     @Override
-    public void logout() {
+    public void disconnect() {
 
         System.out.println("离线:" + session.toString());
     }

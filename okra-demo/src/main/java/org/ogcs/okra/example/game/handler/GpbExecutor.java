@@ -45,7 +45,7 @@ public class GpbExecutor implements Executor {
     }
 
     private boolean isLogin(Session session) {
-        return session.getPlayer() != null;
+        return session.getConnector() != null;
     }
 
     @Override

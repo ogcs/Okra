@@ -28,8 +28,8 @@ public class GAME_LOGIN extends AbstractCommand {
 
         Role player = new Role(session, memRole);
         // session set player.
-        // The player's function logout()  will be invoked, When the session is inactive.
-        session.setPlayer(player);
+        // The player's function disconnect()  will be invoked, When the session is inactive.
+        session.setConnector(player);
 
         session.writeAndFlush(Gpb.Response.newBuilder()
                 .setId(request.getId())
