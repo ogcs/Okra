@@ -1,4 +1,3 @@
-package org.ogcs.utilities;
 /*
  *  Licensed to the Apache Software Foundation (ASF) under one
  *  or more contributor license agreements.  See the NOTICE file
@@ -18,6 +17,8 @@ package org.ogcs.utilities;
  *  under the License.
  *
  */
+
+package org.ogcs.utilities;
 
 import java.io.IOException;
 import java.net.DatagramSocket;
