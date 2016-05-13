@@ -1,17 +1,19 @@
 package org.ogcs.app;
 
 /**
+ * Command interface.
  *
- * Command
+ * Each user's request, it can be seen as a command.
  *
- * @author TinyZ on 2015/10/22.
+ * @author TinyZ
+ * @since 1.0
  */
 public interface Command<S, R> {
 
     /**
      * Execute cmd logic
      *
-     * @param session The player session
+     * @param session The connector's session
      * @param request The cmd request
      * @throws Exception
      */

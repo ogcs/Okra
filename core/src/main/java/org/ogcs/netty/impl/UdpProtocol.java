@@ -3,6 +3,7 @@ package org.ogcs.netty.impl;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandler;
+import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioDatagramChannel;
 import org.ogcs.netty.NettyBootstrap;
@@ -18,7 +19,7 @@ import org.ogcs.netty.NettyBootstrap;
  */
 public abstract class UdpProtocol implements NettyBootstrap<Bootstrap> {
 
-    private final NioEventLoopGroup nioEventLoopGroup = new NioEventLoopGroup();
+    private final EventLoopGroup eventLoopGroup = new NioEventLoopGroup();
     private Bootstrap bootstrap;
     private int port;
     private Channel udpChannel;
@@ -35,7 +36,7 @@ public abstract class UdpProtocol implements NettyBootstrap<Bootstrap> {
     public Bootstrap createBootstrap() {
         bootstrap = new Bootstrap();
         bootstrap.channel(NioDatagramChannel.class);
-        bootstrap.group(nioEventLoopGroup);
+        bootstrap.group(eventLoopGroup);
         bootstrap.handler(newChannelInitializer());
         return bootstrap;
     }
@@ -61,7 +62,7 @@ public abstract class UdpProtocol implements NettyBootstrap<Bootstrap> {
 
     @Override
     public void stop() {
-        nioEventLoopGroup.shutdownGracefully();
+        eventLoopGroup.shutdownGracefully();
     }
 
     @Override
@@ -79,6 +80,7 @@ public abstract class UdpProtocol implements NettyBootstrap<Bootstrap> {
 
     /**
      * Get UDP protobuf channel bound port
+     *
      * @return The channel listen special port
      */
     public Channel udpChannel() {

@@ -5,6 +5,9 @@ import io.netty.channel.ChannelId;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
+ * Simple session manager.
+ * Register session When the user's connection active. and unregister session when lost connection.
+ *
  * @author TinyZ on 2015/10/27.
  */
 public enum Sessions {
