@@ -30,7 +30,8 @@ package org.ogcs.utilities;
  * <br/>
  * The long version code(like 98784968668 = 8 byte) is much smaller than string version code(like "23.10.65500" = 22 byte)
  *
- * @author TinyZ on 2015/5/18.
+ * @author TinyZ.
+ * @since 1.0
  */
 public final class Version {
 
@@ -51,6 +52,7 @@ public final class Version {
     /**
      * Convert version code string to long version code
      * <p>Example ("23.10.65500") convert to 98784968668</p>
+     *
      * @param codes The string version . org.ogcs.okra.example ["2", "23", "6500"]
      * @return The long version code
      */
@@ -61,10 +63,14 @@ public final class Version {
     /**
      * Convert version code string to long version code
      * <p>Example ["23", "10", "65500"] convert to 98784968668</p>
+     *
      * @param codes The string version .
      * @return The long version code
      */
     public static long version(String... codes) {
+        if (codes.length > 4) {
+            return -1L;
+        }
         long version = 0;
         int length = codes.length;
         for (int i = 0; i < length; i++) {
@@ -81,10 +87,14 @@ public final class Version {
     /**
      * Convert version int array code to long version code
      * <p>Example [23, 10, 65500] convert to 98784968668</p>
+     *
      * @param codes The string version .
      * @return The long version code
      */
     public static long version(int... codes) {
+        if (codes.length > 4) {
+            return -1L;
+        }
         long version = 0;
         int length = codes.length;
         for (int i = 0; i < length; i++) {
