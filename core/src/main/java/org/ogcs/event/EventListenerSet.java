@@ -20,7 +20,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- *
+ * The {@link EventListener} collection.
  * @author TinyZ.
  * @since 1.0
  */
@@ -48,6 +48,10 @@ public class EventListenerSet {
 
     public EventListener[] listeners() {
         return listeners.toArray(new EventListener[listeners.size()]);
+    }
+
+    public boolean isEmpty() {
+        return listeners.isEmpty();
     }
 
     public int size() {

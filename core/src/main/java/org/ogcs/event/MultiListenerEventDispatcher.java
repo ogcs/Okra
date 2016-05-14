@@ -97,7 +97,11 @@ public class MultiListenerEventDispatcher implements EventDispatcher {
             return;
         }
         if (listeners instanceof EventListenerSet) {
-            ((EventListenerSet) listeners).remove(listener);
+            EventListenerSet set = (EventListenerSet) listeners;
+            set.remove(listener);
+            if (set.isEmpty()) {
+                map.remove(type);
+            }
         } else if (listeners.equals(listener)) {
             map.remove(type);
         }
