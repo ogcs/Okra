@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>ogcs_okra</artifactId>
+        <groupId>ogcs</groupId>
+        <version>1.0.1</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>okra-all</artifactId>
+    <packaging>jar</packaging>
+
+    <issueManagement>
+        <system>Github Issue</system>
+        <url>https://github.com/ogcs/Okra/issues</url>
+    </issueManagement>
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+    <developers>
+        <developer>
+            <name>TinyZ</name>
+            <email>tinyzzh815@gmail.com</email>
+        </developer>
+    </developers>
+
+    <dependencies>
+        <dependency>
+            <groupId>ogcs</groupId>
+            <artifactId>okra_core</artifactId>
+            <version>1.0.1</version>
+            <scope>compile</scope>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>ogcs</groupId>
+            <artifactId>okra_spring</artifactId>
+            <version>1.0.1</version>
+            <scope>compile</scope>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>ogcs</groupId>
+            <artifactId>okra_utilities</artifactId>
+            <version>1.0.1</version>
+            <scope>compile</scope>
+            <optional>true</optional>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <sourceDirectory>${project.basedir}/src</sourceDirectory>
+        <testSourceDirectory>${project.basedir}/test</testSourceDirectory>
+
+        <resources>
+            <resource>
+                <directory>${project.basedir}/src</directory>
+                <filtering>false</filtering>
+                <excludes>
+                    <exclude>**/*.java</exclude>
+                </excludes>
+            </resource>
+        </resources>
+        <testResources>
+            <testResource>
+                <directory>${project.basedir}/test</directory>
+                <filtering>false</filtering>
+                <excludes>
+                    <exclude>**/*.java</exclude>
+                </excludes>
+            </testResource>
+        </testResources>
+        <directory>${project.basedir}/target</directory>
+        <plugins>
+            <!-- 设置源文件编码方式 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+            <!-- 打包jar文件时，配置manifest文件，加入lib包的jar依赖 -->
+            <plugin>
+                <artifactId>maven-jar-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>Okra-All</id>
+                        <goals><goal>jar</goal></goals>
+                        <phase>package</phase>
+                       <!-- <configuration>
+                            <classifier>server</classifier>
+                            <includes>
+                                <include>**/server/**</include>
+                            </includes>
+                        </configuration>-->
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- 打包source文件为jar文件 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <configuration>
+                    <attach>true</attach>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

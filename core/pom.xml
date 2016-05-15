@@ -10,10 +10,6 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>okra_core</artifactId>
-    <packaging>pom</packaging>
-    <modules>
-        <module>../okra-utilities</module>
-    </modules>
 
     <dependencies>
         <dependency>
