@@ -53,9 +53,7 @@
     </dependencies>
 
     <build>
-        <sourceDirectory>${project.basedir}/src</sourceDirectory>
-        <testSourceDirectory>${project.basedir}/test</testSourceDirectory>
-
+        <finalName>okra-${project.version}</finalName>
         <resources>
             <resource>
                 <directory>${project.basedir}/src</directory>
@@ -75,6 +73,7 @@
             </testResource>
         </testResources>
         <directory>${project.basedir}/target</directory>
+
         <plugins>
             <!-- 设置源文件编码方式 -->
             <plugin>
@@ -94,12 +93,12 @@
                         <id>Okra-All</id>
                         <goals><goal>jar</goal></goals>
                         <phase>package</phase>
-                       <!-- <configuration>
-                            <classifier>server</classifier>
-                            <includes>
-                                <include>**/server/**</include>
-                            </includes>
-                        </configuration>-->
+                        <!-- <configuration>
+                             <classifier>server</classifier>
+                             <includes>
+                                 <include>**/server/**</include>
+                             </includes>
+                         </configuration>-->
                     </execution>
                 </executions>
             </plugin>
@@ -109,7 +108,6 @@
                 <artifactId>maven-source-plugin</artifactId>
                 <configuration>
                     <attach>true</attach>
-                    <encoding>UTF-8</encoding>
                 </configuration>
                 <executions>
                     <execution>
