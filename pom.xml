@@ -33,6 +33,7 @@
         <module>okra-examples</module>
         <module>okra-demo</module>
         <module>okra-all</module>
+        <module>okra-flex</module>
     </modules>
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>

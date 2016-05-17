@@ -8,6 +8,19 @@ Okra是一个使用JAVA语言开发的高性能，高扩展，高并发，低延
  2. [Disruptor框架](https://github.com/LMAX-Exchange/disruptor): 框架实现高吞吐量的并发任务支持。
  3. 集成Spring框架(optional): 集成Spring框架以使用大量Spring系的工具. 例如:Mybatis，Hibernate，HikariCP等。
 
+```xml
+    <dependency>
+        <groupId>io.netty</groupId>
+        <artifactId>netty-all</artifactId>
+        <version>4.0.36.Final</version>
+    </dependency>
+    <dependency>
+        <groupId>com.lmax</groupId>
+        <artifactId>disruptor</artifactId>
+        <version>3.3.2</version>
+    </dependency>
+```
+
 ## Documents
  1. [Okra Wiki](https://github.com/ogcs/Okra/wiki)
  2. [Author's Blog](https://tinyzzh.github.io)
