@@ -24,7 +24,8 @@ Okra是一个使用JAVA语言开发的高性能，高扩展，高并发，低延
 
 ## Documents
  1. [Okra Wiki](https://github.com/ogcs/Okra/wiki)
- 2. [Author's Blog](https://tinyzzh.github.io)
+ 2. [Get Started](https://github.com/ogcs/Okra/wiki/Get-started)
+ 3. [Author's Blog](https://tinyzzh.github.io)
 
 ## How to Contribute ?
  Fork代码之后欢迎pr.
