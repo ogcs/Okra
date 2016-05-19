@@ -4,9 +4,10 @@ Okra是一个使用JAVA语言开发的高性能，高扩展，高并发，低延
 主要目的是帮助**中小团队**快速开发实现**网络游戏服务端**。
 
 ## Dependencies：
- 1. [Netty框架](https://netty.io): 框架实现高效稳定的网络通信层支持。
- 2. [Disruptor框架](https://github.com/LMAX-Exchange/disruptor): 框架实现高吞吐量的并发任务支持。
- 3. 集成Spring框架(optional): 集成Spring框架以使用大量Spring系的工具. 例如:Mybatis，Hibernate，HikariCP等。
+ 1. JDK 1.8
+ 2. [Netty 4.x](https://netty.io): 框架实现高效稳定的网络通信层支持。
+ 3. [Disruptor 3.x](https://github.com/LMAX-Exchange/disruptor): 框架实现高吞吐量的并发任务支持。
+ 4. 集成Spring框架(optional): 集成Spring框架以使用大量Spring系的工具. 例如:Mybatis，Hibernate，HikariCP等。
 
 ```xml
     <dependency>
