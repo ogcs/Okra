@@ -33,8 +33,8 @@ import java.util.concurrent.Executors;
 public class ClientMain {
 
     public static void main(String[] args) throws InterruptedException {
-        int clientCount = 1000;
-        int maxCount = 1000000;
+        int clientCount = 1;
+        int maxCount = 1;
         ExecutorService service = Executors.newCachedThreadPool();
         Set<BenchmarkClient> sets = Collections.synchronizedSet(new HashSet<>());
         Runtime.getRuntime().addShutdownHook(new Thread(()->{
