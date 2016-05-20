@@ -44,7 +44,7 @@ public abstract class DisruptorAdapterBy41xHandler<O> extends SimpleChannelInbou
     protected static final ThreadLocal<Disruptor<ConcurrentEvent>> THREAD_LOCAL = new ThreadLocal<Disruptor<ConcurrentEvent>>() {
         @Override
         protected Disruptor<ConcurrentEvent> initialValue() {
-            Disruptor<ConcurrentEvent> disruptor = new Disruptor<>(FACTORY, 1024, CACHED_THREAD_POOL, ProducerType.SINGLE, new BlockingWaitStrategy());
+            Disruptor<ConcurrentEvent> disruptor = new Disruptor<>(FACTORY, 8 * 1024, CACHED_THREAD_POOL, ProducerType.SINGLE, new BlockingWaitStrategy());
             disruptor.handleEventsWith(new ConcurrentHandler());
 //            disruptor.handleExceptionsWith();
             disruptor.start();
