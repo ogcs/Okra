@@ -75,7 +75,6 @@ public abstract class TcpProtocolClient implements NettyBootstrap<Bootstrap> {
         }
         try {
             ChannelFuture future = doConnect();
-            future.await();
             client = future.channel();
             future.sync();
         } catch (Exception e) {
