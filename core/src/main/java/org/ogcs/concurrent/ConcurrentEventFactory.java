@@ -28,4 +28,6 @@ public final class ConcurrentEventFactory implements EventFactory<ConcurrentEven
     public ConcurrentEvent newInstance() {
         return new ConcurrentEvent();
     }
+
+    public static final ConcurrentEventFactory DEFAULT = new ConcurrentEventFactory();
 }
