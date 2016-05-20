@@ -18,6 +18,12 @@ package org.ogcs.okra.example.benchmark;
 
 import io.netty.channel.Channel;
 
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 /**
  * @author : TinyZ.
  * @email : tinyzzh815@gmail.com
@@ -27,25 +33,45 @@ import io.netty.channel.Channel;
 public class ClientMain {
 
     public static void main(String[] args) throws InterruptedException {
-        // client
-        BenchmarkClient client = new BenchmarkClient("192.168.2.93", 9005);
-        client.start();
-        Channel client1 = client.client();
+        int clientCount = 1000;
+        int maxCount = 1000000;
+        ExecutorService service = Executors.newCachedThreadPool();
+        Set<BenchmarkClient> sets = Collections.synchronizedSet(new HashSet<>());
+        Runtime.getRuntime().addShutdownHook(new Thread(()->{
+            for (BenchmarkClient set : sets) {
+                set.stop();
+            }
+        }));
 
         long timeStart = System.currentTimeMillis();
-        for (int i = 0; i < 1000000; i++) {
-            client1.writeAndFlush("" + i);
+        // client
+        for (int i = 0; i < clientCount; i++) {
+            service.execute(()->{
+                BenchmarkClient client = new BenchmarkClient("192.168.2.29", 9005);
+                client.start();
+                Channel client1 = client.client();
+//                client1.writeAndFlush("1");
+                for (int j = 0; j <maxCount / clientCount; j++) {
+                    client1.writeAndFlush("" + j);
+                }
+                sets.add(client);
+            });
         }
-        while (BenchmarkClient.COUNT.get() <= 1) {
-
+        while (true) {
+            if (BenchmarkClient.COUNT.get() >= maxCount){
+                break;
+            }
         }
         long timeEnd = System.currentTimeMillis();
-        client.stop();
 
         System.out.println("All Count : " + BenchmarkClient.COUNT.get());
         System.out.println("All Cost Time (ms): " + (timeEnd - timeStart));
-        double avg = (timeEnd - timeStart) / BenchmarkClient.COUNT.get();
+        double avg = (timeEnd - timeStart) / (double)(BenchmarkClient.COUNT.get());
         System.out.println("Avg Cost Time (ms) : " + avg);
         System.out.println("TPS : " + BenchmarkClient.COUNT.get()/(avg / 1000.0));
+
+        for (BenchmarkClient set : sets) {
+            set.stop();
+        }
     }
 }
