@@ -18,6 +18,7 @@ package org.ogcs.utilities.astar;
 
 /**
  * Two-dimensional coordinate point.
+ *
  * @author : TinyZ.
  * @email : tinyzzh815@gmail.com
  * @date : 2016/5/24
@@ -59,18 +60,27 @@ public class Point {
 
     /**
      * This equals method is important for A* Algorithm. {@link AStarAlgorithm#find(Node, Node, int[][], boolean)}
-     *
+     * <p>
      * {@link Point} are equal if the values of their x and y.
+     *
      * @param obj object
      * @return Return true if the obj is equal this. otherwise false.
      */
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Point) {
-            Point obj1 = (Point) obj;
-            return obj1.getX() == this.getX() && obj1.getY() == this.getY();
+            Point point = (Point) obj;
+            return point.getX() == this.getX() && point.getY() == this.getY();
         }
         return super.equals(obj);
+    }
+
+    @Override
+    public int hashCode() {
+//        return ((x & 0xFFFF ) << 16) | (y & 0xFFFF); // mine implement
+        long bits = java.lang.Double.doubleToLongBits(getX());
+        bits ^= java.lang.Double.doubleToLongBits(getY()) * 31;
+        return (((int) bits) ^ ((int) (bits >> 32)));
     }
 
     @Override

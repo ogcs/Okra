@@ -66,6 +66,9 @@ public final class AStarAlgorithm {
         if (blocks == null) {
             throw new NullPointerException("blocks");
         }
+        if (blocks[x1][y1] == 0 || blocks[x2][y2] == 0) {
+            throw new IllegalStateException("Target point unreachable.");
+        }
         if (isOutOfBounds(x1, y1, blocks)) {
             throw new IndexOutOfBoundsException("sNode");
         }
@@ -81,13 +84,15 @@ public final class AStarAlgorithm {
      * <strong>Dependency {@link Point#equals} method<strong/>
      */
     private static LinkedList<Point> find(Node sNode, Node eNode, int[][] blocks, boolean allowDiagonals) {
-        List<Node> openList = new ArrayList<>();
-        Set<Point> checked = new HashSet<>();
-        openList.add(sNode);
+        List<Node> opened = new ArrayList<>();
+        Set<Node> checked = new HashSet<>();
+        opened.add(sNode);
         LinkedList<Point> paths = new LinkedList<>();
-        while (!openList.isEmpty()) {
-            Node minNode = openList.remove(0);
-            if (minNode.equals(eNode)) {
+        while (!opened.isEmpty()) {
+            Node minNode = opened.remove(0);
+            if (minNode.equals(eNode) ||
+                    checked.contains(eNode) //  unreachable point
+                    ) {
                 while (minNode.getParent() != null) {
                     paths.addFirst(new Point(minNode.getX(), minNode.getY()));
                     minNode = minNode.getParent();
@@ -95,34 +100,31 @@ public final class AStarAlgorithm {
                 break;
             }
             List<Node> rounds = rounds(minNode, blocks, allowDiagonals);
-            for (Node round : rounds) {
-                Node parent = round.getParent();
-                Node current = new Node(round.getX(), round.getY(), parent);
-                if (blocks[round.getX()][round.getY()] == 0) {
+            for (Node current : rounds) {
+                if (blocks[current.getX()][current.getY()] == 0) {
                     checked.add(current);
                     continue;
-                } else if (checked.contains(round)) {
+                } else if (checked.contains(current)) {
                     continue;
                 }
+                Node parent = current.getParent();
                 int cost = (parent.getX() == current.getX() || parent.getY() == current.getY()) ? COST_STRAIGHT : COST_DIAGONAL;
                 int index;
-                if ((index = openList.indexOf(round)) != -1) {
-                    if ((parent.getG() + cost) < openList.get(index).getG()) {
-                        current.setParent(parent);
+                if ((index = opened.indexOf(current)) != -1) {
+                    if ((parent.getG() + cost) < opened.get(index).getG()) {
                         gn(current, cost);
                         fn(current);
-                        openList.set(index, current);
+                        opened.set(index, current);
                     }
                 } else {
-                    current.setParent(parent);
                     gn(current, cost);
                     hn(current, eNode);
                     fn(current);
-                    openList.add(current);
+                    opened.add(current);
                 }
             }
             checked.add(minNode);
-            Collections.sort(openList, (o1, o2) -> o1.getF() - o2.getF());
+            Collections.sort(opened, (o1, o2) -> o1.getF() - o2.getF());
         }
         return paths;
     }

@@ -62,7 +62,9 @@ public class AStarAlgorithmTest {
     }
 
     public LinkedList<Point> testFindPath(int[][] blocks) {
-        return AStarAlgorithm.find(5, 3, 13, 15, blocks, false);
+//        return AStarAlgorithm.find(5, 3, 9, 16, blocks, false);
+        return AStarAlgorithm.find(5, 3, 6, 3, blocks, false); // one step
+//        return AStarAlgorithm.find(5, 3, 5, 4, blocks, false); // unreachable
     }
 
     private void init() {
