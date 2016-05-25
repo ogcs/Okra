@@ -24,6 +24,7 @@ import java.util.Set;
 
 /**
  * Redis实现排行榜的示例
+ *
  * @author TinyZ on 2016/5/25.
  */
 public class RedisRankMain {
@@ -70,6 +71,19 @@ public class RedisRankMain {
             Set<Tuple> tuples4 = jedis.zrevrangeByScoreWithScores(rankKey, "+inf", "(80");
             // 从大到小排序, score范围[+inf, 80).  设置偏移和获取数量  可以用于实现排行榜分页显示
             Set<Tuple> tuples3 = jedis.zrevrangeByScoreWithScores(rankKey, "+inf", "(80", 2, 3);
+
+
+            //  简述实现多条件的排行榜排序
+            //  实现原理: redis支持double类型(64位). 将64位拆分用来保存不同的数据. 下面使用一个简单的例子说明.
+            //  1.根据玩家的分数和达成时间排序 =>  64位 = 分数(32位) + 时间戳(32位)
+            long userScore = 999;//  用户获得的分数
+            int timestamp = (int) (System.currentTimeMillis() / 1000); // 记录达成的时间戳
+            long redisScore = ((userScore & 0xFFFFFFFFL) << 32) | timestamp & 0xFFFFFFFFL;
+            jedis.zadd(rankKey, redisScore, "uid-x0001");
+            // 从redis获取积分信息
+            long zscore = jedis.zscore(rankKey, "uid-x0001").longValue();
+            long uTimestamp = zscore & 0xFFFFFFFFL;
+            long uScore = (zscore >> 32) & 0xFFFFFFFFL; // uScore = 999
 
             System.out.println();
         }
