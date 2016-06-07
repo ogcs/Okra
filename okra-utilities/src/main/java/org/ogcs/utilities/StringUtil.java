@@ -69,19 +69,23 @@ public final class StringUtil {
         if (isEmpty(str) || args.length <= 0) {
             return str;
         }
+        int length = str.length();
         StringBuilder sb = new StringBuilder();
         int next = 0;
         int start = 0;
-        for (int i = 0; i < str.length(); i++) {
+        for (int i = 0; i < length; i++) {
             if (str.charAt(i) == '{') {
-                for (int k = i + 1; k < str.length(); k++) {
+                int var1 = i + 1;
+                boolean hasRight = false;
+                for (int k = var1; k < length; k++) {
                     if (str.charAt(k) == '}') {
+                        hasRight = true;
                         try {
-                            int i1 = i + 1 == k ? next : Integer.parseInt(str.substring(i + 1, k));
+                            int i1 = var1 == k ? next : Integer.parseInt(str.substring(var1, k));
                             if (i1 < 0 || i1 >= args.length) {
                                 break;
                             }
-                            sb.append(str.substring(start, i));
+                            sb.append(str.substring(start, var1 - 1));
                             sb.append(args[i1]);
                         } catch (NumberFormatException e) {
                             break;
@@ -90,7 +94,12 @@ public final class StringUtil {
                         start = k + 1;
                         i = k; // skip
                         break;
+                    } else if (str.charAt(k) == '{') {
+                        var1 = k + 1;
                     }
+                }
+                if (!hasRight) {
+                    break;
                 }
             }
         }
