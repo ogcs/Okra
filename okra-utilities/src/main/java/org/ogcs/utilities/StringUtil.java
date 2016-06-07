@@ -80,15 +80,23 @@ public final class StringUtil {
                 for (int k = var1; k < length; k++) {
                     if (str.charAt(k) == '}') {
                         hasRight = true;
-                        try {
-                            int i1 = var1 == k ? next : Integer.parseInt(str.substring(var1, k));
-                            if (i1 < 0 || i1 >= args.length) {
+                        if (var1 == k) {
+                            if (next < 0 || next >= args.length) {
                                 break;
                             }
                             sb.append(str.substring(start, var1 - 1));
-                            sb.append(args[i1]);
-                        } catch (NumberFormatException e) {
-                            break;
+                            sb.append(args[next]);
+                        } else {
+                            try {
+                                int i1 = Integer.parseInt(str.substring(var1, k));
+                                if (i1 < 0 || i1 >= args.length) {
+                                    break;
+                                }
+                                sb.append(str.substring(start, var1 - 1));
+                                sb.append(args[i1]);
+                            } catch (NumberFormatException e) {
+                                break;
+                            }
                         }
                         next++;
                         start = k + 1;
