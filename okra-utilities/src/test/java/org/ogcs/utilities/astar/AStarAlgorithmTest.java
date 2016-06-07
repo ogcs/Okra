@@ -18,6 +18,7 @@ package org.ogcs.utilities.astar;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Test;
 
 import java.util.LinkedList;
 
@@ -27,19 +28,19 @@ import java.util.LinkedList;
  * @date : 2016/5/24
  * @since 1.0
  */
-public class AStarAlgorithmTest {
+public class AStarAlgorithmTest  {
 
     @Before
     public void setUp() throws Exception {
-        init();
+//        init();
     }
 
-    public static void main(String[] args) {
-        AStarAlgorithmTest obj = new AStarAlgorithmTest();
-        obj.init();
-    }
+//    public static void main(String[] args) {
+//        AStarAlgorithmTest obj = new AStarAlgorithmTest();
+//        obj.init();
+//    }
 
-    private int[][] testInitBlocks() {
+    public int[][] testInitBlocks() {
         return new int[][]{// 地图数组
                 {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
                 {1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
@@ -62,12 +63,13 @@ public class AStarAlgorithmTest {
     }
 
     public LinkedList<Point> testFindPath(int[][] blocks) {
-//        return AStarAlgorithm.find(5, 3, 9, 16, blocks, false);
-        return AStarAlgorithm.find(5, 3, 6, 3, blocks, false); // one step
+        return AStarAlgorithm.find(5, 3, 9, 16, blocks, false);
+//        return AStarAlgorithm.find(5, 3, 6, 3, blocks, false); // one step
 //        return AStarAlgorithm.find(5, 3, 5, 4, blocks, false); // unreachable
     }
 
-    private void init() {
+    @Test
+    public void init() {
         int[][] blocks = testInitBlocks();
         int flag = -1;
         try {
