@@ -74,16 +74,15 @@ public final class StringUtil {
         int start = 0;
         for (int i = 0; i < str.length(); i++) {
             if (str.charAt(i) == '{') {
-                for (int k = i; k < str.length(); k++) {
+                for (int k = i + 1; k < str.length(); k++) {
                     if (str.charAt(k) == '}') {
                         try {
                             int i1 = i + 1 == k ? next : Integer.parseInt(str.substring(i + 1, k));
                             if (i1 < 0 || i1 >= args.length) {
                                 break;
                             }
-                            Object arg = args[i1];
                             sb.append(str.substring(start, i));
-                            sb.append(arg);
+                            sb.append(args[i1]);
                         } catch (NumberFormatException e) {
                             break;
                         }
