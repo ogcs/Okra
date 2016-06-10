@@ -28,7 +28,7 @@ import java.util.LinkedList;
  * @date : 2016/5/24
  * @since 1.0
  */
-public class AStarAlgorithmTest  {
+public class AStarAlgorithmTest {
 
     @Before
     public void setUp() throws Exception {
