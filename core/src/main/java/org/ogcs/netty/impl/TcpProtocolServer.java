@@ -20,13 +20,16 @@ import io.netty.buffer.PooledByteBufAllocator;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
+import io.netty.channel.epoll.Epoll;
+import io.netty.channel.epoll.EpollEventLoopGroup;
+import io.netty.channel.epoll.EpollServerSocketChannel;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import org.ogcs.netty.NettyBootstrap;
 
 /**
  * TcpProtocolServer make easy to create tcp server(example : Socket, HTTP and others).
- *
+ * <p>
  * The {@link #start()} method use to tcp server bind port.
  * The {@link #stop()} method use to the server shutdown.
  */
@@ -37,11 +40,28 @@ public abstract class TcpProtocolServer implements NettyBootstrap<ServerBootstra
     private EventLoopGroup childGroup;
     protected int port;
 
+    /**
+     * Is netty transport native epoll.
+     */
+    protected static boolean isEpollAvailable = false;
+
+    static {
+        isEpollAvailable = Epoll.isAvailable();
+    }
+
     @Override
     public ServerBootstrap createBootstrap() {
         bootstrap = new ServerBootstrap();
+        if (isEpollAvailable) {
+            this.parentGroup = new EpollEventLoopGroup();
+            this.childGroup = new EpollEventLoopGroup();
+            bootstrap.channel(EpollServerSocketChannel.class);
+        } else {
+            this.parentGroup = new NioEventLoopGroup();
+            this.childGroup = new NioEventLoopGroup();
+            bootstrap.channel(NioServerSocketChannel.class);
+        }
         bootstrap.group(parentGroup(), childGroup());
-        bootstrap.channel(NioServerSocketChannel.class);
         bootstrap.childHandler(newChannelInitializer());
 
         bootstrap.option(ChannelOption.ALLOCATOR, PooledByteBufAllocator.DEFAULT);
@@ -61,6 +81,7 @@ public abstract class TcpProtocolServer implements NettyBootstrap<ServerBootstra
             sb.bind(port()).sync();
         } catch (InterruptedException e) {
             e.printStackTrace();
+            stop();// shutdown
         } finally {
             // add shutdown hook
             Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
@@ -92,15 +113,10 @@ public abstract class TcpProtocolServer implements NettyBootstrap<ServerBootstra
     }
 
     public EventLoopGroup parentGroup() {
-        if (null == parentGroup)
-            parentGroup = new NioEventLoopGroup();
         return parentGroup;
     }
 
     public EventLoopGroup childGroup() {
-        if (null == childGroup) {
-            childGroup = new NioEventLoopGroup();
-        }
         return childGroup;
     }
 
