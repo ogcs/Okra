@@ -19,6 +19,8 @@ package org.ogcs.okra.example.game.persistence.provider;
 import org.apache.ibatis.jdbc.SQL;
 import org.ogcs.okra.example.game.persistence.domain.MemRole;
 
+import java.util.List;
+
 public class RoleSqlProvider {
 
     private static final String TABLE_NAME = "tb_role";
@@ -64,6 +66,16 @@ public class RoleSqlProvider {
             SET("psw=#{psw}");
             SET("timeLastLogin=#{timeLastLogin}");
             SET("ipLastLogin=#{ipLastLogin}");
+            WHERE("uid=#{uid}");
+        }}.toString();
+    }
+
+    public String updateByFieldsSql(final MemRole memRole, final List<String> fileds) {
+        return new SQL() {{
+            UPDATE(TABLE_NAME);
+            for (String filed : fileds) {
+                SET(filed + "=#{" + filed + "}");
+            }
             WHERE("uid=#{uid}");
         }}.toString();
     }

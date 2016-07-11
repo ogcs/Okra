@@ -22,8 +22,9 @@ import java.util.Date;
 import java.util.LinkedList;
 
 /**
+ * 时间日期相关应用
+ *
  * @author zzh 2013-8-19
- *         时间日期相关应用
  */
 public class DateUtil {
 
@@ -74,6 +75,9 @@ public class DateUtil {
 
     /**
      * 格式转换(日期)
+     * <pre>
+     *     DateUtil.parseTime("2016-05-23") => 1463932800000
+     * </pre>
      *
      * @param str 日期字符串, 例如“2015-01-25”
      * @return 时间戳
