@@ -8,7 +8,7 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
 
     <!-- Configure all properties files here, wildcards like *.properties are also allowed -->
-    <context:property-placeholder location="file:conf/conf.properties"/>
+    <context:property-placeholder location="file:./okra-demo/conf/conf.properties"/>
 
     <!-- The HikariCP configuration -->
     <bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
