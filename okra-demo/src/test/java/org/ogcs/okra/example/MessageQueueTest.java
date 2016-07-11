@@ -46,16 +46,25 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class MessageQueueTest {
 
+    /**
+     * {@link ConcurrentLinkedQueue}
+     */
     @Test
     public void textConcurrentLinkedQueue() {
         testQueue(new ConcurrentLinkedQueue<>());
     }
 
+    /**
+     * {@link io.netty.util.internal.MpscLinkedQueue}
+     */
     @Test
     public void textMpscLinkedQueue() {
         testQueue(PlatformDependent.<Integer>newMpscQueue());
     }
 
+    /**
+     * {@link LinkedBlockingQueue}
+     */
     @Test
     public void textBlockedLinkedQueue() {
         testQueue(new LinkedBlockingQueue<>());
@@ -67,7 +76,7 @@ public class MessageQueueTest {
 
     private void testQueue(Queue<Integer> mq) {
         int count = (length / threadCount);
-        // message queue
+        // message msgQueue
         // multiple producer
         for (int i = 0; i < threadCount; i++) {
             int index = i * count;
@@ -81,7 +90,7 @@ public class MessageQueueTest {
     }
 
     private void testQueue1(Queue<Integer> mq) {
-        // message queue
+        // message msgQueue
         // multiple producer
         for (int i = 0; i < threadCount; i++) {
             int index = i * count;
