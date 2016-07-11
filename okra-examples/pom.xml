@@ -45,6 +45,10 @@
             <artifactId>okra_utilities</artifactId>
             <version>1.0.1</version>
         </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
     </dependencies>
 
 

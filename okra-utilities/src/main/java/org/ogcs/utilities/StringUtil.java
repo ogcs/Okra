@@ -61,9 +61,9 @@ public final class StringUtil {
      *     format("aaa-{}-{{0}-{{}-bbb-{0}", "yyy", "xxx"); =>  "aaa-yyy-{yyy-{{}-bbb-yyy"
      * </pre>
      *
-     * @param str   The string
-     * @param args  The arguments
-     * @return  Returns formatted string
+     * @param str  The string
+     * @param args The arguments
+     * @return Returns formatted string
      */
     public static String format(final String str, Object... args) {
         if (isEmpty(str) || args.length <= 0) {
@@ -225,6 +225,42 @@ public final class StringUtil {
     }
 
     /**
+     * Join array elements with a string.
+     * <pre>
+     *     implode(new String[]{"a", "b", "c"}, '-') => "a-b-c"
+     * </pre>
+     * @param separator The special glue string
+     * @param array     The array of strings to implode.
+     * @return Return the joined String.
+     */
+    public static String implode(final char separator, final Object... array) {
+        return implode(array, separator);
+    }
+
+    /**
+     * Join array elements with a string.
+     * <pre>
+     *     implode(new String[]{"a", "b", "c"}, '-') => "a-b-c"
+     * </pre>
+     * @param array     The array of Object to implode.
+     * @param separator The special glue string
+     * @return Return the joined String.
+     */
+    public static String implode(final Object[] array, final char separator) {
+        if (array == null || array.length <= 0) {
+            return null;
+        }
+        final StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < array.length; i++) {
+            if (i > 0) {
+                sb.append(separator);
+            }
+            sb.append(array[i]);
+        }
+        return sb.toString();
+    }
+
+    /**
      * Check if a CharSequence is null or empty (equals "").
      *
      * @param cs The checked {@link CharSequence}
@@ -236,6 +272,7 @@ public final class StringUtil {
 
     /**
      * Return an random string
+     *
      * @param size array length
      * @param keys The key's datasource
      * @return Return an random string.
@@ -255,10 +292,10 @@ public final class StringUtil {
     /**
      * Return an string array with unique string.
      *
-     * @param size array length
-     * @param prefix   The prefix string.
-     * @param length   The completed string's length
-     * @param keys     The key's datasource
+     * @param size   array length
+     * @param prefix The prefix string.
+     * @param length The completed string's length
+     * @param keys   The key's datasource
      * @return Return an array with unique string.
      */
     public static String[] randomUniqueString(int size, String prefix, int length, String keys) {
