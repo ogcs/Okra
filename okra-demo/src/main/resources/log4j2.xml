@@ -35,9 +35,10 @@
             <AppenderRef ref="DailyFileAppender"/>
         </AsyncLogger>
         <AsyncLogger name="org.ogcs" level="INFO">
+            <AppenderRef ref="ConsoleAppender"/>
             <AppenderRef ref="DailyFileAppender"/>
         </AsyncLogger>
-        <AsyncLogger name="org.springframework" level="WARM">
+        <AsyncLogger name="org.springframework" level="ERROR">
             <AppenderRef ref="DailyFileAppender"/>
         </AsyncLogger>
 

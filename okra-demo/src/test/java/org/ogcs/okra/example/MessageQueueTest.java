@@ -53,17 +53,17 @@ public class MessageQueueTest {
 
     @Test
     public void textMpscLinkedQueue() {
-        testQueue(PlatformDependent.<Integer>newMpscQueue());
+//        testQueue(PlatformDependent.<Integer>newMpscQueue());
     }
 
     @Test
     public void textBlockedLinkedQueue() {
-        testQueue(new LinkedBlockingQueue<>());
+//        testQueue(new LinkedBlockingQueue<>());
     }
 
-    private int length = 30000;
-    private int threadCount = 16;
-    private int count = 30000;
+    private static final int length = 30;
+    private static final int threadCount = 16;
+    private static final int count = 30;
 
     private void testQueue(Queue<Integer> mq) {
         int count = (length / threadCount);

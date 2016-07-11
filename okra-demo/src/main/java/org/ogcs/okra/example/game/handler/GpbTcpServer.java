@@ -17,6 +17,7 @@
 package org.ogcs.okra.example.game.handler;
 
 import io.netty.channel.ChannelHandler;
+import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.nio.NioSocketChannel;
@@ -24,20 +25,33 @@ import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 import io.netty.handler.codec.LengthFieldPrepender;
 import io.netty.handler.codec.protobuf.ProtobufDecoder;
 import io.netty.handler.codec.protobuf.ProtobufEncoder;
+import org.ogcs.netty.handler.mq.LogicProcessor;
 import org.ogcs.netty.impl.TcpProtocolServer;
 import org.ogcs.okra.example.game.generated.Gpb.Request;
 
+import java.util.concurrent.Executors;
+
+@Sharable
 public class GpbTcpServer extends TcpProtocolServer {
 
-    public GpbTcpServer(int port) {
-        setPort(port);
-    }
-
-    private static final ChannelHandler FRAME_PREPENDER = new LengthFieldPrepender(4, false);
+    private static final ChannelHandler FRAME_PREPENDER = new LengthFieldPrepender(2, false);
 
     private static final ChannelHandler GPB_DECODER_HANDLER = new ProtobufDecoder(Request.getDefaultInstance());
 
     private static final ChannelHandler GPB_ENCODER_HANDLER = new ProtobufEncoder();
+
+    private ChannelHandler serverHandler;
+
+    public GpbTcpServer(int port) {
+        setPort(port);
+
+        LogicProcessor processor = new LogicProcessor();
+        Thread thread = Executors.defaultThreadFactory().newThread(processor);
+        thread.setName("Logic-Processor");
+        thread.start();
+
+        serverHandler = new ServerHandler2(processor);
+    }
 
     @Override
     protected ChannelHandler newChannelInitializer() {
@@ -49,7 +63,9 @@ public class GpbTcpServer extends TcpProtocolServer {
                 cp.addLast("prepender", FRAME_PREPENDER);
                 cp.addLast("decoder", GPB_DECODER_HANDLER);
                 cp.addLast("encoder", GPB_ENCODER_HANDLER);
-                cp.addLast("handler", new ServerHandler());
+                // handler
+                cp.addLast("handler", serverHandler);
+//                cp.addLast("handler", new ServerHandler());
             }
         };
     }
