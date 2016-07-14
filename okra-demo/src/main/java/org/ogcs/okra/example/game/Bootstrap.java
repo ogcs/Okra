@@ -29,8 +29,15 @@ public class Bootstrap {
 
     public static void main(String[] args) {
         LOG.info("PreBootstrap server.");
-        ClassPathXmlApplicationContext cpac = new ClassPathXmlApplicationContext("classpath:spring/beans.xml");
-        cpac.registerShutdownHook();
-        LOG.info("Server bootstrap successful.");
+        ClassPathXmlApplicationContext context = null;
+        try {
+            context = new ClassPathXmlApplicationContext("classpath:spring/beans.xml");
+            context.registerShutdownHook();
+            LOG.info("Server bootstrap successful.");
+        } catch (Exception e) {
+            if (context != null)
+                context.close();
+            LOG.error("Server bootstrap failure.", e);
+        }
     }
 }
