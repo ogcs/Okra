@@ -53,6 +53,10 @@ public class Role implements Connector {
         roleMapper.update(memRole);
     }
 
+    public String table() {
+        return null;
+    }
+
     @Override
     public boolean isConnected() {
         return session != null && session.isOnline();
