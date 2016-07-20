@@ -42,7 +42,11 @@
     <import resource="server-beans.xml"/>
 
     <!-- Mybatis Persistence beans -->
-    <import resource="mybatis-beans.xml"/>
+    <!--<import resource="mybatis-beans.xml"/>-->
+    <bean id="mybatisScanner" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="org.ogcs.okra.example.game.persistence.mapper"/>
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+    </bean>
 
     <context:annotation-config/>
     <!--<context:component-scan base-package="org.ogcs.okra.example.game"/>-->

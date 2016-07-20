@@ -21,7 +21,9 @@ import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.UpdateProvider;
 import org.ogcs.okra.example.game.persistence.domain.MemRole;
 import org.ogcs.okra.example.game.persistence.provider.RoleSqlProvider;
+import org.springframework.stereotype.Component;
 
+@Component("roleMapper")
 public interface RoleMapper {
 
     @InsertProvider(type = RoleSqlProvider.class, method = "insertSql")
