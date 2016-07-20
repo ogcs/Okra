@@ -27,7 +27,6 @@ public class MemRole implements Serializable {
     private String account;            //  登陆账号
     private String name;               //  昵称
     private Integer figure;             //  头像
-    private String psw;                //  登陆密码
     private Long timeCreate;         //  创建账号时间  时间戳(毫秒)
     private Long timeLastLogin;      //  最后一次登录时间 时间戳(毫秒)
     private String ipCreate;           //  创建IP
@@ -63,14 +62,6 @@ public class MemRole implements Serializable {
 
     public void setFigure(Integer figure) {
         this.figure = figure;
-    }
-
-    public String getPsw() {
-        return psw;
-    }
-
-    public void setPsw(String psw) {
-        this.psw = psw;
     }
 
     public Long getTimeCreate() {
