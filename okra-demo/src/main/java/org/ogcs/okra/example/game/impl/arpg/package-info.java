@@ -14,17 +14,10 @@
  * limitations under the License.
  */
 
-package org.ogcs.okra.example.arpg;
-
 /**
- * @author TinyZ on 2016/6/10.
+ *
+ * ARPG Game Demo.
+ *
+ * @author TinyZ on 2016/6/9.
  */
-public class ArpgMain {
-
-    public static void main(String[] args) {
-
-        ArpgLogicServer server = new ArpgLogicServer(9005);
-        server.start();
-
-    }
-}
+package org.ogcs.okra.example.game.impl.arpg;

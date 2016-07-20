@@ -14,10 +14,8 @@
  * limitations under the License.
  */
 
-package org.ogcs.okra.example.arpg;
+package org.ogcs.okra.example.game.impl.arpg;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import io.netty.channel.*;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
