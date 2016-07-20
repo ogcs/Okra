@@ -21,16 +21,42 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Type;
+
 /**
- * @author TinyZ on 2015/10/22.
+ * @author TinyZ
+ * @since 1.0
  */
 @Service("AppContext")
 public class AppContext implements ApplicationContextAware {
 
-//    public static final String
-
     private static ApplicationContext context;
 
+    /**
+     * Get bean
+     *
+     * @param beanName The bean name.
+     * @param clz      The bean class.
+     * @param <T>      The bean {@link Type}
+     * @return Return the bean
+     */
+    public static <T> T getBean(String beanName, Class<T> clz) {
+        if (null == beanName)
+            return null;
+        try {
+            return context.getBean(beanName, clz);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * Get bean
+     *
+     * @param beanName The bean name.
+     * @return Return the bean
+     */
     public static Object getBean(String beanName) {
         if (null == beanName) {
             return null;
