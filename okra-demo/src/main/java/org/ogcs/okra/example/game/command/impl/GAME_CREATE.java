@@ -44,7 +44,7 @@ public class GAME_CREATE extends AbstractCommand {
         memRole.setAccount(msgRegister.getAccount());
         memRole.setName(msgRegister.getName());
         memRole.setUid(ServerProperties.id());
-        memRole.setPsw(msgRegister.getPsw());
+//        memRole.setPsw(msgRegister.getPsw());
         //
         roleMapper.insert(memRole);
 
