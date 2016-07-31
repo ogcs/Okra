@@ -20,13 +20,16 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.ThreadFactory;
 
 /**
- * @author TinyZ on 2016/5/12.
+ *
+ * @author TinyZ
+ * @since 1.0
  */
 public class SimpleTaskService extends ScheduledThreadPoolExecutor {
 
+    private static final int COOL_POOL_SIZE = 2;
 
     public SimpleTaskService() {
-        super(4);
+        super(COOL_POOL_SIZE);
     }
 
     public SimpleTaskService(int corePoolSize) {
@@ -36,6 +39,5 @@ public class SimpleTaskService extends ScheduledThreadPoolExecutor {
     public SimpleTaskService(int corePoolSize, ThreadFactory threadFactory) {
         super(corePoolSize, threadFactory);
     }
-
 
 }

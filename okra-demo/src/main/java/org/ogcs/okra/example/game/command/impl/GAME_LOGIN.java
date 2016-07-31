@@ -35,10 +35,10 @@ public class GAME_LOGIN extends AbstractCommand {
 
         // Get role by account. Also we can cache role in memory.
         MemRole memRole = roleMapper.select(msgLogin.getAccount());
-        if (!msgLogin.getPsw().equals(memRole.getPsw())) {
-            // TODO: password is wrong
-            return;
-        }
+//        if (!msgLogin.getPsw().equals(memRole.getPsw())) {
+//            // TODO: password is wrong  验证登录
+//            return;
+//        }
 
         // TODO: do some logic content
 
