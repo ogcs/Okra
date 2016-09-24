@@ -12,38 +12,23 @@
     <artifactId>okra-examples</artifactId>
     <dependencies>
         <dependency>
-            <groupId>ogcs</groupId>
-            <artifactId>okra_core</artifactId>
-            <version>1.0.1</version>
-        </dependency>
-
-        <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
-            <version>2.4.1</version>
         </dependency>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>
-            <version>2.4.1</version>
         </dependency>
 
         <dependency>
             <groupId>com.google.protobuf</groupId>
             <artifactId>protobuf-java</artifactId>
-            <version>2.6.1</version>
             <!--<optional>true</optional>-->
         </dependency>
 <!--Jedis -->
         <dependency>
             <groupId>redis.clients</groupId>
             <artifactId>jedis</artifactId>
-            <version>2.8.0</version>
-        </dependency>
-        <dependency>
-            <groupId>ogcs</groupId>
-            <artifactId>okra_utilities</artifactId>
-            <version>1.0.1</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
