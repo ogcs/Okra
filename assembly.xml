@@ -27,10 +27,7 @@
         <moduleSet>
             <useAllReactorProjects>true</useAllReactorProjects>
             <includes>
-                <include>org.ogcs:core</include>
-                <include>org.ogcs:okra-spring</include>
-                <include>org.ogcs:okra-utilities</include>
-                <include>org.ogcs:okra-flex</include>
+                <include>org.ogcs:okra-core</include>
             </includes>
             <!--<sources>
                 <outputDirectory>sources/${artifactId}</outputDirectory>

@@ -27,6 +27,102 @@
     <artifactId>okra-core</artifactId>
     <packaging>jar</packaging>
 
+    <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
+
+    <issueManagement>
+        <system>Github Issue</system>
+        <url>https://github.com/ogcs/Okra/issues</url>
+    </issueManagement>
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+    <developers>
+        <developer>
+            <name>TinyZ.</name>
+            <email>tinyzzh815@gmail.com</email>
+        </developer>
+    </developers>
+
+    <build>
+        <plugins>
+            <!-- 设置源文件编码方式 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <!--<configuration>
+                    <defaultLibBundleDir>lib</defaultLibBundleDir>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <encoding>UTF-8</encoding>
+                </configuration>-->
+            </plugin>
+            <!-- 打包jar文件时，配置manifest文件，加入lib包的jar依赖 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.0.2</version>
+                <!--<configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <classpathPrefix>lib/</classpathPrefix>
+                            <mainClass>com.sysware.HelloWorld</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>-->
+            </plugin>
+            <!-- 拷贝依赖的jar包到lib目录 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/lib</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- 解决资源文件的编码问题 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.4</version>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+            <!-- 打包source文件为jar文件(源码，可选) -->
+            <plugin>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>2.2.1</version>
+                <configuration>
+                    <attach>true</attach>
+                    <!--<encoding>UTF-8</encoding>-->
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
     <dependencies>
         <dependency>
             <groupId>io.netty</groupId>
@@ -43,6 +139,16 @@
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.flex.blazeds</groupId>
+            <artifactId>flex-messaging-core</artifactId>
+            <version>4.7.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.flex.blazeds</groupId>
+            <artifactId>flex-messaging-common</artifactId>
+            <version>4.7.2</version>
         </dependency>
     </dependencies>
 

@@ -26,22 +26,16 @@
     </developers>
 
     <modules>
-        <module>core</module>
-        <module>okra-spring</module>
-        <module>okra-utilities</module>
-        <module>okra-flex</module>
-
-
-        <module>okra-examples</module>
-        <module>okra-demo</module>
         <module>okra-core</module>
+        <module>okra-demo</module>
+        <module>okra-examples</module>
     </modules>
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
 
-    <build>
+    <!--<build>
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -51,7 +45,7 @@
                 <artifactId>maven-assembly-plugin</artifactId>
                 <version>2.4</version>
                 <configuration>
-                    <!-- not append assembly id in release file name -->
+                    &lt;!&ndash; not append assembly id in release file name &ndash;&gt;
                     <appendAssemblyId>false</appendAssemblyId>
                     <descriptors>
                         <descriptor>assembly.xml</descriptor>
@@ -68,7 +62,7 @@
                 </executions>
             </plugin>
         </plugins>
-    </build>
+    </build>-->
 
     <dependencyManagement>
         <dependencies>

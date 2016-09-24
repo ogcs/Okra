@@ -90,12 +90,7 @@
         </dependency>
         <dependency>
             <groupId>org.ogcs</groupId>
-            <artifactId>core</artifactId>
-            <version>1.0.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.ogcs</groupId>
-            <artifactId>okra-spring</artifactId>
+            <artifactId>okra-core</artifactId>
             <version>1.0.1</version>
         </dependency>
     </dependencies>
