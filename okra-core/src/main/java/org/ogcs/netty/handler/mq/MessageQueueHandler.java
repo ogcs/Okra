@@ -30,7 +30,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * 基于同步消息队列的单生产者的Disruptor模式
  *
  * @author TinyZ.
- * @since 1.0.
+ * @since 1.0
  */
 @Sharable
 public abstract class MessageQueueHandler<O> extends SimpleChannelInboundHandler<O> {

@@ -28,9 +28,8 @@ import java.io.IOException;
 import java.util.List;
 
 /**
+ * Encode Java Object to Amf3 {@link ByteBuf}.
  * @author : TinyZ.
- * @email : tinyzzh815@gmail.com
- * @date : 2016/5/17
  * @since 1.0
  */
 @Sharable

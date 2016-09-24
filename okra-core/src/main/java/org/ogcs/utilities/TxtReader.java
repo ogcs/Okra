@@ -16,82 +16,84 @@
 
 package org.ogcs.utilities;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.io.*;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * File read utilities.
  *
- * @author tinyZ
- * @version 1.0
+ * @author TinyZ
+ * @since 1.0
  */
-public class SmallFileReader {
+public final class TxtReader {
+
+    private static final Logger LOG = LogManager.getLogger(TxtReader.class);
+
+    private TxtReader() {
+        // no-op
+    }
 
     /**
      * 读取文件
-     *
-     * @param filePath
-     * @return
-     * @throws IOException
      */
-    public static String readSmallFile(String filePath) throws IOException {
-        if ((filePath == null) || (filePath.equals(""))) {
+    public static String readFile(String path) throws IOException {
+        if ((path == null) || (path.equals(""))) {
             return null;
         }
-        File smallFile = new File(filePath);
-        return readSmallFile(smallFile);
-    }
-
-    /**
-     * 读取文件
-     *
-     * @param smallFile
-     * @return
-     * @throws IOException
-     */
-    public static String readSmallFile(File smallFile) throws IOException {
-        InputStreamReader reader = new InputStreamReader(new FileInputStream(smallFile), "UTF-8");
-        BufferedReader bufferedReader = new BufferedReader(reader);
-        StringBuffer buf = new StringBuffer();
-        String line = null;
-        while ((line = bufferedReader.readLine()) != null) {
-            buf.append(line);
-        }
-        bufferedReader.close();
-        reader.close();
-        return buf.toString();
-    }
-
-    /**
-     * 读取文件
-     *
-     * @param filePath
-     * @return
-     * @throws IOException
-     */
-    public static byte[] readFileBytes(String filePath) throws IOException {
-        if ((filePath == null) || (filePath.equals(""))) {
+        File file = new File(path);
+        if (!file.exists()) {
             return null;
         }
-        File smallFile = new File(filePath);
-        return readFileBytes(smallFile);
+        return readFile(file, Charset.forName("UTF-8"));
     }
 
     /**
      * 读取文件
-     *
-     * @param smallFile
-     * @return
-     * @throws IOException
      */
-    public static byte[] readFileBytes(File smallFile) throws IOException {
+    public static String readFile(File file, Charset charset) {
+        try (InputStreamReader reader = new InputStreamReader(new FileInputStream(file), charset);
+             BufferedReader br = new BufferedReader(reader)) {
+            StringBuilder buf = new StringBuilder();
+            String line = null;
+            while ((line = br.readLine()) != null) {
+                buf.append(line);
+            }
+            return buf.toString();
+        } catch (IOException e) {
+            LOG.error("TxtReader read file error. Path : " + file.getPath(), e);
+        }
+        return null;
+    }
+
+    /**
+     * 读取文件
+     */
+    public static byte[] readFileBytes(String path) throws IOException {
+        if ((path == null) || (path.equals(""))) {
+            return null;
+        }
+        File file = new File(path);
+        if (!file.exists()) {
+            return null;
+        }
+        return readFileBytes(file);
+    }
+
+    /**
+     * 读取文件
+     */
+    public static byte[] readFileBytes(File file) throws IOException {
         ByteArrayOutputStream ous = null;
         InputStream ios = null;
         try {
             byte[] buffer = new byte[4096];
             ous = new ByteArrayOutputStream();
-            ios = new FileInputStream(smallFile);
+            ios = new FileInputStream(file);
             int read = 0;
             while ((read = ios.read(buffer)) != -1)
                 ous.write(buffer, 0, read);
@@ -112,12 +114,12 @@ public class SmallFileReader {
     /**
      * 获取文件夹路径下的全部后缀名为suffix的文件的路径
      *
-     * @param path
-     * @param suffix
-     * @return
+     * @param path   The folder path.
+     * @param suffix The file suffix.
+     * @return Return the path of all files under the folder.
      */
     public static List<String> listFile(String path, String suffix) {
-        List<String> list = new ArrayList<String>();
+        List<String> list = new ArrayList<>();
         File file = new File(path);
         if (file.isDirectory()) {
             File[] files = file.listFiles();

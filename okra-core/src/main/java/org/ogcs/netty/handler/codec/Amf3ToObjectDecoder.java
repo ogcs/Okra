@@ -28,9 +28,8 @@ import java.io.ByteArrayInputStream;
 import java.util.List;
 
 /**
+ * Decode Amf3 {@link ByteBuf} to Java Object.
  * @author : TinyZ.
- * @email : tinyzzh815@gmail.com
- * @date : 2016/5/17
  * @since 1.0
  */
 @Sharable

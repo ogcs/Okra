@@ -35,7 +35,7 @@ import static org.ogcs.concurrent.ConcurrentEventFactory.DEFAULT;
 /**
  * Logic processor.
  * @author TinyZ.
- * @date 2016-07-04.
+ * @since 1.0
  */
 public class LogicProcessor implements Runnable {
 

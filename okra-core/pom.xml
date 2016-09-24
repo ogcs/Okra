@@ -150,6 +150,11 @@
             <artifactId>flex-messaging-common</artifactId>
             <version>4.7.2</version>
         </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
 </project>

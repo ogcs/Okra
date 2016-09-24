@@ -16,6 +16,8 @@
 
 package org.ogcs.app;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -24,13 +26,20 @@ import org.springframework.stereotype.Service;
 import java.lang.reflect.Type;
 
 /**
- * @author TinyZ
+ * Spring Application Context.
+ *
+ * @author TinyZ.
  * @since 1.0
  */
 @Service("AppContext")
-public class AppContext implements ApplicationContextAware {
+public final class AppContext implements ApplicationContextAware {
 
+    private static final Logger LOG = LogManager.getLogger(AppContext.class);
     private static ApplicationContext context;
+
+    private AppContext() {
+        // no-op
+    }
 
     /**
      * Get bean
@@ -46,13 +55,13 @@ public class AppContext implements ApplicationContextAware {
         try {
             return context.getBean(beanName, clz);
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.info("Unknown Bean Name : " + beanName + ", Class : " + clz.toString(), e);
         }
         return null;
     }
 
     /**
-     * Get bean
+     * Get bean by bean name.
      *
      * @param beanName The bean name.
      * @return Return the bean
@@ -65,7 +74,7 @@ public class AppContext implements ApplicationContextAware {
         try {
             bean = context.getBean(beanName);
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.info("Unknown Bean Name : " + beanName, e);
         }
         return bean;
     }

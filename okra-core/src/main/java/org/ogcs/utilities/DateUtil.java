@@ -22,9 +22,10 @@ import java.util.Date;
 import java.util.LinkedList;
 
 /**
- * 时间日期相关应用
+ * 时间日期相关应用(旧版本). 推荐{@link TimeV8Util}
  *
- * @author zzh 2013-8-19
+ * @author TinyZ.
+ * @since 1.0
  */
 public class DateUtil {
 
