@@ -34,8 +34,8 @@ public final class AES {
     private static final Logger LOG = LogManager.getLogger(AES.class);
     private static final String AES = "AES";
     private static String CIPHER_AES = "AES/CBC/PKCS5Padding";
-    private static byte[] DEFAULT_KEY = "DnA DoubleSpiral".getBytes();  //  16的整数倍
-    private static byte[] DEFAULT_IV = DEFAULT_KEY;
+//    private static byte[] DEFAULT_KEY = "DnA DoubleSpiral".getBytes();  //  16的整数倍
+    private static byte[] DEFAULT_IV = new byte[16];
 
     static {
         CIPHER_AES = System.getProperty("codec.cipher.aes", CIPHER_AES);
@@ -47,12 +47,12 @@ public final class AES {
 
     // ENCRYPT
 
-    public static String encryptToBase64(byte[] data) {
-        return Base64.getEncoder().encodeToString(encrypt(data));
+    public static String encryptToBase64(byte[] data, byte[] key) {
+        return Base64.getEncoder().encodeToString(encrypt(data, key));
     }
 
-    public static byte[] encrypt(byte[] data) {
-        return encrypt(CIPHER_AES, AES, data, DEFAULT_KEY, DEFAULT_IV);
+    public static byte[] encrypt(byte[] data, byte[] key) {
+        return encrypt(CIPHER_AES, AES, data, key, DEFAULT_IV);
     }
 
     public static byte[] encrypt(String cipherAes, String sks, byte[] data, byte[] key, byte[] iv) {
@@ -70,12 +70,12 @@ public final class AES {
 
     // DECRYPT
 
-    public static byte[] decryptFromBase64(String content) {
-        return decrypt(Base64.getDecoder().decode(content));
+    public static byte[] decryptFromBase64(String content, byte[] key) {
+        return decrypt(Base64.getDecoder().decode(content), key);
     }
 
-    public static byte[] decrypt(byte[] data) {
-        return decrypt(CIPHER_AES, AES, data, DEFAULT_KEY, DEFAULT_IV);
+    public static byte[] decrypt(byte[] data, byte[] key) {
+        return decrypt(CIPHER_AES, AES, data, key, DEFAULT_IV);
     }
 
     public static byte[] decrypt(String cipherAes, String sks, byte[] data, byte[] key, byte[] iv) {
