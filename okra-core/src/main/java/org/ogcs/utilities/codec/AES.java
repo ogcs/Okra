@@ -63,7 +63,7 @@ public final class AES {
             cipher.init(Cipher.ENCRYPT_MODE, keySpec, ivSpec);
             return cipher.doFinal(data);
         } catch (Exception e) {
-            LOG.warn("AES encrypt error: data : " + String.valueOf(data), e);
+            LOG.warn("AES encrypt error: data : " + new String(data), e);
             return null;
         }
     }
@@ -86,7 +86,7 @@ public final class AES {
             cipher.init(Cipher.DECRYPT_MODE, keySpec, ivSpec);
             return cipher.doFinal(data);
         } catch (Exception e) {
-            LOG.warn("AES decrypt error: data : " + String.valueOf(data), e);
+            LOG.warn("AES decrypt error: data : " + new String(data), e);
             return null;
         }
     }
