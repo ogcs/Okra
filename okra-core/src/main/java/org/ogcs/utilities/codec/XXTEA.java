@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.ogcs.utilities.security;
+package org.ogcs.utilities.codec;
 public final class XXTEA {
     private XXTEA() {}
 
