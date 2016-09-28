@@ -16,6 +16,9 @@
 
 package org.ogcs.utilities;
 
+import java.lang.reflect.Array;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -224,11 +227,64 @@ public final class StringUtil {
         return list.toArray(new String[list.size()]);
     }
 
+    public static <T> T[] splitExt(final String str, final char separator, final Class<T> clz) {
+        return splitExt(str, separator, -1, true, clz);
+    }
+
+    /**
+     * Split string by special separator char and covert String[] to T[].
+     *
+     * @param str        the String to parse
+     * @param separator  the character used as the delimiter
+     * @param max        the maximum number of elements to include in the array. A zero or negative value implies no limit
+     * @param allowEmpty is allow element is empty("").
+     * @param clz        The special
+     * @param <T>        Include primitive data types of java and Any class have valueOf(String) method. example : Integer,Short,Long,Double,Float,Boolean.....
+     * @return Return T[].
+     */
+    @SuppressWarnings("unchecked")
+    public static <T> T[] splitExt(final String str, final char separator, final int max, final boolean allowEmpty, final Class<T> clz) {
+        if (isEmpty(str)) {
+            return null;
+        }
+        final List<T> list = new ArrayList<>();
+        int start = 0;
+        for (int i = 0; i < str.length(); i++) {
+            if (str.charAt(i) == separator) {
+                if (!allowEmpty && i - start <= 0) {
+                    start = i + 1;
+                    continue;
+                }
+                list.add(parseObj(clz, str.substring(start, i)));
+                start = i + 1;
+                if (max > 1 && list.size() >= max - 1) {
+                    break;
+                }
+            }
+        }
+        if (start < str.length()) {
+            list.add(parseObj(clz, str.substring(start, str.length())));
+        }
+        return list.toArray((T[]) Array.newInstance(clz, list.size()));
+    }
+
+    @SuppressWarnings("unchecked")
+    private static <T> T parseObj(Class<T> clz, String var0) {
+        try {
+            Method method = clz.getDeclaredMethod("valueOf", String.class);
+            return (T) method.invoke(null, var0.isEmpty() ? "0" : var0);
+        } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     /**
      * Join array elements with a string.
      * <pre>
      *     implode(new String[]{"a", "b", "c"}, '-') => "a-b-c"
      * </pre>
+     *
      * @param separator The special glue string
      * @param array     The array of strings to implode.
      * @return Return the joined String.
@@ -242,6 +298,7 @@ public final class StringUtil {
      * <pre>
      *     implode(new String[]{"a", "b", "c"}, '-') => "a-b-c"
      * </pre>
+     *
      * @param array     The array of Object to implode.
      * @param separator The special glue string
      * @return Return the joined String.

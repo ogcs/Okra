@@ -141,6 +141,10 @@
             <artifactId>log4j-api</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.apache.flex.blazeds</groupId>
             <artifactId>flex-messaging-core</artifactId>
             <version>4.7.2</version>
@@ -153,7 +157,6 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <scope>test</scope>
         </dependency>
     </dependencies>
 
