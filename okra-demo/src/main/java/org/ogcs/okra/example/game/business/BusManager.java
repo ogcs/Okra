@@ -17,6 +17,7 @@
 package org.ogcs.okra.example.game.business;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -25,11 +26,40 @@ import java.util.Map;
  */
 public class BusManager {
 
-    private Map<Long, CfgBusInfo> infos = new HashMap<>();
+    private Map<Long/*busId*/, BusInfoBean> infos = new HashMap<>();
 
 
+    private Map<Integer/* event */, List<Long>/* busId */> listeners = new HashMap<>();
 
-    public void onEvent() {
+
+    public void onEvent(long uid, int event) {
+        List<Long> list = listeners.get(event);
+        if (list == null || list.isEmpty()) {
+            return;
+        }
+        for (Long regBusId : list) {
+            BusInfoBean bean = infos.get(regBusId);
+            if (bean == null) {
+                list.remove(regBusId);
+                if (list.isEmpty()) {
+                    listeners.remove(event);
+                }
+                return;
+            }
+            CfgBusTemplate template = bean.getTemplate();
+            if (template == null) {
+                template = new CfgBusTemplate(); // TODO: 获取静态模板
+            }
+
+            long now = System.currentTimeMillis();
+            if (bean.getTimeEnd() >= 0 && bean.getTimeEnd() < now) {
+
+            } else if (bean.getTimeStart() < now){
+                //
+
+            }
+        }
+
 
     }
 

@@ -20,7 +20,7 @@ package org.ogcs.okra.example.game.business;
  * @author TinyZ
  * @date 2016-09-29.
  */
-public class BusListener {
+public class CfgBusListener {
 
     private long uid;
     private long busId;

@@ -24,10 +24,10 @@ import java.util.Map;
  */
 public class CfgBusTemplate {
 
-    private int id;
+    private int tplId;
     private Integer[] events;
     private Map<Integer, Integer> targets;
     private boolean isDaily;
-    private boolean isProgressDb;
+    private boolean isPersistent;
 
 }
