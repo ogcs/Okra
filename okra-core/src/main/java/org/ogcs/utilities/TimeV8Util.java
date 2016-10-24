@@ -16,10 +16,7 @@
 
 package org.ogcs.utilities;
 
-import java.time.Duration;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 
@@ -54,6 +51,26 @@ public final class TimeV8Util {
 
     public static String date() {
         return date(LocalDate.now());
+    }
+
+    public static String date(long time) {
+        return date(time, ZoneOffset.of(defaultZoneOffset), DATE_FORMATTER);
+    }
+
+    public static String date(long time, String zone) {
+        return date(time, ZoneOffset.of(zone));
+    }
+
+    public static String date(long time, String zone, String pattern) {
+        return date(time, ZoneOffset.of(zone), DateTimeFormatter.ofPattern(pattern));
+    }
+
+    public static String date(long time, ZoneOffset offset) {
+        return date(time, offset, DATE_FORMATTER);
+    }
+
+    public static String date(long time, ZoneOffset offset, DateTimeFormatter formatter) {
+        return LocalDateTime.ofInstant(Instant.ofEpochMilli(time), offset).toLocalDate().format(formatter);
     }
 
     public static String date(LocalDate date) {
@@ -157,6 +174,26 @@ public final class TimeV8Util {
 
     public static String dateTime() {
         return dateTime(LocalDateTime.now());
+    }
+
+    public static String dateTime(long time) {
+        return dateTime(time, ZoneOffset.of(defaultZoneOffset), DATE_TIME_FORMATTER);
+    }
+
+    public static String dateTime(long time, String zone) {
+        return dateTime(time, ZoneOffset.of(zone), DATE_TIME_FORMATTER);
+    }
+
+    public static String dateTime(long time, String zone, String pattern) {
+        return dateTime(time, ZoneOffset.of(zone), DateTimeFormatter.ofPattern(pattern));
+    }
+
+    public static String dateTime(long time, ZoneOffset offset) {
+        return dateTime(time, offset, DATE_TIME_FORMATTER);
+    }
+
+    public static String dateTime(long time, ZoneOffset offset, DateTimeFormatter formatter) {
+        return LocalDateTime.ofInstant(Instant.ofEpochMilli(time), offset).format(formatter);
     }
 
     public static String dateTime(LocalDateTime dateTime) {

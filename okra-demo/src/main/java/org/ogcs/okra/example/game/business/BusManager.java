@@ -16,6 +16,8 @@
 
 package org.ogcs.okra.example.game.business;
 
+import org.ogcs.okra.example.game.bean.CfgBusTemplate;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

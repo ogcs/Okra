@@ -14,17 +14,20 @@
  * limitations under the License.
  */
 
-package org.ogcs.okra.example.game.business;
+package org.ogcs.okra.example.game.bean;
+
+import java.util.Map;
 
 /**
  * @author TinyZ
- * @date 2016-09-29.
+ * @date 2016-09-25.
  */
-public class CfgBusListener {
+public class CfgBusTemplate {
 
-    private long uid;
-    private long busId;
-    private int[] events;
-
+    private int tplId;
+    private Integer[] events;
+    private Map<Integer, Integer> targets;
+    private boolean isDaily;
+    private boolean isPersistent;
 
 }
