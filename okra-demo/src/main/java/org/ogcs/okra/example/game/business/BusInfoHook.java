@@ -18,11 +18,12 @@ package org.ogcs.okra.example.game.business;
 
 /**
  * @author TinyZ
- * @date 2016-09-26.
+ * @date 2016-10-24.
  */
-public class BusProgress {
-    public int busId;          //  唯一ID
-    public long uid;            //  角色ID
-    public long targetKey;      //  涉及进度Key名称
-    public long targetValue;    //  进度
+public class BusInfoHook {
+
+
+
+
+
 }

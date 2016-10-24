@@ -91,7 +91,13 @@
         <dependency>
             <groupId>org.ogcs</groupId>
             <artifactId>okra-core</artifactId>
-            <version>1.0.1</version>
+            <version>2.0.0</version>
+        </dependency>
+        <!-- InfluxDB -->
+        <dependency>
+            <groupId>org.influxdb</groupId>
+            <artifactId>influxdb-java</artifactId>
+            <version>2.3</version>
         </dependency>
     </dependencies>
 

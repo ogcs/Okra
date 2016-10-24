@@ -16,6 +16,8 @@
 
 package org.ogcs.okra.example.game.business;
 
+import org.ogcs.okra.example.game.bean.CfgBusTemplate;
+
 /**
  * @author TinyZ
  * @date 2016-09-29.
