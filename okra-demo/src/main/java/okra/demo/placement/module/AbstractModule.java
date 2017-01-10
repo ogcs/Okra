@@ -14,33 +14,47 @@
  * limitations under the License.
  */
 
-package org.ogcs.okra.example.game.impl.placement;
-
-import org.ogcs.app.Session;
-import org.ogcs.okra.example.game.persistence.domain.MemRole;
-import org.ogcs.okra.example.game.server.Role;
+package okra.demo.placement.module;
 
 /**
  * @author TinyZ
- * @date 2016-07-15.
+ * @date 2017-01-11.
  */
-public class PlaceRole extends Role {
+public abstract class AbstractModule implements Module {
 
-    private static final String TABLE = "t_role_place";
+    /**
+     *
+     */
+    private volatile boolean initialized = false;
 
-    private long timeLastAtk;
-    private int target;
-
-    public PlaceRole(Session session, MemRole memRole) {
-        super(session, memRole);
+    /**
+     * 初始化数据
+     */
+    @Override
+    public void init() {
+        if (initialized)
+            return;
+        load();
+        this.initialized = true;
     }
 
     @Override
-    public String table() {
-        return TABLE;
+    public void load() {
+        loadFromDB();
     }
 
+    /**
+     * 重置该数据钩子
+     */
+    @Override
+    public void dispose() {
+        clear();
+        initialized = false;
+    }
 
+    @Override
+    public void clear() {
 
+    }
 
 }

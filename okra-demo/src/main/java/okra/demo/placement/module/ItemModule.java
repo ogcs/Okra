@@ -14,13 +14,33 @@
  * limitations under the License.
  */
 
+package okra.demo.placement.module;
+
+import okra.demo.placement.bean.MemItem;
+
+import java.util.HashMap;
+import java.util.Map;
+
 /**
- *
- * 包实现各种游戏类型.
- *
- * 1. 放置类服务端
- *
  * @author TinyZ
- * @date 2016-07-15.
+ * @date 2017-01-11.
  */
-package org.ogcs.okra.example.game.impl;
+public class ItemModule extends AbstractModule {
+
+    private Map<Long, MemItem> map = new HashMap<>();
+
+    @Override
+    public int id() {
+        return 0;
+    }
+
+    @Override
+    public void loadFromDB() {
+
+    }
+
+    public MemItem getItem(long itemId) {
+        return null;
+    }
+
+}
