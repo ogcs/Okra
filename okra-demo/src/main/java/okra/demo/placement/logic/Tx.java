@@ -16,7 +16,7 @@
 
 package okra.demo.placement.logic;
 
-import okra.demo.common.mybatis.CharMapper;
+import okra.demo.placement.mybatis.CharMapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.ogcs.app.AppContext;

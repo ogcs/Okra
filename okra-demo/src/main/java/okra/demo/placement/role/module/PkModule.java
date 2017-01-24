@@ -14,27 +14,22 @@
  * limitations under the License.
  */
 
-package okra.demo.common.module.impl;
+package okra.demo.placement.role.module;
 
-import okra.demo.placement.bean.MemTarget;
-import okra.demo.common.module.AbstractModule;
-import okra.demo.common.mybatis.TargetMapper;
 import okra.demo.placement.Consts;
 import okra.demo.common.Role;
-import org.ogcs.app.AppContext;
+import okra.demo.common.module.AbstractModule;
 
 /**
- * 放置类游戏，目标只有一个，感觉玩家实力提升
+ * <pre>不在开发计划中</pre>
+ * PK开关, 记录被攻击日志， 复仇日志等
  *
  * @author TinyZ
  * @date 2017-01-13.
  */
-public class TargetModule extends AbstractModule {
+public class PkModule extends AbstractModule {
 
-    private TargetMapper targetMapper = AppContext.getBean(TargetMapper.class);
-    private MemTarget memTarget = new MemTarget();
-
-    public TargetModule(Role role) {
+    public PkModule(Role role) {
         super(role);
     }
 
@@ -45,22 +40,11 @@ public class TargetModule extends AbstractModule {
 
     @Override
     public void loadFromDB() {
-        this.memTarget = targetMapper.select(role.id());
-        if (this.memTarget == null) {
-            this.memTarget = new MemTarget();
-        }
-    }
 
-    public MemTarget getTarget() {
-        return this.memTarget;
-    }
-
-    public void setTarget(MemTarget memTarget) {
-        this.memTarget = memTarget;
     }
 
     @Override
     public void clear() {
-        this.memTarget = null;
+
     }
 }

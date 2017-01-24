@@ -16,8 +16,10 @@
 
 package okra.demo.placement.component;
 
+import okra.demo.common.annotation.PublicApi;
 import okra.demo.common.component.Component;
 import okra.demo.placement.Consts;
+import okra.demo.placement.json.JsonSession;
 import okra.demo.placement.role.PmRole;
 import okra.demo.common.Role;
 import org.ogcs.app.Session;
@@ -49,20 +51,23 @@ public class PkComponent implements Component {
     private Map<Long/* uid */, Role> roleMap = new ConcurrentHashMap<>();
     private Map<Long/* level Or score */, List<Role>> targets = new ConcurrentHashMap<>();
 
-    public void lookupTarget(Session session) {
+    @Override
+    public String id() {
+        return String.valueOf(Consts.COMPONENT_PK);
+    }
+
+    @PublicApi
+    public void lookupTarget(JsonSession session) {
         PmRole role = (PmRole) session.getConnector();
         MemAccount memAccount = role.get();
+//        targets.get()
 
     }
 
+    @PublicApi
     private void getPkTarget(int level, int range) {
 
 
     }
 
-
-    @Override
-    public String id() {
-        return String.valueOf(Consts.COMPONENT_PK);
-    }
 }

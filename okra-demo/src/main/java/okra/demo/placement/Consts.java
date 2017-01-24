@@ -29,6 +29,7 @@ public interface Consts {
 
     //  模块
     int MODULE_ITEM = 1;        //  道具模块
-    int MODULE_TARGET = 1;      //  攻击目标模块
+    int MODULE_TARGET = 2;      //  攻击目标模块
+    int MODULE_CHAR = 3;      //
 
 }

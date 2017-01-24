@@ -14,22 +14,27 @@
  * limitations under the License.
  */
 
-package okra.demo.common.module.impl;
+package okra.demo.placement.role.module;
 
-import okra.demo.placement.Consts;
 import okra.demo.common.Role;
 import okra.demo.common.module.AbstractModule;
+import okra.demo.placement.mybatis.CharMapper;
+import okra.demo.placement.mybatis.TargetMapper;
+import okra.demo.placement.Consts;
+import okra.demo.placement.bean.MemTarget;
+import org.ogcs.app.AppContext;
+import org.ogcs.okra.example.game.persistence.domain.MemChar;
 
 /**
- * <pre>不在开发计划中</pre>
- * PK开关, 记录被攻击日志， 复仇日志等
- *
  * @author TinyZ
  * @date 2017-01-13.
  */
-public class PkModule extends AbstractModule {
+public class CharModule extends AbstractModule {
 
-    public PkModule(Role role) {
+    private CharMapper charMapper = AppContext.getBean(CharMapper.class);
+    private MemChar memChar = new MemChar();
+
+    public CharModule(Role role) {
         super(role);
     }
 
@@ -40,11 +45,19 @@ public class PkModule extends AbstractModule {
 
     @Override
     public void loadFromDB() {
+        this.memChar = charMapper.select(role.id());
+    }
 
+    public MemChar getChar() {
+        return this.memChar;
+    }
+
+    public void setTarget(MemChar memChar) {
+        this.memChar = memChar;
     }
 
     @Override
     public void clear() {
-
+        this.memChar = null;
     }
 }

@@ -73,6 +73,4 @@ public interface Session extends Releasable {
      * Will be invoked when player offline.
      */
     void offline();
-
-    ProxyCallback callback();
 }

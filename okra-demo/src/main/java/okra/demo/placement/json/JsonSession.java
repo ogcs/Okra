@@ -19,6 +19,7 @@ package okra.demo.placement.json;
 import io.netty.channel.ChannelHandlerContext;
 import okra.demo.placement.ClientCallback;
 import org.ogcs.app.DefaultSession;
+import org.ogcs.app.ProxySession;
 
 import java.lang.reflect.Proxy;
 
@@ -26,7 +27,7 @@ import java.lang.reflect.Proxy;
  * @author TinyZ
  * @date 2017-01-24.
  */
-public class JsonSession extends DefaultSession {
+public class JsonSession extends DefaultSession implements ProxySession<ClientCallback> {
 
     private volatile ClientCallback callback;
 
@@ -36,7 +37,7 @@ public class JsonSession extends DefaultSession {
 
     @Override
     public ClientCallback callback() {
-        if (callback == null) {
+        if (this.callback == null) {
             this.callback = (ClientCallback) Proxy.newProxyInstance(
                     this.getClass().getClassLoader(),
                     new Class[]{ClientCallback.class},

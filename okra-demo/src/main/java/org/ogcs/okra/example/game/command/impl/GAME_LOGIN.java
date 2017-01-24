@@ -25,7 +25,7 @@ import org.ogcs.okra.example.game.persistence.domain.MemAccount;
 import org.ogcs.okra.example.game.server.DefaultRole;
 
 /**
- * Game login command
+ * Game callbackLogin command
  */
 public class GAME_LOGIN extends AbstractCommand {
 

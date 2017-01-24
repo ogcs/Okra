@@ -13,15 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package okra.demo.common.bean;
+package org.ogcs.app;
 
 /**
- * @author TinyZ
- * @date 2017-01-13.
+ * Proxy Session.
+ * <p>
+ *
+ * @param <T> The Api interface.
  */
-public class JsonRequest {
+public interface ProxySession<T> extends Session {
 
-
-
+    /**
+     * Get the api callback proxy.
+     *
+     * @return the api callback proxy.
+     */
+    T callback();
 }

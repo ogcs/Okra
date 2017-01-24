@@ -16,13 +16,14 @@
 
 package okra.demo.placement.component;
 
+import okra.demo.common.Role;
 import okra.demo.common.annotation.PublicApi;
 import okra.demo.common.component.Component;
 import okra.demo.placement.Consts;
+import okra.demo.placement.json.JsonSession;
 import okra.demo.placement.logic.Tx;
 import okra.demo.placement.role.PmRole;
-import okra.demo.common.Role;
-import org.ogcs.app.Session;
+import okra.demo.placement.role.module.CharModule;
 import org.ogcs.okra.example.game.persistence.domain.MemAccount;
 import org.ogcs.okra.example.game.persistence.domain.MemChar;
 import org.ogcs.okra.example.game.persistence.mapper.RoleMapper;
@@ -48,14 +49,23 @@ public class RoleComponent implements Component {
     @Autowired
     RoleMapper roleMapper;
 
-    @PublicApi(id = "1001")
-    public void login(Session session, String account) {
+    @Override
+    public String id() {
+        return String.valueOf(Consts.COMPONENT_ROLE);
+    }
+
+    /**
+     * 登录
+     * @param account   帐号
+     */
+    @PublicApi
+    public void login(JsonSession session, String account) {
         Role role = account2RoleMap.get(account);
         if (role == null) {
             MemAccount memAccount = roleMapper.select(account);
             if (memAccount != null) {
                 role = new PmRole(memAccount);
-
+                session.callback().callbackLogin(memAccount);
             }
         }
         if (role == null) {
@@ -64,23 +74,29 @@ public class RoleComponent implements Component {
         }
         session.setConnector(role);
 
-//        session.writeAndFlush();
     }
 
-    public void createRole(Session session, long uid) {
+    /**
+     * 创建角色
+     * @param uid   唯一uid
+     */
+    @PublicApi
+    public void createRole(JsonSession session, long uid) {
         PmRole role = (PmRole) session.getConnector();
-        MemChar memChar = Tx.INSTANCE.createChar(role.id(), "", 1);
-        if (memChar == null) {
-            //  创建角色失败
+        MemChar memChar = null;
+        CharModule module = role.getModule(Consts.MODULE_CHAR);
+        if (module == null) {
+
             return;
         }
+        memChar = module.getChar();
+        if (memChar == null) {
+            memChar = Tx.INSTANCE.createChar(role.id(), "", 1);
+        }
+        //  创建角色失败
+        if (memChar == null) {
 
-
-    }
-
-
-    @Override
-    public String id() {
-        return String.valueOf(Consts.COMPONENT_ROLE);
+        }
+        session.callback().callbackCreateRole(memChar);
     }
 }
