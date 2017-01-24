@@ -16,23 +16,17 @@
 
 package okra.demo.placement.component;
 
-import okra.demo.common.Consts;
+import okra.demo.placement.Consts;
 import okra.demo.common.annotation.PublicApi;
 import okra.demo.common.component.Component;
-import okra.demo.common.module.Module;
 import okra.demo.common.module.impl.ItemModule;
-import okra.demo.common.mybatis.ItemMapper;
 import okra.demo.placement.bean.MemItem;
 import okra.demo.placement.json.JsonSession;
 import okra.demo.placement.role.PmRole;
 import org.ogcs.app.Session;
-import org.ogcs.okra.example.game.server.DefaultRole;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author TinyZ
@@ -41,14 +35,9 @@ import java.util.concurrent.ConcurrentHashMap;
 @Service
 public class ItemComponent implements Component {
 
-    @Autowired
-    ItemMapper itemMapper;
-
-    private final Map<Long, DefaultRole> roleMap = new ConcurrentHashMap<>();
-
     @Override
     public String id() {
-        return null;
+        return String.valueOf(Consts.COMPONENT_ITEM);
     }
 
     @PublicApi
@@ -69,8 +58,7 @@ public class ItemComponent implements Component {
         }
         PmRole role = (PmRole) session.getConnector();
         ItemModule module = role.getModule(Consts.MODULE_ITEM);
-        MemItem item = module.getItem(itemId);
-        if (!module.delete(itemId, count)) {
+        if (module == null || !module.delete(itemId, count)) {
             ((JsonSession)session).callback().callbackUseItem(-1, itemId, count);
         }
         ((JsonSession)session).callback().callbackUseItem(0, itemId, count);

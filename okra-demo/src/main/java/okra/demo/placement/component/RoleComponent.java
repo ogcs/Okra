@@ -18,6 +18,7 @@ package okra.demo.placement.component;
 
 import okra.demo.common.annotation.PublicApi;
 import okra.demo.common.component.Component;
+import okra.demo.placement.Consts;
 import okra.demo.placement.logic.Tx;
 import okra.demo.placement.role.PmRole;
 import okra.demo.common.Role;
@@ -80,6 +81,6 @@ public class RoleComponent implements Component {
 
     @Override
     public String id() {
-        return null;
+        return String.valueOf(Consts.COMPONENT_ROLE);
     }
 }

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package okra.demo.placement.component;
+package okra.demo.placement;
 
 import okra.demo.placement.bean.MemItem;
 import org.ogcs.app.ProxyCallback;

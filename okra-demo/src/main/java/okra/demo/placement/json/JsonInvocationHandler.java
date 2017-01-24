@@ -17,7 +17,6 @@
 package okra.demo.placement.json;
 
 import com.alibaba.fastjson.JSON;
-import okra.demo.placement.json.JsonRequest;
 import org.ogcs.app.Session;
 
 import java.lang.reflect.InvocationHandler;
