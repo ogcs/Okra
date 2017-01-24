@@ -17,10 +17,10 @@
 package org.ogcs.app;
 
 /**
+ * 回调代理.
  * @author TinyZ
  * @date 2017-01-24.
+ * @since 1.0
  */
-public interface ProxyCallback {
-
-
+public interface ProxyCallback<T> {
 }

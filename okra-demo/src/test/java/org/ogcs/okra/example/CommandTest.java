@@ -20,7 +20,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.ogcs.app.AppContext;
 import okra.demo.placement.bean.MemItem;
-import okra.demo.common.mybatis.ItemMapper;
+import okra.demo.placement.mybatis.ItemMapper;
 import org.ogcs.okra.example.game.command.impl.DO_ACTION;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.ClassPathXmlApplicationContext;

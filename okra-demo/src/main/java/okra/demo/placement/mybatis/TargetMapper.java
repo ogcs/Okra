@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package okra.demo.common.mybatis;
+package okra.demo.placement.mybatis;
 
 import okra.demo.placement.bean.MemTarget;
 import org.apache.ibatis.annotations.Insert;

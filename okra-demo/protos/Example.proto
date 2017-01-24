@@ -5,14 +5,14 @@ option java_package = "org.ogcs.okra.example.game.generated";
 
 option java_outer_classname = "Example";
 
-// message login
+// message callbackLogin
 message MsgLogin {
-    required string account = 1; //  The login account
+    required string account = 1; //  The callbackLogin account
     required string psw = 2; //  The password
 }
 // message register
 message MsgRegister {
     required string account = 1; //  register account
-    required string psw = 2; //  role's login password
+    required string psw = 2; //  role's callbackLogin password
     required string name = 3; //  role's name
 }

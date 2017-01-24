@@ -19,6 +19,7 @@ package okra.demo.common.module;
 import okra.demo.common.Role;
 
 /**
+ * 抽象模块.
  * @author TinyZ
  * @date 2017-01-11.
  */

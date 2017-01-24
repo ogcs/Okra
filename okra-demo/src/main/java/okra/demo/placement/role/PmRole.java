@@ -16,8 +16,9 @@
 
 package okra.demo.placement.role;
 
-import okra.demo.common.module.impl.ItemModule;
-import okra.demo.common.module.impl.TargetModule;
+import okra.demo.placement.role.module.CharModule;
+import okra.demo.placement.role.module.ItemModule;
+import okra.demo.placement.role.module.TargetModule;
 import org.ogcs.app.Session;
 import org.ogcs.okra.example.game.persistence.domain.MemAccount;
 import org.ogcs.okra.example.game.server.DefaultRole;
@@ -48,6 +49,7 @@ public class PmRole extends DefaultRole {
 
     @Override
     public void lazyLoad() {
+        registerModule(new CharModule(this));
         registerModule(new ItemModule(this));
         registerModule(new TargetModule(this));
         super.lazyLoad();

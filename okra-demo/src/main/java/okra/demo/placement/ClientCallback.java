@@ -17,15 +17,22 @@
 package okra.demo.placement;
 
 import okra.demo.placement.bean.MemItem;
-import org.ogcs.app.ProxyCallback;
+import org.ogcs.okra.example.game.persistence.domain.MemAccount;
+import org.ogcs.okra.example.game.persistence.domain.MemChar;
 
 /**
  * @author TinyZ
  * @date 2017-01-24.
  */
-public interface ClientCallback extends ProxyCallback{
+public interface ClientCallback {
 
+    void callbackLogin(MemAccount memAccount);
+
+    void callbackCreateRole(MemChar memChar);
 
     void callbackShowBag(MemItem[] items);
+
     void callbackUseItem(int ret, long itemId, int count);
+
+
 }

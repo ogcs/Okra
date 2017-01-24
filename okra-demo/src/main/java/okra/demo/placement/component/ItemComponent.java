@@ -19,7 +19,7 @@ package okra.demo.placement.component;
 import okra.demo.placement.Consts;
 import okra.demo.common.annotation.PublicApi;
 import okra.demo.common.component.Component;
-import okra.demo.common.module.impl.ItemModule;
+import okra.demo.placement.role.module.ItemModule;
 import okra.demo.placement.bean.MemItem;
 import okra.demo.placement.json.JsonSession;
 import okra.demo.placement.role.PmRole;
@@ -29,6 +29,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
+ * 道具组件
  * @author TinyZ
  * @date 2017-01-13.
  */
@@ -40,16 +41,24 @@ public class ItemComponent implements Component {
         return String.valueOf(Consts.COMPONENT_ITEM);
     }
 
+    /**
+     * 显示背包信息
+     */
     @PublicApi
-    public void showAllItem(Session session) {
+    public void showAllItem(JsonSession session) {
         PmRole role = (PmRole) session.getConnector();
         ItemModule module = role.getModule(Consts.MODULE_ITEM);
         if (module != null) {
             List<MemItem> all = module.getAll();
-            ((JsonSession) session).callback().callbackShowBag(all.toArray(new MemItem[all.size()]));
+            session.callback().callbackShowBag(all.toArray(new MemItem[all.size()]));
         }
     }
 
+    /**
+     * 使用道具
+     * @param itemId    道具唯一ID
+     * @param count     道具数量
+     */
     @PublicApi
     public void useItem(Session session, long itemId, int count) {
         if (itemId <= 0 ||
@@ -64,6 +73,11 @@ public class ItemComponent implements Component {
         ((JsonSession)session).callback().callbackUseItem(0, itemId, count);
     }
 
+    /**
+     * 购买道具
+     * @param cfgShopId 配置表ID
+     * @param amount    购买数量
+     */
     @PublicApi
     public void buyItem(Session session, int cfgShopId,int amount) {
         if (cfgShopId <= 0 ||

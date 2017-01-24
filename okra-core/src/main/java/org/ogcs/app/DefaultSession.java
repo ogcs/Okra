@@ -89,9 +89,4 @@ public class DefaultSession implements Session {
             connector = null;
         }
     }
-
-    @Override
-    public ProxyCallback callback() {
-        throw new UnsupportedOperationException("callback");
-    }
 }

@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package okra.demo.common.module.impl;
+package okra.demo.placement.role.module;
 
 import okra.demo.placement.bean.MemItem;
 import okra.demo.common.module.AbstractModule;
-import okra.demo.common.mybatis.ItemMapper;
+import okra.demo.placement.mybatis.ItemMapper;
 import okra.demo.placement.Consts;
 import okra.demo.common.Role;
 import org.ogcs.app.AppContext;
