@@ -21,8 +21,8 @@ import org.ogcs.okra.example.game.command.AbstractCommand;
 import org.ogcs.okra.example.game.generated.Example;
 import org.ogcs.okra.example.game.generated.Gpb;
 import org.ogcs.okra.example.game.generated.Gpb.Request;
-import org.ogcs.okra.example.game.persistence.domain.MemRole;
-import org.ogcs.okra.example.game.server.Role;
+import org.ogcs.okra.example.game.persistence.domain.MemAccount;
+import org.ogcs.okra.example.game.server.DefaultRole;
 
 /**
  * Game login command
@@ -34,15 +34,15 @@ public class GAME_LOGIN extends AbstractCommand {
         Example.MsgLogin msgLogin = Example.MsgLogin.parseFrom(request.getData());
 
         // Get role by account. Also we can cache role in memory.
-        MemRole memRole = roleMapper.select(msgLogin.getAccount());
-//        if (!msgLogin.getPsw().equals(memRole.getPsw())) {
+        MemAccount memAccount = roleMapper.select(msgLogin.getAccount());
+//        if (!msgLogin.getPsw().equals(memAccount.getPsw())) {
 //            // TODO: password is wrong  验证登录
 //            return;
 //        }
 
         // TODO: do some logic content
 
-        Role player = new Role(session, memRole);
+        DefaultRole player = new DefaultRole(session, memAccount);
         // session set player.
         // The player's function disconnect()  will be invoked, When the session is inactive.
         session.setConnector(player);

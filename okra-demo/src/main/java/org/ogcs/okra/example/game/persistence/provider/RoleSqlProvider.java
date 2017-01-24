@@ -17,7 +17,7 @@
 package org.ogcs.okra.example.game.persistence.provider;
 
 import org.apache.ibatis.jdbc.SQL;
-import org.ogcs.okra.example.game.persistence.domain.MemRole;
+import org.ogcs.okra.example.game.persistence.domain.MemAccount;
 
 import java.util.List;
 
@@ -41,7 +41,7 @@ public class RoleSqlProvider {
         }}.toString();
     }
 
-    public String insertSql(final MemRole memRole) {
+    public String insertSql(final MemAccount memAccount) {
         return new SQL() {{
             INSERT_INTO(TABLE_NAME);
             VALUES("uid", "#{uid}");
@@ -70,7 +70,7 @@ public class RoleSqlProvider {
         }}.toString();
     }
 
-    public String updateByFieldsSql(final MemRole memRole, final List<String> fileds) {
+    public String updateByFieldsSql(final MemAccount memAccount, final List<String> fileds) {
         return new SQL() {{
             UPDATE(TABLE_NAME);
             for (String filed : fileds) {

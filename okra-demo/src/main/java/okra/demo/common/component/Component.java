@@ -14,33 +14,13 @@
  * limitations under the License.
  */
 
-package okra.demo.placement.module;
-
-import okra.demo.placement.bean.MemItem;
-
-import java.util.HashMap;
-import java.util.Map;
+package okra.demo.common.component;
 
 /**
  * @author TinyZ
- * @date 2017-01-11.
+ * @date 2017-01-19.
  */
-public class ItemModule extends AbstractModule {
+public interface Component {
 
-    private Map<Long, MemItem> map = new HashMap<>();
-
-    @Override
-    public int id() {
-        return 0;
-    }
-
-    @Override
-    public void loadFromDB() {
-
-    }
-
-    public MemItem getItem(long itemId) {
-        return null;
-    }
-
+    String id();
 }

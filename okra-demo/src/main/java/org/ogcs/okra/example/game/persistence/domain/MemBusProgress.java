@@ -17,13 +17,14 @@
 package org.ogcs.okra.example.game.persistence.domain;
 
 /**
+ * 任务/活动进度
  * @author TinyZ
  * @date 2016-09-26.
  */
 public class MemBusProgress {
 
     private long uid;            //  角色ID
-    private int busId;          //  唯一ID
+    private int busId;           //  唯一ID
     private long targetKey;      //  涉及进度Key名称
     private long targetValue;    //  进度
 

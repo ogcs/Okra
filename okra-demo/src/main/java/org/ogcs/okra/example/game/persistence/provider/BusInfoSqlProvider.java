@@ -34,6 +34,14 @@ public class BusInfoSqlProvider {
         }}.toString();
     }
 
+    public String selectByEventSql(final long uid, final long event) {
+        return new SQL() {{
+            SELECT("*");
+            FROM(TABLE_NAME);
+            WHERE("uid=#{uid} AND event=#{event}");
+        }}.toString();
+    }
+
     public String insertSql(final MemBusInfo memBusInfo) {
         return new SQL() {{
             INSERT_INTO(TABLE_NAME);

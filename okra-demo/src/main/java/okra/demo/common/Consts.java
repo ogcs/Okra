@@ -14,30 +14,16 @@
  * limitations under the License.
  */
 
-package okra.demo.placement.module;
+package okra.demo.common;
 
 /**
- * 角色模块. 一个角色除了基础的角色信息外，还携带很多额外的可扩展的模块组.
- * 模块组用于装载和管理角色的扩展数据. 例如：道具,好友，任务等等
- *
  * @author TinyZ
- * @date 2017-01-11.
+ * @date 2017-01-14.
  */
-public interface Module {
+public interface Consts {
 
-    /**
-     * Every module has an unique id.
-     * @return The module's unique id.
-     */
-    int id();
+    //  模块
+    int MODULE_ITEM = 1;        //  道具模块
+    int MODULE_TARGET = 1;      //  攻击目标模块
 
-    void init();
-
-    void load();
-
-    void loadFromDB();
-
-    void dispose();
-
-    void clear();
 }

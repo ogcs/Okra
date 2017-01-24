@@ -17,12 +17,12 @@
 package org.ogcs.okra.example.game.persistence.mapper;
 
 import org.apache.ibatis.annotations.InsertProvider;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.UpdateProvider;
 import org.ogcs.okra.example.game.persistence.domain.MemBusInfo;
 import org.ogcs.okra.example.game.persistence.domain.MemBusListener;
 import org.ogcs.okra.example.game.persistence.provider.BusInfoSqlProvider;
-import org.ogcs.okra.example.game.persistence.provider.BusListenerSqlProvider;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -37,15 +37,15 @@ public interface BusInfoMapper {
     void insert(MemBusInfo memBusInfo);
 
     @SelectProvider(type = BusInfoSqlProvider.class, method = "selectByEventSql")
-    MemBusListener selectByEvent(long uid, int event);
+    MemBusListener selectByEvent(@Param("uid") long uid, @Param("event") int event);
 
     @UpdateProvider(type = BusInfoSqlProvider.class, method = "updateSql")
     void update(MemBusInfo memBusInfo);
 
     @UpdateProvider(type = BusInfoSqlProvider.class, method = "deleteSql")
-    void delete(long uid, int busId);
+    void delete(@Param("uid") long uid, @Param("busId") int busId);
 
     @UpdateProvider(type = BusInfoSqlProvider.class, method = "deleteByListSql")
-    void deleteBatch(long uid, List<Integer> list);
+    void deleteBatch(@Param("uid") long uid, @Param("list") List<Integer> list);
 
 }

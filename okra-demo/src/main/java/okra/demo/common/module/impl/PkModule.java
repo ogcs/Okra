@@ -14,18 +14,37 @@
  * limitations under the License.
  */
 
-package org.ogcs.okra.example.game.impl.placement;
+package okra.demo.common.module.impl;
+
+import okra.demo.common.Consts;
+import okra.demo.common.Role;
+import okra.demo.common.module.AbstractModule;
 
 /**
- * 放置类
+ * <pre>不在开发计划中</pre>
+ * PK开关, 记录被攻击日志， 复仇日志等
+ *
  * @author TinyZ
- * @date 2016-07-15.
+ * @date 2017-01-13.
  */
-public class Placement {
+public class PkModule extends AbstractModule {
 
-    private int target;
+    public PkModule(Role role) {
+        super(role);
+    }
 
+    @Override
+    public int id() {
+        return Consts.MODULE_TARGET;
+    }
 
+    @Override
+    public void loadFromDB() {
 
+    }
 
+    @Override
+    public void clear() {
+
+    }
 }

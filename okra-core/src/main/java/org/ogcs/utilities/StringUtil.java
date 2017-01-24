@@ -293,6 +293,19 @@ public final class StringUtil {
         return implode(array, separator);
     }
 
+    public static String implode(final char separator, final List<Object> list) {
+        if (list == null || list.isEmpty())
+            return "";
+        final StringBuilder sb = new StringBuilder();
+        for (Object obj : list) {
+            if (sb.length() > 0) {
+                sb.append(separator);
+            }
+            sb.append(obj);
+        }
+        return sb.toString();
+    }
+
     /**
      * Join array elements with a string.
      * <pre>

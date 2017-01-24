@@ -34,6 +34,11 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.ogcs</groupId>
+            <artifactId>okra-core</artifactId>
+            <version>2.0.0</version>
+        </dependency>
     </dependencies>
 
 

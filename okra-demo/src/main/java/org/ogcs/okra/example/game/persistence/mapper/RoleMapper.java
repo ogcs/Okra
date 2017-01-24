@@ -19,7 +19,7 @@ package org.ogcs.okra.example.game.persistence.mapper;
 import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.UpdateProvider;
-import org.ogcs.okra.example.game.persistence.domain.MemRole;
+import org.ogcs.okra.example.game.persistence.domain.MemAccount;
 import org.ogcs.okra.example.game.persistence.provider.RoleSqlProvider;
 import org.springframework.stereotype.Component;
 
@@ -27,17 +27,17 @@ import org.springframework.stereotype.Component;
 public interface RoleMapper {
 
     @InsertProvider(type = RoleSqlProvider.class, method = "insertSql")
-    void insert(MemRole memRole);
+    void insert(MemAccount memAccount);
 
     @UpdateProvider(type = RoleSqlProvider.class, method = "deleteSql")
     void delete(long uid);
 
     @UpdateProvider(type = RoleSqlProvider.class, method = "updateSql")
-    MemRole update(MemRole memRole);
+    MemAccount update(MemAccount memAccount);
 
     @SelectProvider(type = RoleSqlProvider.class, method = "selectSql")
-    MemRole select(String account);
+    MemAccount select(String account);
 
     @SelectProvider(type = RoleSqlProvider.class, method = "selectByUidSql")
-    MemRole selectByUid(long uid);
+    MemAccount selectByUid(long uid);
 }

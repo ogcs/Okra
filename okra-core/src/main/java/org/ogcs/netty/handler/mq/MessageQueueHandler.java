@@ -63,8 +63,6 @@ public abstract class MessageQueueHandler<O> extends SimpleChannelInboundHandler
         }
     }
 
-    protected abstract Executor newExecutor(Session session, O msg);
-
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
         UUID uuid = CHANNEL_UUID.remove(ctx.channel());
@@ -73,6 +71,8 @@ public abstract class MessageQueueHandler<O> extends SimpleChannelInboundHandler
         }
         super.channelInactive(ctx);
     }
+
+    protected abstract Executor newExecutor(Session session, O msg);
 
     protected void sessionInactive(Session session) {
         if (null != session) {

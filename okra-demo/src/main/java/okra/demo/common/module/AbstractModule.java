@@ -14,7 +14,9 @@
  * limitations under the License.
  */
 
-package okra.demo.placement.module;
+package okra.demo.common.module;
+
+import okra.demo.common.Role;
 
 /**
  * @author TinyZ
@@ -22,10 +24,12 @@ package okra.demo.placement.module;
  */
 public abstract class AbstractModule implements Module {
 
-    /**
-     *
-     */
+    protected final Role role;
     private volatile boolean initialized = false;
+
+    public AbstractModule(Role role) {
+        this.role = role;
+    }
 
     /**
      * 初始化数据
@@ -43,18 +47,12 @@ public abstract class AbstractModule implements Module {
         loadFromDB();
     }
 
-    /**
-     * 重置该数据钩子
-     */
+
     @Override
     public void dispose() {
         clear();
         initialized = false;
     }
 
-    @Override
-    public void clear() {
-
-    }
-
+    public abstract void clear();
 }

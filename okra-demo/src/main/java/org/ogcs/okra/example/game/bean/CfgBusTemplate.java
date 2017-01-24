@@ -30,4 +30,43 @@ public class CfgBusTemplate {
     private boolean isDaily;
     private boolean isPersistent;
 
+    public int getTplId() {
+        return tplId;
+    }
+
+    public void setTplId(int tplId) {
+        this.tplId = tplId;
+    }
+
+    public Integer[] getEvents() {
+        return events;
+    }
+
+    public void setEvents(Integer[] events) {
+        this.events = events;
+    }
+
+    public Map<Integer, Integer> getTargets() {
+        return targets;
+    }
+
+    public void setTargets(Map<Integer, Integer> targets) {
+        this.targets = targets;
+    }
+
+    public boolean isDaily() {
+        return isDaily;
+    }
+
+    public void setDaily(boolean daily) {
+        isDaily = daily;
+    }
+
+    public boolean isPersistent() {
+        return isPersistent;
+    }
+
+    public void setPersistent(boolean persistent) {
+        isPersistent = persistent;
+    }
 }

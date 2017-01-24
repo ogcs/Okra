@@ -16,44 +16,33 @@
 
 package okra.demo.placement;
 
-import org.ogcs.okra.example.game.persistence.domain.MemRole;
-import org.ogcs.okra.example.game.persistence.mapper.ExampleMapper;
+import okra.demo.placement.component.ItemComponent;
+import okra.demo.placement.component.PkComponent;
+import okra.demo.placement.component.RoleComponent;
+import okra.demo.placement.manager.ServiceManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * 放置类
- *
  * @author TinyZ
- * @date 2016-07-15.
+ * @date 2017-01-22.
  */
-@Service("placement")
+@Service
 public class Placement {
 
-    private int target;
-
     @Autowired
-    private ExampleMapper exampleMapper;
-
-    public Placement() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(3000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                initialize();
-            }
-        }).start();
-    }
+    PlacementServer server;
 
     public void initialize() {
-        MemRole memRole = exampleMapper.select("");
-
-        System.out.println();
+        //  初始化服务
+        server.initialize();
+        //  启动服务器
+        server.start();
     }
+
+
+
+
 
 
 }

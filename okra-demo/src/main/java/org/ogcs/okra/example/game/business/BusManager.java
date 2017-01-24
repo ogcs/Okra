@@ -17,6 +17,8 @@
 package org.ogcs.okra.example.game.business;
 
 import org.ogcs.okra.example.game.bean.CfgBusTemplate;
+import org.ogcs.okra.example.game.persistence.mapper.BusProgressMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.HashMap;
 import java.util.List;
@@ -30,9 +32,7 @@ public class BusManager {
 
     private Map<Long/*busId*/, BusInfoBean> infos = new HashMap<>();
 
-
     private Map<Integer/* event */, List<Long>/* busId */> listeners = new HashMap<>();
-
 
     public void onEvent(long uid, int event) {
         List<Long> list = listeners.get(event);
@@ -56,7 +56,7 @@ public class BusManager {
             long now = System.currentTimeMillis();
             if (bean.getTimeEnd() >= 0 && bean.getTimeEnd() < now) {
 
-            } else if (bean.getTimeStart() < now){
+            } else if (bean.getTimeStart() < now) {
                 //
 
             }
@@ -65,6 +65,66 @@ public class BusManager {
 
     }
 
+    @Autowired
+    BusProgressMapper busProgressMapper;
+
+//    public void updateProgress(DefaultRole role, int busId, CfgBusTemplate busTemplate, Map<Long, Long> data) {
+////        busTemplate.getTplId()
+////        busProgressMapper.select()
+//        Map<Integer, Integer> targets = busTemplate.getTargets();
+//
+//        Map<Long, Long> beforeProcess = role.busProgressMap.get(busId);
+//        Map<Long, Long> afterProgress = new HashMap<>();
+//
+//        if (targets != null
+//                && targets.size() > data.size()) {
+//            for (Map.Entry<Long, Long> entry : data.entrySet()) {
+//                long event = entry.getKey();
+//                long val = entry.getValue();
+//                if (targets.containsKey(event)) {
+//                    int keyType = BusLogic.eventKeyType(targets.get(event));
+//                    if (beforeProcess.containsKey(event)) {
+//                        long tempVal = beforeProcess.get(event);
+//                        switch (keyType) {
+//                            case 2:
+//                                if (val > tempVal)
+//                                    afterProgress.put(event, val);
+//                                break;
+//                            default:
+//                                afterProgress.put(event, tempVal + val);
+//                                break;
+//                        }
+//                    } else {
+//                        afterProgress.put(event, val);
+//                    }
+//                }
+//            }
+//        } else {
+//            for (Map.Entry<Integer, Integer> entry : targets.entrySet()) {
+//                int event = entry.getKey();
+//                if (data.containsKey(event)) {
+//                    Integer val = data.get(event);
+//                    int keyType = BusLogic.eventKeyType(targets.get(event));
+//                    if (beforeProcess.containsKey(event)) {
+//                        Integer tempVal = beforeProcess.get(event);
+//                        switch (keyType) {
+//                            case 2:
+//                                if (val > tempVal)
+//                                    afterProgress.put(event, val);
+//                                break;
+//                            default:
+//                                afterProgress.put(event, tempVal + val);
+//                                break;
+//                        }
+//                    } else {
+//                        afterProgress.put(event, val);
+//                    }
+//                }
+//            }
+//        }
+//
+//
+//    }
 
 
 }

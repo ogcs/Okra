@@ -1,7 +1,8 @@
 # Okra
 
-Okra是一个使用JAVA语言开发的高性能，高扩展，高并发，低延迟的简单的服务器框架。
+Okra是一个简单的使用JAVA开发的高性能，高扩展，高并发，低延迟的服务器框架。
 主要目的是帮助**中小团队**快速开发实现**网络游戏服务端**。
+本项目包含完整的MMORPG等游戏服务器的DEMO.
 
 ## Dependencies：
  1. JDK 1.8
@@ -13,7 +14,7 @@ Okra是一个使用JAVA语言开发的高性能，高扩展，高并发，低延
     <dependency>
         <groupId>io.netty</groupId>
         <artifactId>netty-all</artifactId>
-        <version>4.0.36.Final</version>
+        <version>4.1.3.Final</version>
     </dependency>
     <dependency>
         <groupId>com.lmax</groupId>
@@ -30,5 +31,5 @@ Okra是一个使用JAVA语言开发的高性能，高扩展，高并发，低延
 ## How to Contribute ?
  Fork代码之后欢迎pr.
 
-## 为什么开发Okra?
-  Just for fun ! 无聊练练手，写点东西.代码可能存在一些不成熟的地方, 欢迎反馈，我会尽快修复，完善.
+## Why ?
+ Just for fun ! 无聊练练手，写点东西.代码可能存在一些不成熟的地方, 欢迎反馈，我会尽快修复，完善.

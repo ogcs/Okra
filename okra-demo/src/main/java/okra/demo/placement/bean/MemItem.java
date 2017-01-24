@@ -17,6 +17,7 @@
 package okra.demo.placement.bean;
 
 /**
+ * 道具
  * @author TinyZ
  * @date 2017-01-11.
  */
@@ -24,7 +25,7 @@ public class MemItem {
 
     private long itemId;    //  道具唯一ID
     private int cfgItemId;  //  配置表ID
-    private int amount;     //  数量
+    private volatile int amount;     //  数量
 
     public long getItemId() {
         return itemId;

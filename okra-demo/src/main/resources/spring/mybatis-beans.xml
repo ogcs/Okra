@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mybatis="http://mybatis.org/schema/mybatis-spring"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
 
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="org.ogcs.okra.example.game.persistence.mapper" />
+    </bean>
+
     <!-- Mybatis Persistence mappers -->
-    <bean id="roleMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+    <!--<bean id="roleMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
         <property name="mapperInterface" value="org.ogcs.okra.example.game.persistence.mapper.RoleMapper"/>
         <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
-    </bean>
+    </bean>-->
 
 </beans>
