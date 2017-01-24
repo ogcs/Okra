@@ -1,0 +1,46 @@
+// This is default, but it's nice to be explicit
+option optimize_for = SPEED;
+
+option java_package = "okra.demo.placement.gpb.generated";
+
+option java_outer_classname = "Bm";
+
+//  见MemAccount
+message VoAccount {
+    optional int64 uid = 1; //  游戏的玩家唯一ID
+    optional string account = 2; //  游戏登录帐号
+    optional string openId = 3; //  接入的平台帐号或ID
+    optional int64 timeCreateAccount = 4; //  创建账号时间(单位:毫秒)
+    optional string ip = 5; //  创建IP
+    optional int64 lastLoginTime = 6; //  最后一次登录时间(单位:毫秒)
+    optional int64 lastLogoutTime = 7; //  最后一次登出时间(单位:毫秒)
+    optional string lastLoginIP = 8; //  最后一次登录ip
+}
+//  见MemRole
+message VoRole {
+    optional int64 rid = 1; // 角色ID
+    optional string name = 2; // 角色名
+    optional int32 figure = 3; // 形象
+    optional int32 status = 4; //  状态[1.普通, 2:封禁登录，3:封禁聊天， 9:封禁全部]
+    optional int32 identify = 5; //  标识[1:普通, 2:未成年, 3:游客， 9:福利账户]
+    optional int64 silver = 6; // 银币
+    optional int32 gold = 7; // 金币(充值)
+    optional int32 totalGold = 8; // 累计充值
+}
+//  见MemItem
+message VoItem {
+    optional int64 itemId = 1;
+    optional int32 cfgItemId = 2;
+    optional int32 amount = 3;
+}
+//  见MemTarget
+message VoTarget {
+    optional int32 cfgMasterId = 1;
+    optional int32 hp = 2;
+    optional int64 timeLastRwd = 3;
+}
+
+
+
+
+

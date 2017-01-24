@@ -17,6 +17,7 @@
 package org.ogcs.okra.example.game.persistence.mapper;
 
 import org.apache.ibatis.annotations.InsertProvider;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.UpdateProvider;
 import org.ogcs.okra.example.game.persistence.domain.MemBusListener;
@@ -32,11 +33,11 @@ public interface BusListenerMapper {
     List<MemBusListener> select(long uid);
 
     @SelectProvider(type = BusListenerSqlProvider.class, method = "selectByEventSql")
-    MemBusListener selectByEvent(long uid, int event);
+    MemBusListener selectByEvent(@Param("uid") long uid, @Param("event") int event);
 
     @InsertProvider(type = BusListenerSqlProvider.class, method = "insertSql")
     void insert(MemBusListener memBusListener);
 
     @UpdateProvider(type = BusListenerSqlProvider.class, method = "deleteSql")
-    void delete(long uid, int event);
+    void delete(@Param("uid") long uid, @Param("event") int event);
 }

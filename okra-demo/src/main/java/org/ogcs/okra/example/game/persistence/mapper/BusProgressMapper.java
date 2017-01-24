@@ -17,6 +17,7 @@
 package org.ogcs.okra.example.game.persistence.mapper;
 
 import org.apache.ibatis.annotations.InsertProvider;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.UpdateProvider;
 import org.ogcs.okra.example.game.persistence.domain.MemBusProgress;
@@ -38,5 +39,5 @@ public interface BusProgressMapper {
     void update(MemBusProgress memBusProgress);
 
     @UpdateProvider(type = BusProgressSqlProvider.class, method = "deleteSql")
-    void delete(long uid, int busId);
+    void delete(@Param("uid") long uid, @Param("event") int busId);
 }

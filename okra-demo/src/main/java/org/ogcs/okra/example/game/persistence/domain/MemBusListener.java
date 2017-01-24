@@ -22,9 +22,9 @@ package org.ogcs.okra.example.game.persistence.domain;
  */
 public class MemBusListener {
 
-    private long uid;               // 隐藏字段 -   redisKey
+    private long uid;       // 隐藏字段 -   redisKey
     private int event;      //  模板Id
-    private int busId;              // bus唯一ID    -     hashKey
+    private int busId;      // bus唯一ID    -     hashKey
 
     public long getUid() {
         return uid;

@@ -43,8 +43,8 @@ public class BusLogic {
      * @param key 派发事件Key
      * @return 返回Key的类型
      */
-    public static long eventKeyType(long key) {
-        return (key >> 56) & 0xffL;
+    public static int eventKeyType(long key) {
+        return (int) ((key >> 56) & 0xff);
     }
 
 

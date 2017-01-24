@@ -22,8 +22,8 @@ import org.ogcs.okra.example.game.conf.ServerProperties;
 import org.ogcs.okra.example.game.generated.Example;
 import org.ogcs.okra.example.game.generated.Gpb;
 import org.ogcs.okra.example.game.generated.Gpb.Request;
-import org.ogcs.okra.example.game.persistence.domain.MemRole;
-import org.ogcs.okra.example.game.server.Role;
+import org.ogcs.okra.example.game.persistence.domain.MemAccount;
+import org.ogcs.okra.example.game.server.DefaultRole;
 
 /**
  * create role command
@@ -35,21 +35,21 @@ public class GAME_CREATE extends AbstractCommand {
         Example.MsgRegister msgRegister = Example.MsgRegister.parseFrom(request.getData());
 
         // TODO: Get role by account
-        MemRole memRole = roleMapper.select(msgRegister.getAccount());
-        if (memRole != null) {
-            // Role is exist. Error
+        MemAccount memAccount = roleMapper.select(msgRegister.getAccount());
+        if (memAccount != null) {
+            // DefaultRole is exist. Error
             return;
         }
-        memRole = new MemRole();
-        memRole.setAccount(msgRegister.getAccount());
-        memRole.setName(msgRegister.getName());
-        memRole.setUid(ServerProperties.id());
-//        memRole.setPsw(msgRegister.getPsw());
+        memAccount = new MemAccount();
+        memAccount.setAccount(msgRegister.getAccount());
+//        memAccount.setName(msgRegister.getName());
+        memAccount.setUid(ServerProperties.id());
+//        memAccount.setPsw(msgRegister.getPsw());
         //
-        roleMapper.insert(memRole);
+        roleMapper.insert(memAccount);
 
         // TODO: do some logic content
-        Role player = new Role(session, memRole);
+        DefaultRole player = new DefaultRole(session, memAccount);
         // session set player.
         // The player's function disconnect()  will be invoked, When the session is inactive.
         session.setConnector(player);

@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
+package okra.demo.common.component;
+
 /**
- *
- * 包实现各种游戏类型.
- *
- * 1. 放置类服务端
- *
  * @author TinyZ
- * @date 2016-07-15.
+ * @date 2017-01-19.
  */
-package org.ogcs.okra.example.game.impl;
+public interface Component {
+
+    String id();
+}

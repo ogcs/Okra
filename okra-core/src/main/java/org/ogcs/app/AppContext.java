@@ -41,6 +41,17 @@ public final class AppContext implements ApplicationContextAware {
         // no-op
     }
 
+    public static <T> T getBean(Class<T> clz) {
+        if (null == clz)
+            return null;
+        try {
+            return context.getBean(clz);
+        } catch (Exception e) {
+            LOG.error(" Class : " + clz.toString(), e);
+        }
+        return null;
+    }
+
     /**
      * Get bean
      *
@@ -55,7 +66,7 @@ public final class AppContext implements ApplicationContextAware {
         try {
             return context.getBean(beanName, clz);
         } catch (Exception e) {
-            LOG.info("Unknown Bean Name : " + beanName + ", Class : " + clz.toString(), e);
+            LOG.error("Unknown Bean Name : " + beanName + ", Class : " + clz.toString(), e);
         }
         return null;
     }

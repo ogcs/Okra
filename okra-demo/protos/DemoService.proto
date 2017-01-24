@@ -1,0 +1,47 @@
+// This is default, but it's nice to be explicit
+option optimize_for = SPEED;
+
+option java_package = "okra.demo.placement.gpb.generated";
+
+option java_outer_classname = "DsProto";
+
+import "BeanMessage.proto";
+
+//  示例
+service DemoService {
+    //  登录
+    rpc login(ReqLogin) returns (CallbackLogin);
+    //  注册
+    rpc register(ReqLogin) returns (CallbackLogin);
+    //  显示包裹
+    rpc showBag(ReqShowBag) returns (CallbackShowBag);
+    //  搜寻目标
+    rpc lookupTarget(ReqLogin) returns (CallbackLogin);
+    //  PVP攻击
+    rpc pvp(ReqLogin) returns (CallbackLogin);
+}
+//
+message ReqLogin {
+    optional string account = 1; //  登录账户   -   无密码校验 - 第三方登陆管理
+}
+message CallbackLogin {
+    optional VoAccount vo = 1;
+}
+//  ITEM
+message ReqShowBag {
+}
+message CallbackShowBag {
+    repeated VoItem list=1; //
+}
+message ReqUseItem {
+    repeated int64 itemIds = 1; //  道具ID列表
+}
+message CallbackUseItem {
+    repeated int64 itemIds = 1; //  道具ID列表
+}
+
+
+
+
+
+

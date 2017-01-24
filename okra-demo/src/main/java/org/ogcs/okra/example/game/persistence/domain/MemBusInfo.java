@@ -22,16 +22,16 @@ package org.ogcs.okra.example.game.persistence.domain;
  */
 public class MemBusInfo {
 
-    private long uid;               // 隐藏字段 -   redisKey
-    private int busId;              // bus唯一ID    -     hashKey
+    private long uid;               //  隐藏字段 -   redisKey
+    private int busId;              //  bus唯一ID    -     hashKey
     private int busTemplateId;      //  模板Id
-    private String busTemplate;        //  动态模板    -   json字符串     -   结构类似于BusinessConfig中的静态模板和全局模板
-    private long timeStart;          //  开始日期时间(时间戳)
+    private String busTemplate;     //  动态模板    -   json字符串     -   结构类似于BusinessConfig中的静态模板和全局模板
+    private long timeStart;         //  开始日期时间(时间戳)
     private int timeEnd;            //  结束日期时间(时间戳)
-    private long expire;        //  过期时间(单位: 秒)
-    private String weekdays;           //  生效星期 [周日(0), .... 周六(7)]
-    private String beginTime;          //  每日生效开始时间    [ '24:00:00' ]
-    private String overTime;           //  每日生效结束时间    [ '00:00:00' ]
+    private long expire;            //  过期时间(单位: 秒)
+    private String weekdays;        //  生效星期 [周日(0), .... 周六(7)]
+    private String beginTime;       //  每日生效开始时间    [ '24:00:00' ]
+    private String overTime;        //  每日生效结束时间    [ '00:00:00' ]
 
     public long getUid() {
         return uid;
