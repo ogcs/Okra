@@ -14,13 +14,18 @@
  * limitations under the License.
  */
 
-package okra.demo.common;
+package okra.demo.placement;
 
 /**
  * @author TinyZ
  * @date 2017-01-14.
  */
 public interface Consts {
+
+    //  组件
+    int COMPONENT_ITEM = 1; //  道具
+    int COMPONENT_PK = 2;   //  PK
+    int COMPONENT_ROLE = 3; //  角色
 
     //  模块
     int MODULE_ITEM = 1;        //  道具模块

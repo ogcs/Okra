@@ -17,6 +17,7 @@
 package okra.demo.placement.component;
 
 import okra.demo.common.component.Component;
+import okra.demo.placement.Consts;
 import okra.demo.placement.role.PmRole;
 import okra.demo.common.Role;
 import org.ogcs.app.Session;
@@ -62,6 +63,6 @@ public class PkComponent implements Component {
 
     @Override
     public String id() {
-        return null;
+        return String.valueOf(Consts.COMPONENT_PK);
     }
 }

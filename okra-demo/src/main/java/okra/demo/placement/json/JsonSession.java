@@ -17,9 +17,8 @@
 package okra.demo.placement.json;
 
 import io.netty.channel.ChannelHandlerContext;
-import okra.demo.placement.component.ClientCallback;
+import okra.demo.placement.ClientCallback;
 import org.ogcs.app.DefaultSession;
-import org.ogcs.app.ProxyCallback;
 
 import java.lang.reflect.Proxy;
 

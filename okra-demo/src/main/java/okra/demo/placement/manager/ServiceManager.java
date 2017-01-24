@@ -39,7 +39,9 @@ public class ServiceManager {
     private final Map<String, Component> components = new ConcurrentHashMap<>();
     private final Map<String, Command> commands = new HashMap<>();
 
-
+    /**
+     *  注册服务
+     */
     public void registerService(Component component) {
         if (component == null) throw new NullPointerException("component");
         if (components.containsKey(component.id()))
@@ -55,6 +57,9 @@ public class ServiceManager {
         }
     }
 
+    /**
+     * 获取Command
+     */
     public Command getCommand(String api) {
         return commands.get(api);
     }

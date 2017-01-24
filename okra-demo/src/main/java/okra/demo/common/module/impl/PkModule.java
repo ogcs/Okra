@@ -16,7 +16,7 @@
 
 package okra.demo.common.module.impl;
 
-import okra.demo.common.Consts;
+import okra.demo.placement.Consts;
 import okra.demo.common.Role;
 import okra.demo.common.module.AbstractModule;
 
