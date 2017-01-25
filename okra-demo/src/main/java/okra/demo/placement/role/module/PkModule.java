@@ -16,13 +16,15 @@
 
 package okra.demo.placement.role.module;
 
-import okra.demo.placement.Consts;
 import okra.demo.common.Role;
 import okra.demo.common.module.AbstractModule;
+import okra.demo.placement.Consts;
 
 /**
+ * <zh-cn>
  * <pre>不在开发计划中</pre>
  * PK开关, 记录被攻击日志， 复仇日志等
+ * </zh-cn>
  *
  * @author TinyZ
  * @date 2017-01-13.

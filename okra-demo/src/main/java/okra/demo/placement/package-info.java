@@ -14,13 +14,12 @@
  * limitations under the License.
  */
 
-package org.ogcs.app;
-
 /**
- * 回调代理.
+ * <zh-cn>
+ * DEMO 1 : 简单的放置类游戏DEMO.
+ * </zh-cn>
+ *
  * @author TinyZ
- * @date 2017-01-24.
- * @since 1.0
+ * @date 2017-01-25.
  */
-public interface ProxyCallback<T> {
-}
+package okra.demo.placement;

@@ -18,9 +18,9 @@ package org.ogcs.concurrent;
 import com.lmax.disruptor.EventFactory;
 
 /**
+ * Default Disruptor Event Factory.
  * @author : TinyZ.
- * @email : tinyzzh815@gmail.com
- * @date : 2015/12/27
+ * @since 1.0
  */
 public final class ConcurrentEventFactory implements EventFactory<ConcurrentEvent> {
 

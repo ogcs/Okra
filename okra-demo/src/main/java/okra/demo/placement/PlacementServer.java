@@ -36,13 +36,18 @@ import org.ogcs.app.Executor;
 import org.ogcs.app.Session;
 import org.ogcs.netty.handler.DisruptorAdapterBy41xHandler;
 import org.ogcs.netty.impl.TcpProtocolServer;
-import org.ogcs.okra.example.game.generated.Gpb;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.nio.charset.Charset;
 
 /**
+ * <zh-cn>
+ * 放置类服务器.
+ * 1. 管理注册游戏逻辑API.
+ * 2. 管理Netty的Handler.
+ * </zh-cn>
+ *
  * @author TinyZ
  * @date 2017-01-13.
  */

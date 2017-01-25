@@ -17,7 +17,6 @@ package org.ogcs.okra.example.game.server;
 
 import okra.demo.common.Role;
 import okra.demo.common.module.Module;
-import org.ogcs.app.Connector;
 import org.ogcs.app.Session;
 import org.ogcs.okra.example.game.persistence.domain.MemAccount;
 import org.ogcs.okra.example.game.persistence.mapper.RoleMapper;
@@ -33,8 +32,9 @@ import java.util.concurrent.ConcurrentHashMap;
 public class DefaultRole implements Role {
 
     private static final String TABLE = "tb_role";
-
+    //  Modules
     private Map<Integer, Module> modules = new ConcurrentHashMap<>();
+    private Map<Class<? extends Module>, Module> moduleByClz = new ConcurrentHashMap<>();
 
     private RoleMapper roleMapper;
 
@@ -92,6 +92,7 @@ public class DefaultRole implements Role {
     @Override
     public void registerModule(Module module) {
         modules.put(module.id(), module);
+        moduleByClz.put(module.getClass(), module);
     }
 
     /**
@@ -100,8 +101,17 @@ public class DefaultRole implements Role {
      */
     @Override
     @SuppressWarnings("unchecked")
-    public <T extends Module> T getModule(int module) {
+    public <T extends Module> T module(int module) {
         return (T) modules.get(module);
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public <T extends Module> T module(Class<T> clz) {
+        if (!moduleByClz.containsKey(clz)) {
+            throw new IllegalStateException("Unknown Module : " + clz.getName());
+        }
+        return (T) moduleByClz.get(clz);
     }
 
     @Override

@@ -14,15 +14,11 @@
  * limitations under the License.
  */
 
-package org.ogcs.utilities.aoi;
-
 /**
- * Area Of Interest.
- *
+ * <zh-cn>
+ *     DEMO相关的通用类.
+ * </zh-cn>
  * @author TinyZ
- * @date 2016-07-12.
+ * @date 2017-01-25.
  */
-public class Aoi {
-
-
-}
+package okra.demo.common;

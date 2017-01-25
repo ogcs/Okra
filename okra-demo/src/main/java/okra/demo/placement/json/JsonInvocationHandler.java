@@ -37,6 +37,7 @@ public class JsonInvocationHandler implements InvocationHandler {
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         JsonRequest request = new JsonRequest();
+        //  TODO: id
         request.setApi(method.getName());
         request.setData(JSON.toJSONString(args));
         session.writeAndFlush(request);

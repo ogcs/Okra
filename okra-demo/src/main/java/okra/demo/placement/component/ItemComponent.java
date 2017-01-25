@@ -47,7 +47,7 @@ public class ItemComponent implements Component {
     @PublicApi
     public void showAllItem(JsonSession session) {
         PmRole role = (PmRole) session.getConnector();
-        ItemModule module = role.getModule(Consts.MODULE_ITEM);
+        ItemModule module = role.module(ItemModule.class);
         if (module != null) {
             List<MemItem> all = module.getAll();
             session.callback().callbackShowBag(all.toArray(new MemItem[all.size()]));
@@ -66,7 +66,7 @@ public class ItemComponent implements Component {
             return;
         }
         PmRole role = (PmRole) session.getConnector();
-        ItemModule module = role.getModule(Consts.MODULE_ITEM);
+        ItemModule module = role.module(Consts.MODULE_ITEM);
         if (module == null || !module.delete(itemId, count)) {
             ((JsonSession)session).callback().callbackUseItem(-1, itemId, count);
         }
@@ -85,7 +85,7 @@ public class ItemComponent implements Component {
             return;
         }
         PmRole role = (PmRole) session.getConnector();
-        ItemModule module = role.getModule(Consts.MODULE_ITEM);
+        ItemModule module = role.module(Consts.MODULE_ITEM);
 
         //  get from config data.
 //        MemItem item = module.getItem(itemId);

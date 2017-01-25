@@ -84,7 +84,7 @@ public class RoleComponent implements Component {
     public void createRole(JsonSession session, long uid) {
         PmRole role = (PmRole) session.getConnector();
         MemChar memChar = null;
-        CharModule module = role.getModule(Consts.MODULE_CHAR);
+        CharModule module = role.module(Consts.MODULE_CHAR);
         if (module == null) {
 
             return;

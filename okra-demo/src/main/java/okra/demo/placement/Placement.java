@@ -16,33 +16,33 @@
 
 package okra.demo.placement;
 
-import okra.demo.placement.component.ItemComponent;
-import okra.demo.placement.component.PkComponent;
-import okra.demo.placement.component.RoleComponent;
-import okra.demo.placement.manager.ServiceManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
+
 /**
+ * Placement.
+ * <zh-cn>
+ * 放置类服务器.
+ * </zh-cn>
+ *
  * @author TinyZ
  * @date 2017-01-22.
  */
-@Service
-public class Placement {
+@Service()
+public final class Placement {
 
     @Autowired
     PlacementServer server;
 
+    @PostConstruct
     public void initialize() {
         //  初始化服务
         server.initialize();
         //  启动服务器
         server.start();
     }
-
-
-
-
 
 
 }

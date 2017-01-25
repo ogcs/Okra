@@ -19,9 +19,19 @@ import io.netty.channel.Channel;
 import io.netty.channel.ChannelInitializer;
 
 /**
- * @author TinyZ on 2015/10/22.
+ * Transport Protocol.
+ * <zh-cn>
+ * 数据传输协议接口. 实现{@link #newChannelInitializer()}接口初始化Channel的Handler.
+ * </zh-cn>
+ *
+ * @author TinyZ
+ * @date 2015-10-22
+ * @since 1.0
  */
 public interface Protocol<T extends Channel> {
 
+    /**
+     * @return New Channel Initializer.
+     */
     ChannelInitializer<T> newChannelInitializer();
 }

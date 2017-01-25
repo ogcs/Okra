@@ -14,15 +14,19 @@
  * limitations under the License.
  */
 
-package org.ogcs.utilities.aoi;
+package okra.demo.placement;
+
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
- * Area Of Interest.
- *
  * @author TinyZ
- * @date 2016-07-12.
+ * @date 2017-01-24.
  */
-public class Aoi {
+public class Main {
 
-
+    public static void main(String[] args) {
+        //  Spring
+        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("classpath:spring/beans.xml");
+        context.registerShutdownHook();
+    }
 }
