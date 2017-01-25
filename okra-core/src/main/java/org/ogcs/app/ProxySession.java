@@ -16,8 +16,8 @@
 package org.ogcs.app;
 
 /**
- * Proxy Session.
- * <p>
+ * Proxy Callback Session Interface.
+ * <p>Use to warp the session callback interface.</p>
  *
  * @param <T> The Api interface.
  */

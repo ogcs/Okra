@@ -18,14 +18,16 @@ package okra.demo.placement.role.module;
 
 import okra.demo.common.Role;
 import okra.demo.common.module.AbstractModule;
-import okra.demo.placement.mybatis.CharMapper;
-import okra.demo.placement.mybatis.TargetMapper;
 import okra.demo.placement.Consts;
-import okra.demo.placement.bean.MemTarget;
+import okra.demo.placement.mybatis.CharMapper;
 import org.ogcs.app.AppContext;
 import org.ogcs.okra.example.game.persistence.domain.MemChar;
 
 /**
+ * <zh-cn>
+ * 管理玩家拥有的角色。
+ * </zh-cn>
+ *
  * @author TinyZ
  * @date 2017-01-13.
  */

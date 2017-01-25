@@ -27,6 +27,7 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
+ * <zh-cn>
  * 玩家的道具模块
  * 道具可叠加和不可叠加两种.
  * 服务器虽然记录物品的配置表ID， 但实际逻辑中不应该通过配置表ID操作。 除非道具系统的配置表ID可以作为主键存在
@@ -36,6 +37,8 @@ import java.util.concurrent.ConcurrentHashMap;
  *     2. 服务端校验指定列表的道具是否满足使用需求（种类和数量）。
  *     3. 返回客户端操作结果。
  * </pre>
+ * </zh-cn>
+ *
  * @author TinyZ
  * @date 2017-01-11.
  */

@@ -49,7 +49,7 @@
     </bean>
 
     <context:annotation-config/>
-    <context:component-scan base-package="org.ogcs.okra.example.game,okra.demo.placement"/>
+    <context:component-scan base-package="okra.demo.placement"/>
 </beans>
 
 

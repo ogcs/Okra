@@ -16,15 +16,17 @@
 
 package okra.demo.placement.role.module;
 
-import okra.demo.placement.bean.MemTarget;
-import okra.demo.common.module.AbstractModule;
-import okra.demo.placement.mybatis.TargetMapper;
-import okra.demo.placement.Consts;
 import okra.demo.common.Role;
+import okra.demo.common.module.AbstractModule;
+import okra.demo.placement.Consts;
+import okra.demo.placement.bean.MemTarget;
+import okra.demo.placement.mybatis.TargetMapper;
 import org.ogcs.app.AppContext;
 
 /**
+ * <zh-cn>
  * 放置类游戏，目标只有一个，感觉玩家实力提升
+ * </zh-cn>
  *
  * @author TinyZ
  * @date 2017-01-13.

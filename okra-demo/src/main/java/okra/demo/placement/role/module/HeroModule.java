@@ -16,15 +16,18 @@
 
 package okra.demo.placement.role.module;
 
-import okra.demo.placement.bean.MemTarget;
-import okra.demo.common.module.AbstractModule;
-import okra.demo.placement.mybatis.TargetMapper;
-import okra.demo.placement.Consts;
 import okra.demo.common.Role;
+import okra.demo.common.module.AbstractModule;
+import okra.demo.placement.Consts;
+import okra.demo.placement.bean.MemTarget;
+import okra.demo.placement.mybatis.TargetMapper;
 import org.ogcs.app.AppContext;
 
 /**
+ * <zh-cn>
  * 玩家拥有武将, 养成属于自己的战斗序列
+ * </zh-cn>
+ *
  * @author TinyZ
  * @date 2017-01-13.
  */
