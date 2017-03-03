@@ -19,7 +19,7 @@ import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
-import org.ogcs.app.DefaultSession;
+import org.ogcs.app.NetSession;
 import org.ogcs.app.Executor;
 import org.ogcs.app.Session;
 
@@ -47,7 +47,7 @@ public abstract class MessageQueueHandler<O> extends SimpleChannelInboundHandler
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         UUID uuid = UUID.randomUUID();
         CHANNEL_UUID.put(ctx.channel(), uuid);
-        DefaultSession session = new DefaultSession(ctx);
+        NetSession session = new NetSession(ctx.channel());
         SESSIONS.put(uuid, session);
         super.channelActive(ctx);
     }

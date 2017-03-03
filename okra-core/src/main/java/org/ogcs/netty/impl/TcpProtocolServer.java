@@ -17,6 +17,7 @@ package org.ogcs.netty.impl;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.buffer.PooledByteBufAllocator;
+import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
@@ -78,7 +79,7 @@ public abstract class TcpProtocolServer implements NettyBootstrap<ServerBootstra
     public void start() {
         ServerBootstrap sb = bootstrap() != null ? bootstrap() : createBootstrap();
         try {
-            sb.bind(port()).sync();
+            ChannelFuture future = sb.bind(port()).sync();
         } catch (InterruptedException e) {
             e.printStackTrace();
             stop();// shutdown

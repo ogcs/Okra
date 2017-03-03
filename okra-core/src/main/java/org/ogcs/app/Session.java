@@ -15,8 +15,8 @@
  */
 package org.ogcs.app;
 
+import io.netty.channel.Channel;
 import io.netty.channel.ChannelFutureListener;
-import io.netty.channel.ChannelHandlerContext;
 
 /**
  * Session.
@@ -24,14 +24,14 @@ import io.netty.channel.ChannelHandlerContext;
  * When player connect to server. server will be create a session for everybody.
  * The session control the connection and player's data.
  */
-public interface Session extends Releasable {
+public interface Session extends Releasable, AutoCloseable {
 
     /**
-     * Get the Netty's ChannelHandlerContext
+     * Get the netty's channel
      *
-     * @return Return Netty's ChannelHandlerContext
+     * @return return netty's channel
      */
-    ChannelHandlerContext ctx();
+    Channel channel();
 
     /**
      * Is session is active
@@ -70,7 +70,12 @@ public interface Session extends Releasable {
     void writeAndFlush(Object message, ChannelFutureListener listener);
 
     /**
-     * Will be invoked when player offline.
+     * when player logout, call this method to clear player data.
      */
     void offline();
+
+    /**
+     * Close netty's channel.
+     */
+    void close();
 }

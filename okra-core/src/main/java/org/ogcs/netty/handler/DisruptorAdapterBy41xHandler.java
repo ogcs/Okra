@@ -22,7 +22,7 @@ import com.lmax.disruptor.dsl.ProducerType;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelId;
 import io.netty.channel.SimpleChannelInboundHandler;
-import org.ogcs.app.DefaultSession;
+import org.ogcs.app.NetSession;
 import org.ogcs.app.Executor;
 import org.ogcs.app.Session;
 import org.ogcs.concurrent.ConcurrentEvent;
@@ -59,7 +59,7 @@ public abstract class DisruptorAdapterBy41xHandler<O> extends SimpleChannelInbou
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        DefaultSession session = new DefaultSession(ctx);
+        NetSession session = new NetSession(ctx.channel());
         SESSIONS.put(ctx.channel().id(), session);
         super.channelActive(ctx);
     }

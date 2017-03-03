@@ -15,31 +15,31 @@
  */
 package org.ogcs.app;
 
+import io.netty.channel.Channel;
 import io.netty.channel.ChannelFutureListener;
-import io.netty.channel.ChannelHandlerContext;
 
 import java.util.concurrent.TimeUnit;
 
 /**
  * Default session implement.
  */
-public class DefaultSession implements Session {
+public class NetSession implements Session {
 
-    private volatile ChannelHandlerContext ctx;
+    private volatile Channel channel;
     private volatile Connector connector;
 
-    public DefaultSession(ChannelHandlerContext ctx) {
-        this.ctx = ctx;
+    public NetSession(Channel channel) {
+        this.channel = channel;
     }
 
     @Override
-    public ChannelHandlerContext ctx() {
-        return ctx;
+    public Channel channel() {
+        return channel;
     }
 
     @Override
     public boolean isOnline() {
-        return ctx != null && ctx.channel().isActive();
+        return channel != null && channel.isActive();
     }
 
     public Connector getConnector() {
@@ -57,17 +57,17 @@ public class DefaultSession implements Session {
 
     @Override
     public void writeAndFlush(Object message, ChannelFutureListener listener) {
-        if (null == ctx || ctx.channel() == null || !ctx.channel().isActive()) {
+        if (null == channel || !channel.isActive()) {
             return;
         }
-        if (ctx.channel().isWritable()) {
+        if (channel.isWritable()) {
             if (listener == null) {
-                ctx.writeAndFlush(message, ctx.voidPromise());
+                channel.writeAndFlush(message, channel.voidPromise());
             } else {
-                ctx.writeAndFlush(message).addListener(listener);
+                channel.writeAndFlush(message).addListener(listener);
             }
         } else {
-            ctx.channel().eventLoop().schedule(() -> {
+            channel.eventLoop().schedule(() -> {
                 writeAndFlush(message, listener);
             }, 1L, TimeUnit.SECONDS);
         }
@@ -75,18 +75,26 @@ public class DefaultSession implements Session {
 
     @Override
     public void offline() {
-        if (ctx != null) {
-            ctx.close();
+        if (channel != null) {
+            channel.close();
         }
     }
 
     @Override
     public void release() {
-        ctx = null;
+        channel = null;
         if (null != connector) {
             connector.disconnect();
             connector.setSession(null);
             connector = null;
+        }
+    }
+
+    @Override
+    public void close() {
+        if (channel != null && channel.isActive()) {
+            channel.close();
+            channel = null;
         }
     }
 }
