@@ -23,6 +23,7 @@ package org.ogcs.event;
  *
  * @author TinyZ
  * @since 1.0
+ * @see EventDispatcher
  */
 public interface EventListener {
 
@@ -31,7 +32,7 @@ public interface EventListener {
      *
      * @param trigger The event trigger
      * @param source The event data
-     * @throws Exception
+     * @throws Exception any exception.
      */
     void fireEvent(Object trigger, Object source) throws Exception;
 }

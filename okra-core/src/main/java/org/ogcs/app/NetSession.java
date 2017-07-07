@@ -25,6 +25,9 @@ import java.util.concurrent.TimeUnit;
  */
 public class NetSession implements Session {
 
+    /**
+     * Netty channel.
+     */
     private volatile Channel channel;
     private volatile Connector connector;
 
@@ -38,7 +41,7 @@ public class NetSession implements Session {
     }
 
     @Override
-    public boolean isOnline() {
+    public boolean isActive() {
         return channel != null && channel.isActive();
     }
 
@@ -74,26 +77,30 @@ public class NetSession implements Session {
     }
 
     @Override
-    public void offline() {
-        if (channel != null) {
-            channel.close();
-        }
+    public void active() {
+        if (null != connector)
+            connector.sessionActive();
     }
 
     @Override
-    public void release() {
-        channel = null;
+    public void inactive() {
         if (null != connector) {
-            connector.disconnect();
-            connector.setSession(null);
+            connector.sessionInactive();
             connector = null;
         }
     }
 
     @Override
+    public void offline() {
+        this.close();
+    }
+
+    @Override
     public void close() {
-        if (channel != null && channel.isActive()) {
-            channel.close();
+        if (channel != null) {
+            inactive();
+            if (channel.isActive())
+                channel.close();
             channel = null;
         }
     }

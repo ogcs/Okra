@@ -56,14 +56,14 @@ public class HttpRequestExecutor implements Executor {
             QueryStringDecoder decoder = new QueryStringDecoder(request.getUri());
             switch (decoder.path()) {
                 case "/test":
-                    response(session.ctx(), "{state:0}");
+                    response(session.channel(), "{state:0}");
                     return;
                 case "/favicon.ico":
                     break;
             }
-            simple(session.ctx().channel(), FORBIDDEN);
+            simple(session.channel(), FORBIDDEN);
         } catch (Exception e) {
-            session.ctx().close();
+            session.channel().close();
             LOG.info("HTTP Api throw exception : ", e);
         }
     }
@@ -73,7 +73,7 @@ public class HttpRequestExecutor implements Executor {
         channelFuture.addListener(ChannelFutureListener.CLOSE);
     }
 
-    private static void response(ChannelHandlerContext ctx, String msg) {
+    private static void response(Channel channel, String msg) {
         HttpResponse response;
         if (msg != null) {
             ByteBuf byteBuf = Unpooled.wrappedBuffer(msg.getBytes());
@@ -81,7 +81,7 @@ public class HttpRequestExecutor implements Executor {
         } else {
             response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK);
         }
-        ChannelFuture channelFuture = ctx.channel().writeAndFlush(response);
+        ChannelFuture channelFuture = channel.writeAndFlush(response);
         channelFuture.addListener(ChannelFutureListener.CLOSE);
     }
 

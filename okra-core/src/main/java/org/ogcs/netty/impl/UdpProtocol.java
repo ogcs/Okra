@@ -25,12 +25,11 @@ import org.ogcs.netty.NettyBootstrap;
 
 /**
  * Bootstrap (UDP) must use {@link Bootstrap} .
- * <p/>
  * <p>The {@link Bootstrap#bind()} methods are useful in combination with connectionless transports such as datagram (UDP).
  * For regular TCP connections, please use the provided {@link Bootstrap#connect()} methods.</p>
- * <br/>
  *
- * @author TinyZ
+ * @author TinyZ.
+ * @since 1.0
  */
 public abstract class UdpProtocol implements NettyBootstrap<Bootstrap> {
 

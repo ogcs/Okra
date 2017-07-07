@@ -20,8 +20,7 @@ package org.ogcs.utilities.astar;
  * Two-dimensional coordinate point.
  *
  * @author : TinyZ.
- * @email : tinyzzh815@gmail.com
- * @date : 2016/5/24
+ * @version  : 2016.05.24
  * @since 1.0
  */
 public class Point {

@@ -76,7 +76,7 @@ public abstract class MessageQueueHandler<O> extends SimpleChannelInboundHandler
 
     protected void sessionInactive(Session session) {
         if (null != session) {
-            session.release();
+            session.close();
         }
     }
 }

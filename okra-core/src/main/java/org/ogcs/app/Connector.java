@@ -17,31 +17,49 @@ package org.ogcs.app;
 
 /**
  * The Connector Interface.
- * User should be implement this interface.
- * @author TinyZ
+ * Make the server side managing client's connection easier. <br/>
+ * Every client connection and connector instance is one-to-one correspondence.
+ * <p>
+ * <pre>
+ *     <lang desc="zh-cn">
+ *         连接者接口. 服务端用来管理连接的bean.
+ *         每一个客户端成功连接到服务端后，服务端创建一个{@link Connector}用以管理客户端连接.
+ *     </lang>
+ * </pre>
+ *
+ * @author TinyZ.
+ * @since 2.0
  */
-public interface Connector {
+public interface Connector<S extends Session> {
 
     /**
      * Is the player online
+     *
      * @return Return true if the session is connected and channel is active. otherwise false.
      */
-    boolean isConnected();
+    boolean isOnline();
 
     /**
      * Get the player's session
+     *
      * @return Return player's session
      */
-    Session session();
+    S session();
 
     /**
      * Set player's session. After player's login operation, should set call this function to set session.
+     *
      * @param session The session for player
      */
-    void setSession(Session session);
+    void setSession(S session);
+
+    /**
+     * After player create connection and connected.
+     */
+    void sessionActive();
 
     /**
      * When the player lost connection to server. System will call this function.
      */
-    void disconnect();
+    void sessionInactive();
 }

@@ -22,10 +22,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.ogcs.app.Executor;
 import org.ogcs.app.Session;
-import org.ogcs.netty.handler.DisruptorAdapterHandler;
 import org.ogcs.netty.handler.mq.LogicProcessor;
 import org.ogcs.netty.handler.mq.MessageQueueHandler;
-import org.ogcs.okra.example.game.generated.Gpb;
 import org.ogcs.okra.example.game.generated.Gpb.Request;
 
 import java.io.IOException;

@@ -16,12 +16,15 @@
 package org.ogcs.netty;
 
 /**
- * Network server interface
+ * Network server interface.
+ *
+ * @since 1.0
  */
 public interface NettyBootstrap<T> {
 
     /**
      * Create application bootstrap
+     *
      * @return Application bootstrap
      */
     T createBootstrap();
@@ -38,6 +41,7 @@ public interface NettyBootstrap<T> {
 
     /**
      * Return the application bootstrap object
+     *
      * @return Application bootstrap object
      */
     T bootstrap();
