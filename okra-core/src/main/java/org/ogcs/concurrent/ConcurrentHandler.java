@@ -20,6 +20,9 @@ import org.ogcs.app.Executor;
 
 /**
  * The disruptor concurrent handler
+ * @since 1.0
+ * @see ConcurrentEvent
+ * @see ConcurrentEventFactory
  */
 public class ConcurrentHandler implements EventHandler<ConcurrentEvent> {
     @Override

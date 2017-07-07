@@ -31,6 +31,7 @@ import java.net.InetSocketAddress;
  *
  * The {@link #start()} method use to tcp client connect to remote address.
  * The {@link #stop()} method use to the client disconnect.
+ * @since 1.0
  */
 public abstract class TcpProtocolClient implements NettyBootstrap<Bootstrap> {
 

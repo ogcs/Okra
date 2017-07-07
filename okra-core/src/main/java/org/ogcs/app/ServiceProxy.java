@@ -16,17 +16,30 @@
 package org.ogcs.app;
 
 /**
- * Proxy Callback Session Interface.
+ * Single Service Interface Proxy.
  * <p>Use to warp the session callback interface.</p>
+ * <pre>
+ *     <lang desc="zh-cn">
+ *         当项目开始变大庞大时, 定义的接口越来越多，管理{@link Command}数量众多的接口，会变的很不方便.
+ *              同时, 也不利于功能模块划分和管理
  *
- * @param <T> The Api interface.
+ *         在这种情况下, 想到利用Java的代理模式, 通过接口代理. 减少{@link Command}数量，
+ *         按功能或模块划分和实现对应的功能.
+ *     </lang>
+ * </pre>
+ *
+ * @param <T> the special service interface.
+ * @author TinyZ.
+ * @version 2017.07.07
+ * @see MultiServiceProxy
+ * @since 2.0
  */
-public interface ProxySession<T> extends Session {
+public interface ServiceProxy<T> {
 
     /**
      * Get the api callback proxy.
      *
      * @return the api callback proxy.
      */
-    T callback();
+    T proxy();
 }

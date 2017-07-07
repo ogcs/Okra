@@ -21,6 +21,8 @@ import com.lmax.disruptor.EventFactory;
  * Default Disruptor Event Factory.
  * @author : TinyZ.
  * @since 1.0
+ * @see ConcurrentEvent
+ * @see ConcurrentHandler
  */
 public final class ConcurrentEventFactory implements EventFactory<ConcurrentEvent> {
 

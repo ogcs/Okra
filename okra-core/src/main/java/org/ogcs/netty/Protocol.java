@@ -19,13 +19,17 @@ import io.netty.channel.Channel;
 import io.netty.channel.ChannelInitializer;
 
 /**
- * Transport Protocol.
- * <zh-cn>
- * 数据传输协议接口. 实现{@link #newChannelInitializer()}接口初始化Channel的Handler.
- * </zh-cn>
+ * Data Transport Protocol.
+ * Every protocol must be implement the {@link #newChannelInitializer()} method.
+ * this method use to initialize the {@link Channel}'s handlers.
+ * <pre>
+ *      <lang desc="zh-cn">
+ *      数据传输协议接口. 实现{@link #newChannelInitializer()}接口用于初始化{@link Channel}的handler.
+ *      </lang>
+ * </pre>
  *
  * @author TinyZ
- * @date 2015-10-22
+ * @version 2015.10.22
  * @since 1.0
  */
 public interface Protocol<T extends Channel> {

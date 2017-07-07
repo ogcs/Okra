@@ -23,8 +23,11 @@ import io.netty.channel.ChannelFutureListener;
  * <p>
  * When player connect to server. server will be create a session for everybody.
  * The session control the connection and player's data.
+ * @author TinyZ.
+ * @version  2017.07.07
+ * @since 1.0
  */
-public interface Session extends Releasable, AutoCloseable {
+public interface Session extends AutoCloseable {
 
     /**
      * Get the netty's channel
@@ -38,7 +41,7 @@ public interface Session extends Releasable, AutoCloseable {
      *
      * @return Return true if the session is active. otherwise false.
      */
-    boolean isOnline();
+    boolean isActive();
 
     /**
      * Get the player
@@ -48,26 +51,37 @@ public interface Session extends Releasable, AutoCloseable {
     Connector getConnector();
 
     /**
-     * Set player. After player login, should set the player.
+     * Set {@link Connector}. After player login, should set the player.
      *
      * @param connector The player
      */
     void setConnector(Connector connector);
 
     /**
-     * Send message back without callback.
+     * Send message back without listener.
      *
      * @param msg The message will be send
      */
     void writeAndFlush(Object msg);
 
     /**
-     * Send message back with callback.
+     * Send message back with listener.
      *
-     * @param message  The message will be send
-     * @param listener The callback
+     * @param message The message will be send
      */
     void writeAndFlush(Object message, ChannelFutureListener listener);
+
+    /**
+     * the session active event. When the netty channel active.
+     * the session will be trigger active event.
+     */
+    void active();
+
+    /**
+     * the session inactive event.When the netty channel inactive.
+     * the session will be trigger inactive event.
+     */
+    void inactive();
 
     /**
      * when player logout, call this method to clear player data.

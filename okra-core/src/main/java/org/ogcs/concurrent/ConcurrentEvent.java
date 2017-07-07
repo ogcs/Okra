@@ -22,8 +22,10 @@ import org.ogcs.app.Executor;
  * Disruptor's concurrent event.
  *
  * @author : TinyZ.
- * @email : tinyzzh815@gmail.com
- * @date : 2015/11/20
+ * @version  : 2017.07.07
+ * @since 1.0
+ * @see ConcurrentEventFactory
+ * @see ConcurrentHandler
  */
 public class ConcurrentEvent {
 

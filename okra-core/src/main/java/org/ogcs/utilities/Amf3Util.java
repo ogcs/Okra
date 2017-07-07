@@ -32,8 +32,7 @@ import java.io.IOException;
  * AMF3 protocol utility
  *
  * @author : TinyZ.
- * @email : tinyzzh815@gmail.com
- * @date : 2016/5/17
+ * @version : 2016.05.17
  * @since 1.0
  */
 public final class Amf3Util {
@@ -49,9 +48,10 @@ public final class Amf3Util {
      *
      * @param msg Java object
      * @return return byte array see: {@link ByteBuf}.
-     * @throws Exception
+     * @throws IOException          amf3 output exception.
+     * @throws NullPointerException where the msg is Null, throw the NullPointerException.
      */
-    public static ByteBuf convertJavaObjToAmf3(Object msg) throws Exception {
+    public static ByteBuf convertJavaObjToAmf3(Object msg) throws IOException {
         if (msg == null) {
             throw new NullPointerException("msg");
         }
@@ -69,7 +69,7 @@ public final class Amf3Util {
      *
      * @param byteBuf byte array
      * @return Return java object
-     * @throws Exception
+     * @throws Exception amf3 output exception.
      */
     public static Object convertAmf3ToObj(ByteBuf byteBuf) throws Exception {
         ByteArrayInputStream bis = new ByteArrayInputStream(byteBuf.readBytes(byteBuf.readableBytes()).array());
@@ -79,7 +79,7 @@ public final class Amf3Util {
     /**
      * Convert stream of AMF3 protocol's byte[] to Java Object.
      *
-     * @throws Exception
+     * @throws Exception amf3 output exception.
      */
     public static Object convertAmf3ToObj(ByteArrayInputStream bis) throws Exception {
         Object obj;

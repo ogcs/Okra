@@ -21,6 +21,7 @@ package org.ogcs.event;
  * The EventDispatcher Interface is the base class for all classes that dispatch events.
  *
  * @author TinyZ
+ * @see EventListener
  * @since 1.0
  */
 public interface EventDispatcher {
@@ -64,7 +65,8 @@ public interface EventDispatcher {
     /**
      * Remove the {@link EventListener} by unique listener id.
      *
-     * @param type The event type
+     * @param type     The event type
+     * @param listener the event listener.
      */
     void removeEventListener(Object type, EventListener listener);
 
@@ -79,7 +81,7 @@ public interface EventDispatcher {
     /**
      * If the listener list exist special type event listener.
      *
-     * @param type The event type
+     * @param type     The event type
      * @param listener The special listener
      * @return Return true if the listener with special type is exist. otherwise false.
      */

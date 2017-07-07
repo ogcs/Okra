@@ -22,8 +22,10 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * Event dispatcher
  * <p>
- * User can use {@link #addEventListener} method to register event and related event listener<br/>
- * Invoke {@link #dispatchEvent} method to dispatch event context to registered event listeners after user's action trigger registered event
+ * User can use {@link #addEventListener(Object, EventListener)} method to register event
+ * and related event listener
+ * Invoke {@link #dispatchEvent} method to dispatch event context to registered event
+ * listeners after user's action trigger registered event
  * <p>
  *
  * @author TinyZ.

@@ -61,6 +61,7 @@ public abstract class DisruptorAdapterBy41xHandler<O> extends SimpleChannelInbou
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         NetSession session = new NetSession(ctx.channel());
         SESSIONS.put(ctx.channel().id(), session);
+        session.active();
         super.channelActive(ctx);
     }
 
@@ -86,7 +87,7 @@ public abstract class DisruptorAdapterBy41xHandler<O> extends SimpleChannelInbou
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
         Session session = SESSIONS.remove(ctx.channel().id());
         if (null != session) {
-            session.release();
+            session.close();
         }
         super.channelInactive(ctx);
     }

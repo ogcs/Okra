@@ -21,7 +21,7 @@ package org.ogcs.event;
  * Event objects are passed as parameters to event listeners when an event occurs.
  *
  * @author : TinyZ.
- * @email : tinyzzh815@gmail.com
+ * @version 2017.07.07
  * @since 1.0
  */
 public class Event<T> {

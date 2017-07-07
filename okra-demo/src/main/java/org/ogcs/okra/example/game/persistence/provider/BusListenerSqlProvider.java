@@ -17,7 +17,6 @@
 package org.ogcs.okra.example.game.persistence.provider;
 
 import org.apache.ibatis.jdbc.SQL;
-import org.ogcs.okra.example.game.persistence.domain.MemBusListener;
 
 public final class BusListenerSqlProvider {
 

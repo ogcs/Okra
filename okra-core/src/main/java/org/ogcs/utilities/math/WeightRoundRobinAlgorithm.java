@@ -34,7 +34,7 @@ import java.util.Arrays;
  *
  * @author : TinyZ.
  * @email : tinyzzh815@gmail.com
- * @date : 2015/12/25
+ * @version  2015.12.25
  * @see <a href="http://kb.linuxvirtualserver.org/wiki/Weighted_Round-Robin_Scheduling">LVS-WRR Algorithm</a>
  */
 public final class WeightRoundRobinAlgorithm<T> {

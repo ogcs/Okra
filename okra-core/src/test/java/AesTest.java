@@ -14,9 +14,7 @@
  * limitations under the License.
  */
 
-import org.junit.Assert;
 import org.junit.Test;
-import org.ogcs.utilities.codec.AES;
 
 /**
  * @author TinyZ

@@ -33,6 +33,7 @@ import org.ogcs.netty.NettyBootstrap;
  * <p>
  * The {@link #start()} method use to tcp server bind port.
  * The {@link #stop()} method use to the server shutdown.
+ * @since 1.0
  */
 public abstract class TcpProtocolServer implements NettyBootstrap<ServerBootstrap> {
 

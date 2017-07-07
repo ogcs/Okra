@@ -22,6 +22,7 @@ package org.ogcs.app;
  *
  * @author TinyZ
  * @since 1.0
+ * @see ServiceProxy
  */
 public interface Command<S, R> {
 

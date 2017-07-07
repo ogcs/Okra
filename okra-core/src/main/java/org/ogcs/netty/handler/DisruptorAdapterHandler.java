@@ -107,7 +107,7 @@ public abstract class DisruptorAdapterHandler<O> extends SimpleChannelInboundHan
 
     protected void sessionInactive(Session session) {
         if (null != session) {
-            session.release();
+            session.close();
         }
     }
 }

@@ -47,16 +47,16 @@ public class BenchmarkServer extends TcpProtocolServer {
     @Override
     protected ChannelHandler newChannelInitializer() {
         return new ChannelInitializer<NioSocketChannel>() {
-            @Override
-            protected void initChannel(NioSocketChannel ch) throws Exception {
-                ChannelPipeline cp = ch.pipeline();
-                cp.addLast("frame", new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE, 0, 2, 0, 2));
-                cp.addLast("prepender", FRAME_PREPENDER);
-                // Any other useful handler
-                cp.addLast("strDecoder", STRING_DECODER);
-                cp.addLast("strEncoder", STRING_ENCODER);
-                cp.addLast("handler", HANDLER);
-            }
+                @Override
+                protected void initChannel(NioSocketChannel ch) throws Exception {
+                    ChannelPipeline cp = ch.pipeline();
+                    cp.addLast("frame", new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE, 0, 2, 0, 2));
+                    cp.addLast("prepender", FRAME_PREPENDER);
+                    // Any other useful handler
+                    cp.addLast("strDecoder", STRING_DECODER);
+                    cp.addLast("strEncoder", STRING_ENCODER);
+                    cp.addLast("handler", HANDLER);
+                }
         };
     }
 }

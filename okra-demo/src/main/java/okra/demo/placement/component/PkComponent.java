@@ -22,7 +22,6 @@ import okra.demo.placement.Consts;
 import okra.demo.placement.json.JsonSession;
 import okra.demo.placement.role.PmRole;
 import okra.demo.common.Role;
-import org.ogcs.app.Session;
 import org.ogcs.okra.example.game.persistence.domain.MemAccount;
 import org.springframework.stereotype.Service;
 

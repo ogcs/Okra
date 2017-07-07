@@ -115,8 +115,8 @@ public class DefaultRole implements Role {
     }
 
     @Override
-    public boolean isConnected() {
-        return session != null && session.isOnline();
+    public boolean isOnline() {
+        return session != null && session.isActive();
     }
 
     @Override
@@ -130,7 +130,12 @@ public class DefaultRole implements Role {
     }
 
     @Override
-    public void disconnect() {
+    public void sessionActive() {
+
+    }
+
+    @Override
+    public void sessionInactive() {
 
         System.out.println("离线:" + session.toString());
     }
