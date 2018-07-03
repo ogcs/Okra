@@ -16,6 +16,8 @@
 
 package org.ogcs.okra.example.benchmark;
 
+import org.junit.Test;
+
 /**
  * @author : TinyZ.
  * @email : tinyzzh815@gmail.com
@@ -24,10 +26,50 @@ package org.ogcs.okra.example.benchmark;
  */
 public class ServerMain {
 
-    public static void main(String[] args) throws InterruptedException {
-        // server
-        BenchmarkServer server = new BenchmarkServer(9005);
+    @Test
+    public void test() throws InterruptedException {
+        final int port = 9005;
+        final int batchClientCount = 10;
+        final int maxMessageCount = 1000000;
+        //  server
+        BenchmarkServer server = new BenchmarkServer(port);
         server.start();
-        System.out.println("Bootstrap successful.");
+        //  client
+//        for (int i = 0; i < batchClientCount; i++) {
+//            new Thread(new Runnable() {
+//                @Override
+//                public void run() {
+//                    BenchmarkClient client = new BenchmarkClient("127.0.0.1", port);
+//                    client.start();
+////                    client.client().writeAndFlush("ping-pong");
+//                    //  数据长度1k
+//                    client.client().writeAndFlush(
+//                            "(ping-pong(ping-pong(ping-pong(ping-pong(ping-pong(ping-pong(ping-pong(ping-pong(ping-pong(ping-pong"
+//                                    + "(ping-pong(ping-pong(ping-pong(ping-pong(ping-pong(ping-pong(ping-pong(ping-pong(ping-pong(ping-pong"
+//                                    + "(ping-pong(ping-pong(ping-pong(ping-pong(ping-pong(ping-pong(ping-pong(ping-pong(ping-pong(ping-pong"
+//                                    + "(ping-pong(ping-pong(ping-pong(ping-pong(ping-pong(ping-pong(ping-pong(ping-pong(ping-pong(ping-pong"
+//                                    + "(ping-pong(ping-pong(ping-pong(ping-pong(ping-pong(ping-pong(ping-pong(ping-pong(ping-pong(ping-pong"
+//                                    + "(ping-pong(ping-pong(ping-pong(ping-pong(ping-pong(ping-pong(ping-pong(ping-pong(ping-pong(ping-pong"
+//                                    + "(ping-pong(ping-pong(ping-pong(ping-pong(ping-pong(ping-pong(ping-pong(ping-pong(ping-pong(ping-pong"
+//                                    + "(ping-pong(ping-pong(ping-pong(ping-pong(ping-pong(ping-pong(ping-pong(ping-pong(ping-pong(ping-pong"
+//                                    + "(ping-pong(ping-pong(ping-pong(ping-pong(ping-pong(ping-pong(ping-pong(ping-pong(ping-pong(ping-pong"
+//                                    + "(ping-pong(ping-pong(ping-pong(ping-pong(ping-pong(ping-pong(ping-pong(ping-pong(ping-pong(ping-pong"
+//                    );
+//                }
+//            }).start();
+//        }
+        //
+        long timeStart = System.currentTimeMillis();
+        while (BenchmarkClient.COUNT.get() < maxMessageCount) {
+            Thread.sleep(100);
+        }
+        long timeEnd = System.currentTimeMillis();
+
+        System.out.println("All Count : " + BenchmarkClient.COUNT.get());
+        System.out.println("All Cost Time (ms): " + (timeEnd - timeStart));
+        double avg = (timeEnd - timeStart) / (double) (BenchmarkClient.COUNT.get());
+        System.out.println("Avg Cost Time (ms) : " + avg);
+        System.out.println("TPS : " + 1000.0 / avg);
+        System.out.println();
     }
 }

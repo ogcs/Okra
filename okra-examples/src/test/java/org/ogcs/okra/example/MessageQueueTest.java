@@ -26,9 +26,10 @@ import org.ogcs.netty.handler.mq.LogicProcessor;
  */
 public class MessageQueueTest {
 
-    public class TestExecutor implements Executor{
+    public class TestExecutor implements Executor {
 
         private int index;
+
         public TestExecutor(int index) {
             this.index = index;
         }

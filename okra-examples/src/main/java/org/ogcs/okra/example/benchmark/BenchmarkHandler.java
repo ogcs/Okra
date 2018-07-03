@@ -13,23 +13,86 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.ogcs.okra.example.benchmark;
 
+import com.lmax.disruptor.LiteBlockingWaitStrategy;
+import com.lmax.disruptor.RingBuffer;
+import com.lmax.disruptor.dsl.Disruptor;
+import com.lmax.disruptor.dsl.ProducerType;
 import io.netty.channel.ChannelHandler.Sharable;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelId;
+import io.netty.channel.SimpleChannelInboundHandler;
 import org.ogcs.app.Executor;
+import org.ogcs.app.NetSession;
 import org.ogcs.app.Session;
-import org.ogcs.netty.handler.DisruptorAdapterHandler;
+import org.ogcs.concurrent.ConcurrentEvent;
+import org.ogcs.concurrent.ConcurrentEventFactory;
+import org.ogcs.concurrent.ConcurrentHandler;
+
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
- * @author : TinyZ.
- * @email : ogcs_tinyz@outlook.com
- * @date : 2016/4/18
+ * Disruptor Adapter Handler for Netty 4.1.x above.
+ *
+ * @author TinyZ on 2015/10/22.
+ * @since 1.0
  */
 @Sharable
-public class BenchmarkHandler extends DisruptorAdapterHandler<String> {
+public class BenchmarkHandler extends SimpleChannelInboundHandler<String> {
+
+    public static final ConcurrentHashMap<ChannelId, Session> SESSIONS = new ConcurrentHashMap<>();
+
+    private static final int DEFAULT_RING_BUFFER_SIZE = 8 * 1024;
+    private static final ExecutorService CACHED_THREAD_POOL = Executors.newCachedThreadPool();
+    private static final ThreadLocal<Disruptor<ConcurrentEvent>> THREAD_LOCAL = new ThreadLocal<Disruptor<ConcurrentEvent>>() {
+        @Override
+        protected Disruptor<ConcurrentEvent> initialValue() {
+            Disruptor<ConcurrentEvent> disruptor = new Disruptor<>(
+                    ConcurrentEventFactory.DEFAULT, DEFAULT_RING_BUFFER_SIZE, CACHED_THREAD_POOL, ProducerType.SINGLE, new LiteBlockingWaitStrategy());
+            disruptor.handleEventsWith(new ConcurrentHandler());
+//            disruptor.handleExceptionsWith();
+            disruptor.start();
+            return disruptor;
+        }
+    };
+
     @Override
-    protected Executor newExecutor(Session session, String msg) {
-        return new BenchmarkExecutor(session, msg);
+    public void channelActive(ChannelHandlerContext ctx) throws Exception {
+        NetSession session = new NetSession(ctx.channel());
+        SESSIONS.put(ctx.channel().id(), session);
+        super.channelActive(ctx);
+    }
+
+    @Override
+    protected void channelRead0(ChannelHandlerContext ctx, String msg) throws Exception {
+        RingBuffer<ConcurrentEvent> ringBuffer = THREAD_LOCAL.get().getRingBuffer();
+        long next = ringBuffer.next();
+        try {
+            ConcurrentEvent commandEvent = ringBuffer.get(next);
+            commandEvent.setValues(new Executor() {
+                @Override
+                public void onExecute() {
+                    ctx.channel().writeAndFlush(msg);
+                }
+
+                @Override
+                public void release() {
+                }
+            });
+        } finally {
+            ringBuffer.publish(next);
+        }
+    }
+
+    @Override
+    public void channelInactive(ChannelHandlerContext ctx) throws Exception {
+        Session session = SESSIONS.remove(ctx.channel().id());
+        if (null != session) {
+            session.close();
+        }
+        super.channelInactive(ctx);
     }
 }

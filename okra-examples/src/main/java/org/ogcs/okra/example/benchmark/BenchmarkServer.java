@@ -24,6 +24,11 @@ import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 import io.netty.handler.codec.LengthFieldPrepender;
 import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
+import org.ogcs.app.Executor;
+import org.ogcs.app.Session;
+import org.ogcs.netty.handler.ForkJoinHandler;
+import org.ogcs.netty.handler.mq.LogicProcessor;
+import org.ogcs.netty.handler.mq.MessageQueueHandler;
 import org.ogcs.netty.impl.TcpProtocolServer;
 
 /**
@@ -43,6 +48,26 @@ public class BenchmarkServer extends TcpProtocolServer {
     private static final ChannelHandler STRING_DECODER = new StringDecoder();
     private static final ChannelHandler STRING_ENCODER = new StringEncoder();
     private static final ChannelHandler HANDLER = new BenchmarkHandler();
+    private static final ChannelHandler FJ_HANDLER = new ForkJoinHandler();
+    private static final ChannelHandler MQ_HANDLER = new MessageQueueHandler<String>(new LogicProcessor()) {
+        @Override
+        protected Executor newExecutor(Session session, String msg) {
+            return new Executor() {
+                @Override
+                public void onExecute() {
+                    if (null == msg) {
+                        throw new NullPointerException("str");
+                    }
+                    session.writeAndFlush(msg);
+                }
+
+                @Override
+                public void release() {
+
+                }
+            };
+        }
+    };
 
     @Override
     protected ChannelHandler newChannelInitializer() {

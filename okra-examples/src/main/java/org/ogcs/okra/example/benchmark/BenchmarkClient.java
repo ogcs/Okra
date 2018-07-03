@@ -24,6 +24,7 @@ import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
 import org.ogcs.netty.impl.TcpProtocolClient;
 
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -60,14 +61,14 @@ public class BenchmarkClient extends TcpProtocolClient {
                     @Override
                     protected void channelRead0(ChannelHandlerContext ctx, String msg) throws Exception {
                         COUNT.getAndIncrement();
-//                        ChannelPromise voidPromise = ctx.voidPromise();
-//                        if (ctx.channel().isWritable()) {
-//                            ctx.writeAndFlush(msg, voidPromise);
-//                        } else {
-//                            ctx.channel().eventLoop().schedule(() -> {
-//                                ctx.writeAndFlush(msg, voidPromise);
-//                            }, 1L, TimeUnit.SECONDS);
-//                        }
+                        ChannelPromise voidPromise = ctx.voidPromise();
+                        if (ctx.channel().isWritable()) {
+                            ctx.writeAndFlush(msg, voidPromise);
+                        } else {
+                            ctx.channel().eventLoop().schedule(() -> {
+                                ctx.writeAndFlush(msg, voidPromise);
+                            }, 1L, TimeUnit.SECONDS);
+                        }
                     }
                 });
             }
