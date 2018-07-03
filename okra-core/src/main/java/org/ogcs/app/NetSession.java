@@ -29,6 +29,7 @@ import java.util.concurrent.TimeUnit;
 public class NetSession implements Session {
 
     private static final Logger LOG = LogManager.getLogger(NetSession.class);
+    /**
      * Netty channel.
      */
     private volatile Channel channel;

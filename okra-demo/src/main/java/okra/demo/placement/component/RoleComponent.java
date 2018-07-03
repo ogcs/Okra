@@ -65,7 +65,7 @@ public class RoleComponent implements Component {
             MemAccount memAccount = roleMapper.select(account);
             if (memAccount != null) {
                 role = new PmRole(memAccount);
-                session.callback().callbackLogin(memAccount);
+                session.proxy().callbackLogin(memAccount);
             }
         }
         if (role == null) {
@@ -97,6 +97,6 @@ public class RoleComponent implements Component {
         if (memChar == null) {
 
         }
-        session.callback().callbackCreateRole(memChar);
+        session.proxy().callbackCreateRole(memChar);
     }
 }

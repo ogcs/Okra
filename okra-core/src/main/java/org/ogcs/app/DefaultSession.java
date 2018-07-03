@@ -51,7 +51,7 @@ public class DefaultSession implements Session {
     }
 
     @Override
-    public boolean isOnline() {
+    public boolean isActive() {
         return ctx != null && ctx.channel().isActive();
     }
 
@@ -87,6 +87,20 @@ public class DefaultSession implements Session {
     }
 
     @Override
+    public void active() {
+        if (null != connector)
+            connector.sessionActive();
+    }
+
+    @Override
+    public void inactive() {
+        if (null != connector) {
+            connector.sessionInactive();
+            connector = null;
+        }
+    }
+
+    @Override
     public void offline() {
         if (ctx != null) {
             ctx.close();
@@ -95,18 +109,12 @@ public class DefaultSession implements Session {
 
     @Override
     public void close() {
-        if (ctx != null) {
-            ctx.close();
-        }
-    }
-
-    @Override
-    public void release() {
-        ctx = null;
-        if (null != connector) {
-            connector.disconnect();
-            connector.setSession(null);
-            connector = null;
+        Channel channel = ctx.channel();
+        if (channel != null) {
+            inactive();
+            if (channel.isActive())
+                channel.close();
+            ctx = null;
         }
     }
 }

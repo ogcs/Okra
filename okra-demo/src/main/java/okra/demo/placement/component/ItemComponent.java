@@ -50,7 +50,7 @@ public class ItemComponent implements Component {
         ItemModule module = role.module(ItemModule.class);
         if (module != null) {
             List<MemItem> all = module.getAll();
-            session.callback().callbackShowBag(all.toArray(new MemItem[all.size()]));
+            session.proxy().callbackShowBag(all.toArray(new MemItem[all.size()]));
         }
     }
 
@@ -68,9 +68,9 @@ public class ItemComponent implements Component {
         PmRole role = (PmRole) session.getConnector();
         ItemModule module = role.module(Consts.MODULE_ITEM);
         if (module == null || !module.delete(itemId, count)) {
-            ((JsonSession)session).callback().callbackUseItem(-1, itemId, count);
+            ((JsonSession)session).proxy().callbackUseItem(-1, itemId, count);
         }
-        ((JsonSession)session).callback().callbackUseItem(0, itemId, count);
+        ((JsonSession)session).proxy().callbackUseItem(0, itemId, count);
     }
 
     /**
