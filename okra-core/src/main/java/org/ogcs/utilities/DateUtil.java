@@ -27,6 +27,7 @@ import java.util.LinkedList;
  * @author TinyZ.
  * @since 1.0
  */
+@Deprecated
 public class DateUtil {
 
     /**

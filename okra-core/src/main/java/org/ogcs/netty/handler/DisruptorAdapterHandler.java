@@ -29,6 +29,7 @@ import org.ogcs.concurrent.ConcurrentEvent;
 import org.ogcs.concurrent.ConcurrentEventFactory;
 import org.ogcs.concurrent.ConcurrentHandler;
 
+import java.io.IOException;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
@@ -105,7 +106,7 @@ public abstract class DisruptorAdapterHandler<O> extends SimpleChannelInboundHan
         super.channelInactive(ctx);
     }
 
-    protected void sessionInactive(Session session) {
+    protected void sessionInactive(Session session) throws IOException {
         if (null != session) {
             session.close();
         }

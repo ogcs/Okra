@@ -15,15 +15,15 @@
  */
 package org.ogcs.netty.handler;
 
-import com.lmax.disruptor.BlockingWaitStrategy;
+import com.lmax.disruptor.LiteBlockingWaitStrategy;
 import com.lmax.disruptor.RingBuffer;
 import com.lmax.disruptor.dsl.Disruptor;
 import com.lmax.disruptor.dsl.ProducerType;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelId;
 import io.netty.channel.SimpleChannelInboundHandler;
-import org.ogcs.app.NetSession;
 import org.ogcs.app.Executor;
+import org.ogcs.app.NetSession;
 import org.ogcs.app.Session;
 import org.ogcs.concurrent.ConcurrentEvent;
 import org.ogcs.concurrent.ConcurrentEventFactory;
@@ -49,7 +49,7 @@ public abstract class DisruptorAdapterBy41xHandler<O> extends SimpleChannelInbou
         @Override
         protected Disruptor<ConcurrentEvent> initialValue() {
             Disruptor<ConcurrentEvent> disruptor = new Disruptor<>(
-                    ConcurrentEventFactory.DEFAULT, DEFAULT_RING_BUFFER_SIZE, CACHED_THREAD_POOL, ProducerType.SINGLE, new BlockingWaitStrategy());
+                    ConcurrentEventFactory.DEFAULT, DEFAULT_RING_BUFFER_SIZE, CACHED_THREAD_POOL, ProducerType.SINGLE, new LiteBlockingWaitStrategy());
             disruptor.handleEventsWith(new ConcurrentHandler());
 //            disruptor.handleExceptionsWith();
             disruptor.start();

@@ -41,6 +41,7 @@ public abstract class MessageQueueHandler<O> extends SimpleChannelInboundHandler
 
     public MessageQueueHandler(LogicProcessor processor) {
         this.processor = processor;
+        new Thread(this.processor, "Thread - LogicProcessor:" + processor.toString()).start();
     }
 
     @Override
